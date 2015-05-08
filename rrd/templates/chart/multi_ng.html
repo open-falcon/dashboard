@@ -1,0 +1,131 @@
+{% extends "base_ng.html" %}
+
+{%block head_js%}
+{{super()}}
+<script>
+    // 这里是后台渲染出来的参数
+
+    // 首页请求的参数
+    var obj = {};
+    obj.id='{{g.id}}';
+    obj.start={{g.start}};
+    obj.end = {{g.end}};
+    obj.cf='{{g.cf}}';
+    obj.sum='{{g.sum}}';
+    obj.sumonly='{{g.sumonly}}';
+    obj.graph_type='{{g.graph_type}}';
+
+    {% autoescape off %}
+    var urls = {{chart_urls}};
+    var ids = {{chart_ids}};
+    {% endautoescape %}
+
+</script>
+<script src="{{url_for('static', filename='js/angular.min.js')}}"></script>
+<script src="/static/js/jquery.flot.js?_v=0.0.3"></script>
+<script src="{{url_for('static', filename='js/jquery.flot.time.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery.flot.selection.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery.flot.stack.js')}}"></script>
+<script src="{{url_for('static', filename='js/underscore.js')}}"></script>
+<script src="{{url_for('static', filename='angular-bootstrap-datetimepicker/js/datetimepicker.js')}}"></script>
+<script src="/static/js/util_ng.js?_v=0.0.3"></script>
+<script src="/static/js/multi_ng.js?_v=0.0.3"></script>
+<link rel="stylesheet" href="{{url_for('static', filename='angular-bootstrap-datetimepicker/css/datetimepicker.css')}}" type="text/css">
+
+{%endblock%}
+
+{% block container%}
+    {%if g.nav_header%}
+    <div ng-app="app">
+        <div ng-controller="MultiCtrl as vm">
+            <div id="container" class="container-fluid">
+                <div class="row form-header">
+                    <div class="col-md-12">
+                        <form class="form-inline" role="form">
+                            <div class="form-group">
+                                <label class="control-label">起始</label>
+                                <a class="dropdown-toggle form-control input-sm date-area" id="dropdown1" role="button" data-toggle="dropdown" href="javascript:;">
+                                    <div class="input-group">
+                                        <span class="form-control-static">[[ vm.globalParam.start | date: 'yyyy-MM-dd HH:mm' ]]</span>
+                                        <span class=""><i class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel1">
+                                    <datetimepicker data-ng-model="vm.globalParam.start" data-datetimepicker-config="{ dropdownSelector: '#dropdown1' }"/>
+                                </ul>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">结束</label>
+                                <a class="dropdown-toggle form-control input-sm date-area" id="dropdown2" role="button" data-toggle="dropdown" href="javascript:;">
+                                    <div class="input-group">
+                                        <span class="form-control-static">[[ vm.globalParam.end | date: 'yyyy-MM-dd HH:mm' ]]</span>
+                                        <span class=""><i class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu menu2" role="menu" aria-labelledby="dLabel2">
+                                    <datetimepicker data-ng-model="vm.globalParam.end" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+                                </ul>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">采样方法</label>
+                                <select class="form-control input-sm" name="cf" ng-model="vm.globalParam.cf">
+                                    <option value="AVERAGE" selected="">AVERAGE</option>
+                                    <option value="MAX">MAX</option>
+                                    <option value="MIN">MIN</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">视角</label>
+                                <select class="form-control input-sm" name="graph_type"  ng-model="vm.globalParam.graph_type">
+                                    <option value="h" selected="">Endpoint视角</option>
+                                    <option value="k">Counter视角</option>
+                                    <option value="a">组合视角</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="sum" name="sum" value="on"  ng-model="vm.globalParam.sum" ng-true-value="on" ng-false-value="off"> 求和
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button id="go" class="btn btn-default btn-sm" ng-click="vm.show()">看图</button>
+                            </div>
+                            <div class="form-group">
+                                <button id="reset" class="btn btn-default btn-sm" ng-click="vm.reset()">重置条件</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                {%endif%}
+            </div>
+
+            <div class="container-fluid multi-chart">
+                <div class="row">
+                    <div class="col-md-6" ng-repeat="con in vm.configs">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="padding:8px;">
+                                <a class="btn btn-default btn-xs reset-zoom pull-right">
+                                    <span class="glyphicon glyphicon-zoom-out" aria-hidden="true">
+                                </a>
+                                <span class="panel-title graph-title">[[ con.title ]]</span>
+                            </div>
+                            <div my-flot config="con.config" type="s" class="panel-body">
+                                <div class="chart-container-multi"></div>
+                                <div class="legend panel-body graph-legend"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+

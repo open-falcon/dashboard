@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    {% block meta %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% endblock %}
+
+    <title>
+        {%block title%}Falcon-Dashboard{%endblock%}
+    </title>
+
+    {% block css %}
+        <link href="{{url_for('static', filename='bootstrap3/css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{url_for('static', filename='select2/select2.css')}}" rel="stylesheet">
+        <link href="{{url_for('static', filename='css/select2-bootstrap.css')}}" rel="stylesheet">
+        <link rel="stylesheet" href="{{url_for('static', filename='angular-bootstrap-datetimepicker/css/datetimepicker.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='bootstrap-tokenfield/css/bootstrap-tokenfield.min.css')}}">
+        <link href="/static/css/base.css?v=0.1.0" rel="stylesheet">
+        <style>
+            body {
+                font-size:12px;
+                font-family: 'verdana', 'Microsoft YaHei', 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono';
+            }
+            select {font-size:12px;}
+            input {font-size:12px;}
+        </style>
+    {% endblock %}
+
+    {% block head_js %}
+        <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/jquery.query.js')}}"></script>
+        <script src="{{url_for('static', filename='bootstrap3/js/bootstrap.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/moment.min.js')}}"></script>
+        <script src="{{url_for('static', filename='bootstrap-tokenfield/bootstrap-tokenfield.min.js')}}"></script>
+
+    {% endblock %}
+
+    {% block more_head %}
+    {% endblock %}
+</head>
+
+{%block body_head%}
+<body style="height:100%; padding-top: 0px; padding-bottom: 40px; font-size:12px;">
+{%endblock%}
+
+    {%block navbar%}{%endblock%}
+    {% block more_css%} {% endblock %}
+    {% block more_js%} {% endblock %}
+    {% block nav%} {% endblock %}
+
+    {% block container_outer %}
+    {# <div id="container" class="container-fluid" style="min-height:350px; width=100%"> #}
+        {% block container %} {% endblock %}
+    {# </div> #}
+    {% endblock %}
+    <div style="display: none;" id="loading-container" class="wrap-loading"><div class="loading2"></div></div>
+    <div id="tooltip" style="position: absolute; border: 1px solid rgb(215, 234, 252);z-index: 999; padding: 2px; opacity: 0.8; top: 511px; left: 362px; display: none; background-color: rgb(215, 234, 252);font-family:sans-serif;color:rgb(26,26,26);"></div>
+</body>
+
+</html>

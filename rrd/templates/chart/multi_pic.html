@@ -1,0 +1,153 @@
+{% extends "chart/chart_base.html" %}
+
+
+{% block container%}
+    {%if g.nav_header%}
+    <div class="row" style="margin-top:10px;margin-bottom:10px;">
+        <div class="col-md-12">
+            <form class="form-inline" role="form">
+
+                <div class="form-group">
+                    <label class="control-label">起始</label>
+                    <input type='text' class="form-control" name="start_s" data-date-format="YYYY-MM-DD HH:mm" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">结束</label>
+                    <input class="form-control" name="end_s" data-date-format="YYYY-MM-DD HH:mm" type="text"></input>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">采样方法</label>
+                    <select class="form-control" name="cf">
+                        {%for x in ["AVERAGE", "MAX", "MIN",]%}
+                        <option value="{{x}}" {%if g.cf==x%}selected{%endif%}>{{x}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">视角</label>
+                    <select class="form-control" name="graph_type">
+                        <option value="h" {%if g.graph_type=="h" or g.graph_type==""%}selected{%endif%}>Endpoint视角</option>
+                        <option value="k" {%if g.graph_type=="k"%}selected{%endif%}>Counter视角</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="sum" name="sum" value="on" {%if g.sum == 'on'%}checked{%endif%}> 求和
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button id="go" class="btn btn-default" class="btn btn-default">看图</button>
+                </div>
+                <div class="form-group">
+                    <button id="reset" class="btn btn-default" class="btn btn-default">重置条件</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    {%endif%}
+
+    <div class="row">
+        <div class="col-md-12">
+            {%for x in chart_urls%}
+            <a class="pic-item" href="#" pic-href="{{x}}" target="_blank">
+            <img src="{{x}}" style="margin:3px;"></img>
+            </a>
+            {%endfor%}
+        </div>
+    </div>
+
+    <script>
+        $(function(){
+            $('input[name="start_s"]').datetimepicker({
+                pickTime: true,
+                pickDate: true,
+                showToday: true,
+            });
+            {%if g.start_s%}
+                {%if g.start_s.isdigit()%}
+                    $('input[name="start_s"]').val(moment("{{g.start_s}}", "X").format("YYYY-MM-DD HH:mm"));
+                {%endif%}
+            {%endif%}
+            $('input[name="end_s"]').datetimepicker({
+                pickTime: true,
+                pickDate: true,
+                showToday: true
+            });
+            {%if g.end_s%}
+                {%if g.end_s.isdigit()%}
+                    $('input[name="end_s"]').val(moment("{{g.end_s}}", "X").format("YYYY-MM-DD HH:mm"));
+                {%endif%}
+            {%endif%}
+
+            $(".pic-item").click(function(){
+                var obj = $(this);
+                var pic_src = obj.attr("pic-href");
+                var href = $.query.load(pic_src);
+                href = href.remove("start_s").remove("end_s").remove("pic_height").remove("pic_width");
+                obj.attr("href",  "/chart/big" + href.toString());
+            });
+
+            $("#go").click(function(){
+                return fn_go(false);
+            });
+            $("#reset").click(function(){
+                return fn_go(true);
+            });
+
+            function fn_go(reset){
+                var kvs;
+                if(!reset){
+                    var start_s = $("input[name='start_s']").val();
+                    var end_s = $("input[name='end_s']").val();
+                    var cf = $("select[name='cf']").val();
+                    var graph_type = $("select[name='graph_type']").val();
+                    var sum = $("input[name='sum']:checked").val();
+                    if(sum === undefined){
+                        sum = "off";
+                    }
+
+                    kvs = {
+                        cf: cf,
+                        graph_type: graph_type,
+                        sum: sum,
+                        start_s: start_s,
+                        end_s: end_s
+                    }
+                    if(start_s == ""){
+                        kvs['start_s'] = "end-1d";
+                    }else {
+                        kvs['start_s'] = moment(start_s, "YYYY-MM-DD HH:mm").unix();
+                    }
+                    if(end_s == ""){
+                        kvs['end_s'] = "now"
+                    }else {
+                        kvs['end_s'] = moment(end_s, "YYYY-MM-DD HH:mm").unix();
+                    }
+                }else{
+                        kvs = {
+                            cf: "AVERAGE",
+                            graph_type: "h",
+                            sum: "off",
+                            start_s: "end-1d",
+                            end_s: "now"
+                        }
+                }
+                var href = $.query;
+                for(var k in kvs){
+                    var v = kvs[k];
+                    href = href.set(k, v);
+                }
+                window.location.href = href.toString();
+                return false;
+            }
+        });
+    </script>
+
+{% endblock %}
+

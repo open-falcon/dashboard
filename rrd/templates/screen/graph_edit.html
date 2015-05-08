@@ -1,0 +1,132 @@
+{% extends "screen/base.html" %}
+
+{% block head_js %}
+{{super()}}
+<script>
+    $(document).ready(function(){
+    });
+</script>
+
+{%endblock%}
+
+{% block container %}
+
+<div class="row-fluid">
+    <div class="col-md-12">
+        {%if error%}
+        <blockquote>
+        <p class="text-success big"> {{error}} </p>
+        </blockquote>
+        {%endif%}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    更新graph: <b>{{graph.title}}</b>
+                </div>
+            </div>
+
+            <div class="panel-body">
+
+            <form class="form-horizontal" role="form" method="post" action="/graph/{{graph.id}}/edit">
+                 <div class="form-group">
+                    <label class="control-label col-md-2" for="screen_id">选择screen</label>
+                    <div class="col-md-8">
+                        <select required name="screen_id" class="form-control">
+                            {%set i = 0%}
+                            {%for ts in top_screens%}
+                            <option value="{{ts.id}}" {%if ts.id==graph.screen_id%}selected{%endif%}>{{ts.name}}</option>
+                                {%for cs in children[i]%}
+                                <option value="{{cs.id}}" {%if cs.id==graph.screen_id%}selected{%endif%}>{{ts.name}}/{{cs.name}}</option>
+                                {%endfor%}
+                                {%set i = i+1%}
+                            {%endfor%}
+                        </select>
+                    </div>
+                 </div>
+
+                 <div class="form-group">
+                    <label class="control-label col-md-2" for="title">Graph标题</label>
+                    <div class="col-md-8">
+                        <input class="form-control" required type="text" name="title" value="{{graph.title}}">
+                    </div>
+                 </div>
+
+                 <div class="form-group">
+                     <label class="control-label col-md-2" for="hosts">Endpoints列表</label>
+                     <div class="col-md-8">
+                         <textarea class="form-control" name="hosts" rows="5">{{"\n".join(graph.hosts)}}</textarea>
+                     </div>
+                 </div>
+
+                 <div class="form-group">
+                    <label class="control-label col-md-2" for="counters">Counters列表</label>
+                    <div class="col-md-8">
+                        <textarea class="form-control" required rows="5" name="counters">{{"\n".join(graph.counters)}}</textarea>
+                        <span class="help-block">一行一个完整的counter，比如: cpu.idle 或者<br/>
+                        使用tag来筛选，比如metric=net.if.in.bytes iface=eth0 (其中metric项必须得有; metric和tag之间，tag与tag之间用空格分割)</span>
+                    </div>
+                 </div>
+
+                 <div class="form-group">
+                     <label class="control-label col-md-2" for="timespan">默认时间跨度</label>
+                     <div class="col-md-8">
+                         <select class="form-control" name="timespan">
+                             <option value="3600" {%if graph.timespan==3600%} selected {%endif%}>1小时</option>
+                             <option value="21600" {%if graph.timespan==21600%} selected {%endif%}>6小时</option>
+                             <option value="43200" {%if graph.timespan==43200%} selected {%endif%}>12小时</option>
+                             <option value="86400" {%if graph.timespan==86400%} selected {%endif%}>1天</option>
+                             <option value="604800" {%if graph.timespan==604800%} selected {%endif%}>7天</option>
+                             <option value="2592000" {%if graph.timespan==2592000%} selected {%endif%}>1月</option>
+                             <option value="31536000" {%if graph.timespan==31536000%} selected {%endif%}>1年</option>
+                         </select>
+                     </div>
+                 </div>
+
+                 <div class="form-group">
+                     <label class="control-label col-md-2" for="graph_type">视角</label>
+                     <div class="col-md-8">
+                         <label class="radio">
+                             <input required type="radio" name="graph_type" value="h" {%if graph.graph_type=="h"%}checked{%endif%}>
+                             endpoint视角
+                        </label>
+                         <label class="radio">
+                             <input required type="radio" name="graph_type" value="k" {%if graph.graph_type=="k"%}checked{%endif%}>
+                             counter视角
+                        </label>
+                         <label class="radio">
+                             <input required type="radio" name="graph_type" value="a" {%if graph.graph_type=="a"%}checked{%endif%}>
+                             组合视角
+                        </label>
+                    </div>
+                 </div>
+
+                 <div class="form-group">
+                     <label class="control-label col-md-2" for="position">graph顺序</label>
+                     <div class="col-md-8">
+                        <input class="form-control" style="width:450px;" type="text" name="position" value="{{graph.position}}">
+                     </div>
+                 </div>
+
+                 <div class="form-group">
+                     <label class="control-label col-md-2" for="method">是否加和</label>
+                     <div class="col-md-8">
+                        <input class="form-control" type="checkbox" name="method" value="sum" {%if graph.method.lower() == "sum"%}checked{%endif%}>
+                    </div>
+                 </div>
+
+                 <div class="control-group">
+                     <div class="col-md-offset-2 col-md-8">
+                         <button type="submit" class="btn btn-primary">确认修改</button>
+                         <a href="/screen/{{graph.screen_id}}/graph?gid={{graph.id}}"
+                             class="btn btn-info" onclick="return confirm('确定要克隆一个新的graph出来么？')">克隆这个graph</a></button>
+                         <a href="/graph/{{graph.id}}/delete"
+                             class="btn btn-danger" onclick="return confirm('确定要删除这个graph吗？')">删除这个graph</a></button>
+                     </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

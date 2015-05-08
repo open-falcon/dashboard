@@ -1,0 +1,165 @@
+{% macro layout_block(layout, graphs) -%}
+<script>
+function fn_toogle_legend_flot(a, i) {
+    var $container = $('.chart-' + i).parent();
+    var $l = $container.find('.legend');
+    console.log($container.html());
+    if ($l.is(':hidden')) {
+        $l.show();
+    } else {
+        $l.hide();
+    }
+    $(a).text('切换legend');
+    return false;
+}
+
+function fn_toogle_sum_flot(a, i) {
+    var $container = $('.chart-' + i).parent();
+    var url = $container.data('u');
+    var u = $.query.load(url);
+    var s = u.get('sum');
+    if (s && s === 'on') {
+        s = 'off';
+    } else {
+        s = 'on';
+    }
+    $(a).text('切换求和');
+    u = u.set('sum', s);
+    var dataU = url.split('?')[0] + u.toString();
+    $container.data('u', dataU);
+
+    // 重新请求这个url
+    if (window.getData) {
+        window.getData($container, dataU);
+    }
+    return false;
+}
+
+$(function(){
+    //setInterval(function() {
+    //    if (window.active) {
+    //        active();
+    //    }
+    //}, 60000);
+});
+</script>
+
+        {%set i=0%}
+        <div class="row">
+        {%for graph in graphs%}
+           {% if (i % layout == 0) %}
+             <div style="clear: both;">
+           {% endif %}
+                {% set col = (12/layout)|int %}
+                <div class="col-md-{{col}}" id="graph-{{i}}" style="padding:3px;">
+                        <div class="panel panel-default chart-container" data-u="{{graph.src}}">
+                                <div class="panel-heading" style="padding: 10px 5px;">
+                                    <a class="btn btn-default btn-xs reset-zoom pull-right" style="margin-left:5px;" data-index="{{i}}">
+                                        <span class="glyphicon glyphicon-zoom-out" aria-hidden="true" data-index="{{i}}"></span>
+                                    </a>
+                                    <div class="btn-group pull-right">
+                                        <a class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" href="#">
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="javascript:void(0);" class="btn btn-link btn-xs" onclick="return fn_toogle_legend_flot(this, '{{i}}');">切换legend</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" class="btn btn-link btn-xs" onclick="return fn_toogle_sum_flot(this, '{{i}}');">切换求和</a>
+                                            </li>
+
+                                            <li>
+                                            {%set big_graph = graph.src.replace("graph_type=h", "").replace("graph_type=k", "").replace("graph_type=a", "")%}
+                                            {%if graph.src.find("/chart/h") >=0 %}
+                                                {%set big_graph = graph.src.replace("/chart/h", "/chart/big")%}
+                                                <a href="{{big_graph|safe}}&start=-86400&graph_type=h" target="__blank" class="btn btn-link btn-xs">查看大图</a>
+                                            {%elif graph.src.find("/chart/k") >=0%}
+                                                {%set big_graph = graph.src.replace("/chart/k", "/chart/big")%}
+                                                <a href="{{big_graph|safe}}&start=-86400&graph_type=k" target="__blank" class="btn btn-link btn-xs">查看大图</a>
+                                            {%else%}
+                                                {%set big_graph = graph.src.replace("/chart/a", "/chart/big")%}
+                                                <a href="{{big_graph|safe}}&start=-86400&graph_type=a" target="__blank" class="btn btn-link btn-xs">查看大图</a>
+                                            {%endif%}
+                                            </li>
+
+                                            <li>
+                                                <a href="/graph/{{graph.id}}/edit" target="__blank" class="btn btn-link btn-xs">编辑</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <span class="panel-title graph-title">{{graph.title}}</span>
+                                </div>
+
+                                <div class="panel-body text-center" style="margin:5px;padding:0px;">
+                                    <span class="chart-title"></span>
+                                </div>
+
+                                <div class="chart-{{i}} chart-area panel-body" style="margin:10px;padding:10px;"></div>
+                                <div class="legend panel-body graph-legend"></div>
+                        </div>
+                    {%set i=i+1%}
+                </div>
+           {% if (i % layout == 0 or loop.last) %}
+             </div>
+           {% endif %}
+        {%endfor%}
+    </div>
+
+{%- endmacro %}
+
+
+{% macro screen_main_menu(current_top_screen, top_screens) -%}
+    <div class="btn-group">
+
+      <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+        {%if current_top_screen%}
+            {{current_top_screen.name}}
+        {%else%}
+            screen首页
+        {%endif%}
+        <span class="caret"></span>
+      </button>
+
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="/screen/add"> <small>+ 导航</small></a></li>
+        <li>
+            <div class="form-group search-area">
+                <input class="form-control" id="searchinput" type="search" placeholder="搜索..">
+            </div>
+        </li>
+        {%for c in top_screens%}
+        <li class="screen" role="presentation">
+            <a role="menuitem" href="/screen/{{c.id}}"><small>{{c.name}}</small></a>
+        </li>
+        {%endfor%}
+      </ul>
+
+    </div>
+{%- endmacro %}
+
+{% macro screen_sub_menu(current_top_screen, current_sub_screen, sub_screens) -%}
+    <div class="btn-group">
+      <button class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+        {%if current_sub_screen %}
+            {{current_sub_screen.name}}
+        {%else%}
+            选择
+        {%endif%}
+        <span class="caret"></span>
+      </button>
+
+      <ul class="dropdown-menu" role="menu">
+        {%if current_top_screen %}
+        <li><a href="/screen/add?pid={{current_top_screen.id}}"> + screen</a></li>
+        {%endif%}
+
+        {%for c in sub_screens%}
+        <li class="screen" role="presentation">
+            <a role="menuitem" href="/screen/{{c.id}}"><small>{{c.name}}</small></a>
+        </li>
+        {%endfor%}
+      </ul>
+
+    </div>
+{%- endmacro %}

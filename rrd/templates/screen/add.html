@@ -1,0 +1,26 @@
+{% extends "screen/base.html" %}
+
+{% block container%}
+
+<div class="row-fluid">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    在<b>{{screen.name}}</b>下面新增一个screen
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <form class="form-inline" role="form" method="post" action="/screen/add">
+                 <input type="hidden" name="pid" value="{{pid}}">
+                 <div class="form-group">
+                     <input type="text" name="screen_name" class="form-control" required placeholder="screen名字">
+                 </div>
+                <button type="submit" class="btn btn-default">新增</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

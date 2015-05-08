@@ -1,0 +1,26 @@
+{% extends "screen/base.html" %}
+
+{% block container%}
+
+<div class="row-fluid">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    更新screen: <b>{{screen.name}}</b>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <form class="form-inline" role="form" method="post" action="/screen/{{screen.id}}/edit">
+                     <div class="form-group">
+                         <input type="text" name="screen_name" class="form-control" required placeholder="新screen名字">
+                     </div>
+                    <button type="submit" class="btn btn-default">更新</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

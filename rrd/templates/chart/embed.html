@@ -1,0 +1,108 @@
+{% extends "base_ng.html" %}
+
+{%block head_js%}
+{{super()}}
+<script>
+    // 这里是后台渲染出来的参数
+
+    // 首页请求的参数
+    var obj = {};
+    obj.id='{{g.id}}';
+    obj.start={{g.start}};
+    obj.end = {{g.end}};
+    obj.cf='{{g.cf}}';
+    obj.sum='{{g.sum}}';
+    obj.sumonly='{{g.sumonly}}';
+    obj.graph_type='{{g.graph_type}}';
+
+    // 后续请求的参数
+    var obj2 = {};
+    obj2.id='{{g.id}}';
+    obj2.start=-300;
+    obj2.cf='{{g.cf}}';
+    obj2.tongbi='{{g.tongbi}}';
+    obj2.sum='{{g.sum}}';
+    obj2.sumonly='{{g.sumonly}}';
+    obj2.graph_type='{{g.graph_type}}';
+</script>
+<script src="{{url_for('static', filename='js/angular.min.js')}}"></script>
+<script src="/static/js/jquery.flot.js?_v=0.0.3"></script>
+<script src="{{url_for('static', filename='js/jquery.flot.time.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery.flot.selection.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery.flot.stack.js')}}"></script>
+<script src="{{url_for('static', filename='js/underscore.js')}}"></script>
+<script src="/static/js/util_ng.js?_v=0.0.4"></script>
+<script src="/static/js/big_ng.js?_v=0.0.4"></script>
+{%endblock%}
+
+{%block body_head%}
+<body style="height:100%; padding: 0px; margin: 0px; font-size:12px;">
+{%endblock%}
+
+{% block container_outer %}
+<div id="container" class="container-fluid" ng-app="app">
+    <div class="row" style="margin:0px; width:{{w}}px;" ng-controller="BigCtrl as vm">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a class="btn btn-default btn-xs reset-zoom pull-right">
+                    <span class="glyphicon glyphicon-zoom-out" aria-hidden="true">
+                </a>
+                <div class="btn-group pull-right chart-config">
+                    <a class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:;" style="margin-left:0px; vertical-align:top;">
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu" style="min-width:400px; margin:0 0 0 0px;">
+                        <table class="table table-striped">
+                            <tbody><tr><td width="100px;"><span>时间跨度</span>
+                                    </td><td>
+                                        <a ng-class="{enable: vm.param.start == -3600}" ng-click="vm.param.start=-3600" class="chart-opt">1h</a>
+                                        <a ng-class="{enable: vm.param.start == -21600}" ng-click="vm.param.start=-21600" class="chart-opt">6h</a>
+                                        <a ng-class="{enable: vm.param.start == -43200}" ng-click="vm.param.start=-43200" class="chart-opt">12h</a>
+                                        <a ng-class="{enable: vm.param.start == -86400}" ng-click="vm.param.start=-86400" class="chart-opt">24h</a>
+                                        <a ng-class="{enable: vm.param.start == -259200}" ng-click="vm.param.start=-259200" class="chart-opt">3d</a>
+                                        <a ng-class="{enable: vm.param.start == -604800}" ng-click="vm.param.start=-604800" class="chart-opt">7d</a>
+                                        <a ng-class="{enable: vm.param.start == -2592000}" ng-click="vm.param.start=-2592000" class="chart-opt">1m</a>
+                                </td></tr>
+
+                                <tr><td> <span>采样方法</span>
+                                    </td><td>
+                                        <a ng-class="{enable: vm.param.cf=='MAX'}" ng-click="vm.param.cf='MAX'" class="chart-opt">最大值</a>
+                                        <a ng-class="{enable: vm.param.cf=='MIN'}" ng-click="vm.param.cf='MIN'" class="chart-opt">最小值</a>
+                                        <a ng-class="{enable: vm.param.cf=='AVERAGE'}" ng-click="vm.param.cf='AVERAGE'" class="chart-opt">平均值</a>
+                                </td></tr>
+
+                                <tr><td><span>其他</span>
+                                    </td><td>
+                                        <a ng-click="vm.param.sum='on';vm.param.sumonly='off'" data-k="sum|sumonly" data-v="1| " class="chart-opt">求和</a>
+                                        <a ng-click="vm.param.sum='on';vm.param.sumonly='on'" data-k="sumonly" data-v="1" class="chart-opt">只显示sum</a>
+                                        <a ng-click="vm.param.sum='off';vm.param.sumonly='off'" data-k="sum|sumonly" data-v=" | " class="chart-opt">取消求和</a>
+                                        <a ng-click="vm.reset()" data-k="start|end|sum|cf|tongbi|sumonly" data-v=" | | | | | | " class="chart-opt"><b>重置</b></a>
+                                </td></tr>
+                        </tbody></table>
+                    </ul>
+                </div>
+                <span class="panel-title graph-title">[[ vm.chart.title ]]</span>
+            </div>
+
+            <div class="panel-body" style="position: relative;">
+                <div my-flot config="vm.config" newdata="vm.newdata" type="b">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="chart-container-big" style="height:{{h}}px;">
+                            </div>
+                        </div>
+                    </div>
+                    {%if g.legend == "on"%}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="legend panel-body graph-legend"></div>
+                        </div>
+                    </div>
+                    {%endif%}
+                </div>
+
+            </div>
+
+        </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,81 @@
+{% extends "screen/base.html" %}
+
+{%block title%}{{screen.name}}{%endblock%}
+
+{% block container %}
+    {% block screen_nav %}
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="breadcrumb">
+                <li> {{screen_layout.screen_main_menu(pscreen, top_screens)}} </li>
+                <li> {{screen_layout.screen_sub_menu(pscreen, screen, sub_screens)}} </li>
+
+                {%if screen%}
+                    <li><a href="/screen/{{screen.id}}/edit"><i class="icon-edit"></i>编辑</a></li>
+                    <li><a href="javascript:;" class="icon-muledit"><i></i>批量编辑</a></li>
+                    <li><a href="/screen/{{screen.id}}/delete" onclick="return confirm('确定要删除这个screen?');"><i class="icon-trash"></i>删除</a></li>
+                    <li><a href="/screen/{{screen.id}}/clone" onclick="return confirm('确定要复制出来一个新的screen吗?');">克隆</a></li>
+                    <li><a href="/screen/{{screen.id}}/graph"><i class="icon-plus"></i>+graph</a></li>
+                    {%if g.legend == "on"%}
+                    <li><a href="#" onclick="fn_query({legend: 'off'})"><i class="icon-plus"></i>隐藏legend</a></li>
+                    {%else%}
+                    <li><a href="#" onclick="fn_query({legend: 'on'})"><i class="icon-plus"></i>显示legend</a></li>
+                    {%endif%}
+
+                    <li>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                布局 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" onclick="fn_query({cols: '1'})"><small>1列</small></a></li>
+                                <li><a href="#" onclick="fn_query({cols: '2'})"><small>2列</small></a></li>
+                                <li><a href="#" onclick="fn_query({cols: '3'})"><small>3列</small></a></li>
+                                <li><a href="#" onclick="fn_query({cols: '4'})"><small>4列</small></a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                时间段 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" onclick="fn_query({start: -3600})"><small>1h</small></a></li>
+                                <li><a href="#" onclick="fn_query({start: -10800})"><small>3h</small></a></li>
+                                <li><a href="#" onclick="fn_query({start: -21600})"><small>6h</small></a></li>
+                                <li><a href="#" onclick="fn_query({ start: -43200})"><small>12h</small></a></li>
+                                <li><a href="#" onclick="fn_query({start: -86400})"><small>1d</small></a></li>
+                                <li><a href="#" onclick="fn_query({start: -259200})"><small>3d</small></a></li>
+                                <li><a href="#" onclick="fn_query({start: -604800})"><small>7d</small></a></li>
+                                <li><a href="#" onclick="fn_query({start: -2592000})"><small>1m</small></a></li>
+                                <li><a href="#" onclick="fn_query({start: -31536000})"><small>1y</small></a></li>
+                            </ul>
+                        </div>
+                    </li>
+                {%endif%}
+            </ul>
+        </div>
+    </div>
+    {%endblock%}
+
+    {% block graphs %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                {{screen_layout.layout_block(g.cols, all_graphs)}}
+            </div>
+        </div>
+    </div>
+    {%endblock%}
+
+    <script>
+    $(function(){
+        // 渲染当前screen 的id, 编辑时用
+        window.sid = {{ sid }};
+    });
+    </script>
+
+
+{%endblock%}
