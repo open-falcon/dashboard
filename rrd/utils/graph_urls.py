@@ -28,14 +28,17 @@ def _generate_graph_urls(graph, counters, endpoint_list, start, end):
 
             new_g = copy.deepcopy(graph)
             new_g.counters = c
-            new_g.src = '''/chart/h?id=%s&start=%s''' %(tmp_graph_id, start or (0-graph.timespan))
+            if end:
+                new_g.src = '''/chart/h?id=%s&start=%s&end=%s''' %(tmp_graph_id, start or (0-graph.timespan), end)
+            else:
+                new_g.src = '''/chart/h?id=%s&start=%s''' %(tmp_graph_id, start or (0-graph.timespan))
             if graph.method == 'SUM':
                 new_g.src += "&sum=on"
             else:
                 new_g.src += "&cf=%s" %graph.method
 
             ret_graphs.append(new_g)
-    else:
+    elif graph.graph_type=='k':
         for e in endpoint_list:
             tmp_graph_id = create_tmp_graph([e,], counters)
             if not tmp_graph_id:
@@ -43,13 +46,32 @@ def _generate_graph_urls(graph, counters, endpoint_list, start, end):
 
             new_g = copy.deepcopy(graph)
             new_g.hosts = e
-            new_g.src = '''/chart/k?id=%s&start=%s''' %(tmp_graph_id, start or (0-graph.timespan))
+            if end:
+                new_g.src = '''/chart/k?id=%s&start=%s&end=%s''' %(tmp_graph_id, start or (0-graph.timespan), end)
+            else:
+                new_g.src = '''/chart/k?id=%s&start=%s''' %(tmp_graph_id, start or (0-graph.timespan))
             if graph.method == 'SUM':
                 new_g.src += "&sum=on"
             else:
                 new_g.src += "&cf=%s" %graph.method
 
             ret_graphs.append(new_g)
+    else:
+        #组合视角
+        tmp_graph_id = create_tmp_graph(endpoint_list, counters)
+        if not tmp_graph_id:
+            return []
+        new_g = copy.deepcopy(graph)
+        if end:
+            new_g.src = '''/chart/a?id=%s&start=%s&end=%s''' %(tmp_graph_id, start or (0-graph.timespan), end)
+        else:
+            new_g.src = '''/chart/a?id=%s&start=%s''' %(tmp_graph_id, start or (0-graph.timespan))
+        if graph.method == 'SUM':
+            new_g.src += "&sum=on"
+        else:
+            new_g.src += "&cf=%s" %graph.method
+
+        ret_graphs.append(new_g)
 
     return ret_graphs
 

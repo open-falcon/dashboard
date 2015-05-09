@@ -232,8 +232,7 @@ def multi_counters_chart_data():
             }
             series.append(serie)
         except:
-            import traceback
-            print traceback.format_exc()
+            pass
 
     sum_serie = {
             "data": [],
@@ -281,8 +280,6 @@ def multi_chart_data():
     counters = sorted(set(counters))
 
     endpoints = tmp_graph.endpoints
-    if g.tags:
-        endpoints.extend(select_hosts_from_tags(g.tags))
     if not endpoints:
         abort(400, "no endpoints of %s, and tags:%s" %(g.id, g.tags))
     endpoints = sorted(set(endpoints))
