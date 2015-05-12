@@ -4,3 +4,4 @@ Werkzeug==0.9.4
 gunicorn==18.0
 python-dateutil==2.2
 requests==2.3.0
+mysql-python

@@ -18,8 +18,7 @@ dashboard是提供给用户，以图表的方式查看push上来的数据
     $ cd $HOME/open-falcon/dashboard/
     $ virtualenv ./env
 
-    $ ./env/bin/pip install -r pip_requirements.txt
-    $ ./env/bin/easy_install mysql-python
+    $ ./env/bin/pip install -r pip_requirements.txt -i http://pypi.douban.com/simple
 
 
 ## init database
