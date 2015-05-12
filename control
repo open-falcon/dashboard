@@ -78,7 +78,7 @@ function show_version() {
 
 function pack() {
     git log -1 --pretty=%h > gitversion
-    file_list="control  db_schema  gunicorn.conf  pip_requirements.txt  README.md  rrd  wsgi.py"
+    file_list="control  gunicorn.conf  pip_requirements.txt  README.md  rrd  wsgi.py"
     echo "...tar $app.tar.gz <= $file_list"
     gitversion=`cat gitversion`
     tar -zcf $app-$gitversion.tar.gz  gitversion $file_list
