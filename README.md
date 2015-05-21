@@ -1,9 +1,9 @@
-## intro
+## Introduction
 
 dashboard是提供给用户，以图表的方式查看push上来的数据
 
 
-## clone
+## Clone
 
     $ export HOME=/home/work/
 
@@ -11,7 +11,7 @@ dashboard是提供给用户，以图表的方式查看push上来的数据
     $ cd $HOME/open-falcon && git clone https://github.com/open-falcon/dashboard.git
     $ cd dashboard;
 
-## install dependency
+## Install dependency
 
     # yum install -y python-virtualenv
 
@@ -21,7 +21,7 @@ dashboard是提供给用户，以图表的方式查看push上来的数据
     $ ./env/bin/pip install -r pip_requirements.txt -i http://pypi.douban.com/simple
 
 
-## init database
+## Init database
 
     $ mysql -h localhost -u root -p < ../scripts/db_schema/dashboard-db-schema.sql
     $ mysql -h localhost -u root -p < ../scripts/db_schema/graph-db-schema.sql
@@ -30,24 +30,24 @@ dashboard是提供给用户，以图表的方式查看push上来的数据
     ## change mysql info in rrd/config.py if necessary
 
 
-## start
+## Start
 
     $ ./env/bin/python wsgi.py
 
     --> goto http://127.0.0.1:8081
 
 
-## run with gunicorn
+## Run with gunicorn
 
     $ bash control start
 
     --> goto http://127.0.0.1:8081
 
 
-## stop gunicorn
+## Stop gunicorn
 
     $ bash control stop
 
-## log
+## Check log
 
     $ bash control tail
