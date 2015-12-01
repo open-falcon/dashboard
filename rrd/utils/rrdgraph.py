@@ -106,7 +106,7 @@ def graph_query(endpoint_counters, cf, start, end):
     }
     r = requests.post("%s/graph/history" %QUERY_ADDR, data=json.dumps(params))
     if r.status_code != 200:
-        raise
+        raise Exception("{} : {}".format(r.status_code, r.text))
 
     return r.json()
 
