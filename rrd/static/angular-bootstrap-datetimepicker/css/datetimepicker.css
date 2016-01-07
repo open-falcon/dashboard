@@ -309,6 +309,16 @@
   color: #fff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
+.datetimepicker table tr td.today,
+.datetimepicker table tr td.today:hover,
+.datetimepicker table tr td.today.disabled,
+.datetimepicker table tr td.today.disabled:hover,
+.datetimepicker table tr td span.today,
+.datetimepicker table tr td span.today:hover,
+.datetimepicker table tr td span.today.disabled,
+.datetimepicker table tr td span.today.disabled:hover {
+  background-color: #FDF59A;
+}
 .datetimepicker table tr td span.active:hover,
 .datetimepicker table tr td span.active:hover:hover,
 .datetimepicker table tr td span.active.disabled:hover,
