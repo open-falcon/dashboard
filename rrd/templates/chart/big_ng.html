@@ -33,6 +33,7 @@
 <script src="{{url_for('static', filename='js/underscore.js')}}"></script>
 <script src="/static/js/util_ng.js?_v=0.0.4"></script>
 <script src="/static/js/big_ng.js?_v=0.0.4"></script>
+<script src="/static/js/angular-multi-check.js"></script>
 {%endblock%}
 
 {%block body_head%}
@@ -118,9 +119,9 @@
                                             type="search" placeholder="输入字符过滤, 回车刷新..">
                                     </div>
                                 </div>
-                                <ul class="list-unstyled" style="font-family: 'verdana', 'Microsoft YaHei', 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono';">
+                                <ul multi-check-group class="list-unstyled" style="font-family: 'verdana', 'Microsoft YaHei', 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono';">
                                     <li ng-repeat="s in vm.data | filter: { label:vm.query }">
-                                        <input id="" type="checkbox" style="margin-right:5px;" ng-model="s.check" value="[[ s.label ]]">[[ s.label ]]
+                                        <input id="" type="checkbox" style="margin-right:5px;" multi-check ng-model="s.check" value="[[ s.label ]]">[[ s.label ]]
                                     </li>
                                 </ul>
                             </div>
