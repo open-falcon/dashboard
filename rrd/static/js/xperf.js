@@ -19,10 +19,11 @@ function fn_list_endpoints()
                 for (var hidx in hosts) {
                     var h = hosts[hidx];
                     var line_html = '<tr>'
-                    + '<td><input type="checkbox" data-fullname="'+ h +'"></input></td>'
+                    + '<td><input type="checkbox" class="input shiftCheckbox" data-fullname="'+ h +'"></input></td>'
                     + '<td>' + h + '</td>'
                     + '</tr>';
                     tbody_hosts.append($(line_html));
+                    tbody_hosts.find('.shiftCheckbox').shiftcheckbox();
                 }
                 fn_check_all_hosts();
     }).error(function(req, ret, errorThrown){
@@ -65,12 +66,13 @@ function fn_list_counters(){
                         display_counter_type = "原始值";
                     }
                     var line_html = '<tr>'
-                    + '<td><input type="checkbox" data-fullkey="'+c[0]+'"></input></td>'
+                    + '<td><input type="checkbox" class="input shiftCheckbox" data-fullkey="'+c[0]+'"></input></td>'
                     + '<td><a href="javascript:void(0);" onclick="fn_show_chart(\'' + c[0] + '\')" >' + c[0] + '</a></td>'
                     + '<td>'+ display_counter_type +'</td>'
                     + '<td>'+ c[2] +'s</td>'
                     + '</tr>'
                     tbody_items.append($(line_html));
+                    tbody_items.find('.shiftCheckbox').shiftcheckbox();
                 }
             }else{
                 alert("搜索失败：" + ret.msg);
