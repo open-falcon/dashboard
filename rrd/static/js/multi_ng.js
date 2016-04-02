@@ -46,11 +46,13 @@ function MultiCtrl(FlotServ, $scope, $interval, $timeout) {
             var url = window.location.href;
             var newUrl;
             if (newVal === 'k') {
-                newUrl = url.replace('graph_type=h', 'graph_type=k').replace('graph_type=a', 'graph_type=k');
+                newUrl = url.replace('graph_type=h', 'graph_type=k').replace('graph_type=a', 'graph_type=k').replace('graph_type=c', 'graph_type=k');
             } else if (newVal === 'h') {
-                newUrl = url.replace('graph_type=k', 'graph_type=h').replace('graph_type=a', 'graph_type=h');
+                newUrl = url.replace('graph_type=k', 'graph_type=h').replace('graph_type=a', 'graph_type=h').replace('graph_type=c', 'graph_type=h');
+            } else if (newVal === 'c') {
+                newUrl = url.replace('graph_type=k', 'graph_type=c').replace('graph_type=a', 'graph_type=c').replace('graph_type=h', 'graph_type=c');
             } else {
-                newUrl = url.replace('graph_type=h', 'graph_type=a').replace('graph_type=k', 'graph_type=a');
+                newUrl = url.replace('graph_type=h', 'graph_type=a').replace('graph_type=k', 'graph_type=a').replace('graph_type=c', 'graph_type=a');
             }
             window.location.href = newUrl;
         }

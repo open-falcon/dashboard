@@ -82,8 +82,20 @@
                                     <option value="h" selected="">Endpoint视角</option>
                                     <option value="k">Counter视角</option>
                                     <option value="a">组合视角</option>
+                                    <option value="c">环比视角</option>
                                 </select>
                             </div>
+
+                            {%if g.graph_type == 'c' %}
+                            <div class="form-group">
+                                <label class="control-label">快速对比</label>
+                                <select class="form-control input-sm" name="comp_date" ng-model="vm.globalParam.comp_date">
+                                    <option value="" selected="">OFF</option>
+                                    <option value="1">昨天同期</option>
+                                    <option value="7">上周同期</option>
+                                </select>
+                            </div>
+                            {%endif%}
 
                             <div class="form-group">
                                 <div class="checkbox">
