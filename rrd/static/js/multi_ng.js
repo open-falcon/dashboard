@@ -13,6 +13,7 @@ function MultiCtrl(FlotServ, $scope, $interval, $timeout) {
     vm.defaultGlobalParam = {
         start: '',
         end: '',
+        comp_date: '',
         cf: 'AVERAGE', // MIN, MAX
         graph_type: 'h', // h Endpoint视角; k Counter视角
         sum: 'off' // off
@@ -46,13 +47,11 @@ function MultiCtrl(FlotServ, $scope, $interval, $timeout) {
             var url = window.location.href;
             var newUrl;
             if (newVal === 'k') {
-                newUrl = url.replace('graph_type=h', 'graph_type=k').replace('graph_type=a', 'graph_type=k').replace('graph_type=c', 'graph_type=k');
+                newUrl = url.replace('graph_type=h', 'graph_type=k').replace('graph_type=a', 'graph_type=k');
             } else if (newVal === 'h') {
-                newUrl = url.replace('graph_type=k', 'graph_type=h').replace('graph_type=a', 'graph_type=h').replace('graph_type=c', 'graph_type=h');
-            } else if (newVal === 'c') {
-                newUrl = url.replace('graph_type=k', 'graph_type=c').replace('graph_type=a', 'graph_type=c').replace('graph_type=h', 'graph_type=c');
+                newUrl = url.replace('graph_type=k', 'graph_type=h').replace('graph_type=a', 'graph_type=h');
             } else {
-                newUrl = url.replace('graph_type=h', 'graph_type=a').replace('graph_type=k', 'graph_type=a').replace('graph_type=c', 'graph_type=a');
+                newUrl = url.replace('graph_type=h', 'graph_type=a').replace('graph_type=k', 'graph_type=a');
             }
             window.location.href = newUrl;
         }
@@ -79,6 +78,9 @@ function MultiCtrl(FlotServ, $scope, $interval, $timeout) {
         }
         if (angular.isDate(p.end)) {
             p.end = +p.end/1000;
+        }
+        if (angular.isDate(p.comp_date)) {
+            p.comp_date = +p.comp_date/1000;
         }
         FlotServ.getMultiDataById(p).then(function(ret) {
             // [{data: {}}, {data: {}}, {data: {}}]
