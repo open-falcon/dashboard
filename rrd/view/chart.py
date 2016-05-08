@@ -69,6 +69,20 @@ def chart_before():
         g.limit = int(request.args.get("limit") or 0)
         g.page = int(request.args.get("page") or 0)
 
+        g.comp_date = int(request.args.get("comp_date") or 0)
+        if g.comp_date > 0:
+            start = int(request.args.get("start") or 0)
+            end = int(request.args.get("end") or 0)
+            if start == 0 and end == 0:
+                today = datetime.datetime.today()
+                today_start = int(time.mktime(today.date().timetuple()))
+                today_end = int(time.mktime(datetime.datetime(today.year,today.month,today.day,23,59,59).timetuple()))
+                g.start = today_start
+                g.end = today_end
+            lt = time.localtime(g.start)
+            day_start = int(time.mktime(datetime.datetime(lt.tm_year,lt.tm_mon,lt.tm_mday,00,00,00).timetuple()))
+            g.duration = g.start - g.comp_date - (g.start - day_start)
+
 @app.route("/chart", methods=["POST",])
 def chart():
     endpoints = request.form.getlist("endpoints[]") or []
@@ -136,6 +150,9 @@ def multi_endpoints_chart_data():
 
     query_result = graph_query(endpoint_counters, g.cf, g.start, g.end)
 
+    name_pre = ""
+    if g.comp_date > 0:
+        name_pre = "This Period: "
     series = []
     for i in range(0, len(query_result)):
         x = query_result[i]
@@ -143,7 +160,7 @@ def multi_endpoints_chart_data():
             xv = [(v["timestamp"]*1000, v["value"]) for v in x["Values"]]
             serie = {
                     "data": xv,
-                    "name": query_result[i]["endpoint"],
+                    "name": "%s %s" % (name_pre, query_result[i]["endpoint"]),
                     "cf": g.cf,
                     "endpoint": query_result[i]["endpoint"],
                     "counter": query_result[i]["counter"],
@@ -154,11 +171,12 @@ def multi_endpoints_chart_data():
 
     sum_serie = {
             "data": [],
-            "name": "sum",
+            "name": "%s %s" % (name_pre, "sum"),
             "cf": g.cf,
             "endpoint": "sum",
             "counter": c,
     }
+
     if g.sum == "on" or g.sumonly == "on":
         sum = []
         tmp_ts = []
@@ -181,7 +199,59 @@ def multi_endpoints_chart_data():
     else:
         ret['series'] = series
 
+    if g.comp_date > 0:
+        g.start = g.start - g.duration - 60
+        g.end = g.end - g.duration + 60
+        query_result = graph_query(endpoint_counters, g.cf, g.start, g.end)
+        name_pre = "Last Period: "
+        series_comp = []
+        for i in range(0, len(query_result)):
+            x = query_result[i]
+            try:
+                xv = [((v["timestamp"]+g.duration)*1000, v["value"]) for v in x["Values"]]
+                serie = {
+                        "data": xv,
+                        "name": "%s %s" % (name_pre, query_result[i]["endpoint"]),
+                        "cf": g.cf,
+                        "endpoint": query_result[i]["endpoint"],
+                        "counter": query_result[i]["counter"],
+                }
+                series_comp.append(serie)
+            except:
+                pass
+        sum_serie_comp = {
+                "data": [],
+                "name": "%s %s" % (name_pre, "sum"),
+                "cf": g.cf,
+                "endpoint": "sum",
+                "counter": c,
+        }
+
+        if g.sum == "on" or g.sumonly == "on":
+            sum = []
+            tmp_ts = []
+            max_size = 0
+            for serie in series_comp:
+                serie_vs = [x[1] for x in serie["data"]]
+                if len(serie_vs) > max_size:
+                    max_size = len(serie_vs)
+                    tmp_ts = [x[0] for x in serie["data"]]
+                sum = merge_list(sum, serie_vs)
+            sum_serie_data = []
+            for i in range(0, max_size):
+                sum_serie_data.append((tmp_ts[i], sum[i]))
+            sum_serie_comp['data'] = sum_serie_data
+
+            series_comp.append(sum_serie_comp)
+
+        if g.sumonly == "on":
+            ret['series'] = [sum_serie, sum_serie_comp]
+        else:
+            series.extend(series_comp)
+            ret['series'] = series
+
     return json.dumps(ret)
+
 
 @app.route("/chart/k", methods=["GET"])
 def multi_counters_chart_data():
@@ -218,6 +288,9 @@ def multi_counters_chart_data():
 
     query_result = graph_query(endpoint_counters, g.cf, g.start, g.end)
 
+    name_pre = ""
+    if g.comp_date > 0:
+        name_pre = "This Period: "
     series = []
     for i in range(0, len(query_result)):
         x = query_result[i]
@@ -225,7 +298,7 @@ def multi_counters_chart_data():
             xv = [(v["timestamp"]*1000, v["value"]) for v in x["Values"]]
             serie = {
                     "data": xv,
-                    "name": query_result[i]["counter"],
+                    "name": "%s %s" % (name_pre, query_result[i]["counter"]),
                     "cf": g.cf,
                     "endpoint": query_result[i]["endpoint"],
                     "counter": query_result[i]["counter"],
@@ -236,7 +309,7 @@ def multi_counters_chart_data():
 
     sum_serie = {
             "data": [],
-            "name": "sum",
+            "name": "%s %s" % (name_pre, "sum"),
             "cf": g.cf,
             "endpoint": e,
             "counter": "sum",
@@ -262,6 +335,57 @@ def multi_counters_chart_data():
         ret['series'] = [sum_serie,]
     else:
         ret['series'] = series
+
+    if g.comp_date > 0:
+        g.start = g.start - g.duration - 60
+        g.end = g.end - g.duration + 60
+        query_result = graph_query(endpoint_counters, g.cf, g.start, g.end)
+        name_pre = "Last Period: "
+        series_comp = []
+        for i in range(0, len(query_result)):
+            x = query_result[i]
+            try:
+                xv = [((v["timestamp"]+g.duration)*1000, v["value"]) for v in x["Values"]]
+                serie = {
+                        "data": xv,
+                        "name": "%s %s" % (name_pre, query_result[i]["counter"]),
+                        "cf": g.cf,
+                        "endpoint": query_result[i]["endpoint"],
+                        "counter": query_result[i]["counter"],
+                }
+                series_comp.append(serie)
+            except:
+                pass
+
+        sum_serie_comp = {
+                "data": [],
+                "name": "%s %s" % (name_pre, "sum"),
+                "cf": g.cf,
+                "endpoint": e,
+                "counter": "sum",
+        }
+        if g.sum == "on" or g.sumonly == "on":
+            sum = []
+            tmp_ts = []
+            max_size = 0
+            for serie in series_comp:
+                serie_vs = [x[1] for x in serie["data"]]
+                if len(serie_vs) > max_size:
+                    max_size = len(serie_vs)
+                    tmp_ts = [x[0] for x in serie["data"]]
+                sum = merge_list(sum, serie_vs)
+            sum_serie_data = []
+            for i in range(0, max_size):
+                sum_serie_data.append((tmp_ts[i], sum[i]))
+            sum_serie_comp['data'] = sum_serie_data
+
+            series_comp.append(sum_serie_comp)
+
+        if g.sumonly == "on":
+            ret['series'] = [sum_serie,sum_serie_comp]
+        else:
+            series.extend(series_comp)
+            ret['series'] = series
 
     return json.dumps(ret)
 
@@ -299,6 +423,9 @@ def multi_chart_data():
             })
     query_result = graph_query(endpoint_counters, g.cf, g.start, g.end)
 
+    name_pre = ""
+    if g.comp_date > 0:
+        name_pre = "This Period: "
     series = []
     for i in range(0, len(query_result)):
         x = query_result[i]
@@ -306,7 +433,7 @@ def multi_chart_data():
             xv = [(v["timestamp"]*1000, v["value"]) for v in x["Values"]]
             serie = {
                     "data": xv,
-                    "name": "%s %s" %(query_result[i]["endpoint"], query_result[i]["counter"]),
+                    "name": "%s %s %s" % (name_pre, query_result[i]["endpoint"], query_result[i]["counter"]),
                     "cf": g.cf,
                     "endpoint": "",
                     "counter": "",
@@ -317,7 +444,7 @@ def multi_chart_data():
 
     sum_serie = {
             "data": [],
-            "name": "sum",
+            "name": "%s %s" % (name_pre, "sum"),
             "cf": g.cf,
             "endpoint": "",
             "counter": "",
@@ -343,6 +470,58 @@ def multi_chart_data():
         ret['series'] = [sum_serie,]
     else:
         ret['series'] = series
+
+    if g.comp_date > 0:
+        g.start = g.start - g.duration - 60
+        g.end = g.end - g.duration + 60
+        query_result = graph_query(endpoint_counters, g.cf, g.start, g.end)
+        name_pre = "Last Period: "
+        series_comp = []
+
+        for i in range(0, len(query_result)):
+            x = query_result[i]
+            try:
+                xv = [((v["timestamp"]+g.duration)*1000, v["value"]) for v in x["Values"]]
+                serie = {
+                        "data": xv,
+                        "name": "%s %s %s" % (name_pre, query_result[i]["endpoint"], query_result[i]["counter"]),
+                        "cf": g.cf,
+                        "endpoint": "",
+                        "counter": "",
+                }
+                series_comp.append(serie)
+            except:
+                pass
+
+        sum_serie_comp = {
+                "data": [],
+                "name": "%s %s" % (name_pre, "sum"),
+                "cf": g.cf,
+                "endpoint": "",
+                "counter": "",
+        }
+        if g.sum == "on" or g.sumonly == "on":
+            sum = []
+            tmp_ts = []
+            max_size = 0
+            for serie in series_comp:
+                serie_vs = [x[1] for x in serie["data"]]
+                if len(serie_vs) > max_size:
+                    max_size = len(serie_vs)
+                    tmp_ts = [x[0] for x in serie["data"]]
+                sum = merge_list(sum, serie_vs)
+            sum_serie_data = []
+            for i in range(0, max_size):
+                sum_serie_data.append((tmp_ts[i], sum[i]))
+            sum_serie_comp['data'] = sum_serie_data
+
+            series_comp.append(sum_serie_comp)
+
+        if g.sumonly == "on":
+            ret['series'] = [sum_serie, sum_serie_comp]
+        else:
+            series.extend(series_comp)
+            ret['series'] = series
 
     return json.dumps(ret)
 
@@ -376,6 +555,7 @@ def charts():
         "nav_header": g.nav_header,
         "start": g.start,
         "end": g.end,
+        "comp_date": g.comp_date,
     }
 
     if g.graph_type == GRAPH_TYPE_KEY:
