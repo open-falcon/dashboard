@@ -21,9 +21,9 @@ def api_endpoints():
     tags = raw_tag and [x.strip() for x in raw_tag.split(",")] or []
     limit = int(request.args.get("limit") or 100)
 
-    if not q and not tags:
-        ret["msg"] = "no query params given"
-        return json.dumps(ret)
+    # if not q and not tags:
+    #     ret["msg"] = "no query params given"
+    #     return json.dumps(ret)
     
     endpoints = []
 
