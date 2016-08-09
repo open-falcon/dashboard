@@ -19,8 +19,8 @@ function fn_list_endpoints()
                 for (var hidx in hosts) {
                     var h = hosts[hidx];
                     var line_html = '<tr>'
-                    + '<td><input type="checkbox" class="input shiftCheckbox" data-fullname="'+ h +'"></input></td>'
-                    + '<td>' + h + '</td>'
+                    + '<td><input id="' + hidx+ h + '" type="checkbox" class="input shiftCheckbox" data-fullname="'+ h +'"></input></td>'
+                    + '<td><label for="' + hidx+ h + '">' + h + '</label></td>'
                     + '</tr>';
                     tbody_hosts.append($(line_html));
                     tbody_hosts.find('.shiftCheckbox').shiftcheckbox();
