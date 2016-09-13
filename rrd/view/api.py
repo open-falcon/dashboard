@@ -5,6 +5,7 @@ from rrd import app
 
 from rrd.model.tag_endpoint import TagEndpoint
 from rrd.model.endpoint import Endpoint
+from rrd.model.endpoint_alias import EndpointAlias
 from rrd.model.endpoint_counter import EndpointCounter
 from rrd.model.graph import TmpGraph
 
@@ -36,10 +37,13 @@ def api_endpoints():
     else:
         endpoints = Endpoint.search(q.split(), limit=limit)
 
+    endpoint_alias = EndpointAlias.searchAlias()
+    endpoint_alias_str = [{'endpoint':x.endpoint, "alias":x.alias} for x in endpoint_alias]
     endpoints_str = [x.endpoint for x in endpoints]
     endpoints_str.sort()
     ret['data'] = endpoints_str
     ret['ok'] = True
+    ret['alias'] = endpoint_alias_str
 
     return json.dumps(ret)
 
