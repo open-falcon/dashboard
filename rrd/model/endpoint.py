@@ -29,6 +29,7 @@ class Endpoint(object):
 
         return [cls(*row) for row in rows]
 
+
     @classmethod
     def search_in_ids(cls, qs, ids, deadline=0):
         if not ids:

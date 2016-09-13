@@ -12,15 +12,22 @@ function fn_list_endpoints()
                     return;
                 }
                 var hosts = ret.data;
+                var alias = ret.alias
+                var aliasMap = {};
+                for (var i in alias) {
+                    var a = alias[i];
+                    aliasMap[a.endpoint] = a.alias;
+                }
 
                 // display_endpoints
                 var tbody_hosts = $("#tbody-endpoints");
                 tbody_hosts.html("");
+
                 for (var hidx in hosts) {
                     var h = hosts[hidx];
                     var line_html = '<tr>'
-                    + '<td><input type="checkbox" class="input shiftCheckbox" data-fullname="'+ h +'"></input></td>'
-                    + '<td>' + h + '</td>'
+                    + '<td><input id="' + hidx+ h + '" type="checkbox" class="input shiftCheckbox" data-fullname="'+ h +'"></input></td>'
+                    + '<td><label for="' + hidx+ h + '">' + h + '</label></td><td>' + (aliasMap[h] ? aliasMap[h] : h) + '</td>'
                     + '</tr>';
                     tbody_hosts.append($(line_html));
                     tbody_hosts.find('.shiftCheckbox').shiftcheckbox();
