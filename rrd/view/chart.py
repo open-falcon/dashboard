@@ -1,73 +1,13 @@
 #-*- coding:utf-8 -*-
-import os
-import time
-import datetime
-import socket
-import hashlib
-import random
 import urllib
 import json
-import random
 from flask import request, g, abort, render_template
-from MySQLdb import ProgrammingError
 
 from rrd import app
-from rrd.consts import RRD_CFS, GRAPH_TYPE_KEY, GRAPH_TYPE_HOST
-from rrd.model.graph import TmpGraph
+from rrd.consts import GRAPH_TYPE_KEY, GRAPH_TYPE_HOST
 from rrd.utils.rrdgraph import merge_list
-from rrd.utils.rrdgraph import graph_query
-
-@app.teardown_request
-def teardown_request(exception):
-    from rrd.store import dashboard_db_conn as db_conn
-    try:
-        db_conn and db_conn.commit()
-    except ProgrammingError:
-        pass
-
-    from rrd.store import graph_db_conn
-    try:
-        graph_db_conn and graph_db_conn.commit()
-    except ProgrammingError:
-        pass
-#
-@app.before_request
-def chart_before():
-    if request.method == "GET":
-        now = int(time.time())
-
-        #是否显示顶部图表导航
-        g.nav_header = request.args.get("nav_header") or "on"
-        g.cols = request.args.get("cols") or "2"
-        try:
-            g.cols = int(g.cols)
-        except:
-            g.cols = 2
-        if g.cols <= 0:
-            g.cols = 2
-        if g.cols >= 6:
-            g.cols = 6
-
-        g.legend = request.args.get("legend") or "off"
-        g.graph_type = request.args.get("graph_type") or GRAPH_TYPE_HOST
-        g.sum = request.args.get("sum") or "off" #是否求和
-        g.sumonly = request.args.get("sumonly") or "off" #是否只显示求和
-
-        g.cf = (request.args.get("cf") or "AVERAGE").upper() # MAX, MIN, AVGRAGE, LAST
-
-        g.start = int(request.args.get("start") or -3600)
-        if g.start < 0:
-            g.start = now + g.start
-
-        g.end = int(request.args.get("end") or 0)
-        if g.end <= 0:
-            g.end = now + g.end
-        g.end = g.end - 60
-
-        g.id = request.args.get("id") or ""
-
-        g.limit = int(request.args.get("limit") or 0)
-        g.page = int(request.args.get("page") or 0)
+from rrd.utils.rrdgraph import graph_history
+from rrd.model.tmpgraph import TmpGraph
 
 @app.route("/chart", methods=["POST",])
 def chart():
@@ -76,16 +16,14 @@ def chart():
     graph_type = request.form.get("graph_type") or GRAPH_TYPE_HOST
 
     id_ = TmpGraph.add(endpoints, counters)
-
     ret = {
-            "ok": False,
-            "id": id_,
-            "params": {
-                "graph_type": graph_type,
-            },
+        "ok": False,
+        "id": id_,
+        "params": {
+            "graph_type": graph_type,
+        },
     }
-    if id_:
-        ret['ok'] = True
+    if id_: ret['ok'] = True
 
     return json.dumps(ret)
 
@@ -106,16 +44,16 @@ def multi_endpoints_chart_data():
     if not g.id:
         abort(400, "no graph id given")
 
-    tmp_graph = TmpGraph.get(g.id)
-    if not tmp_graph:
-        abort(404, "no graph which id is %s" %g.id)
+    j = TmpGraph.get(g.id)
+    if not j:
+        abort(400, "no such tmp_graph where id=%s" %g.id)
 
-    counters = tmp_graph.counters
+    counters = j.counters
     if not counters:
         abort(400, "no counters of %s" %g.id)
     counters = sorted(set(counters))
 
-    endpoints = tmp_graph.endpoints
+    endpoints = j.endpoints
     if not endpoints:
         abort(400, "no endpoints of %s" %(g.id,))
     endpoints = sorted(set(endpoints))
@@ -124,17 +62,11 @@ def multi_endpoints_chart_data():
         "units": "",
         "title": "",
         "series": []
-    }
-    ret['title'] = counters[0]
-    c = counters[0]
-    endpoint_counters = []
-    for e in endpoints:
-        endpoint_counters.append({
-            "endpoint": e,
-            "counter": c,
-        })
+   }
 
-    query_result = graph_query(endpoint_counters, g.cf, g.start, g.end)
+    c = counters[0]
+    ret['title'] = c
+    query_result = graph_history(endpoints, counters[:1], g.cf, g.start, g.end)
 
     series = []
     for i in range(0, len(query_result)):
@@ -147,7 +79,7 @@ def multi_endpoints_chart_data():
                     "cf": g.cf,
                     "endpoint": query_result[i]["endpoint"],
                     "counter": query_result[i]["counter"],
-            }
+                    }
             series.append(serie)
         except:
             pass
@@ -158,7 +90,7 @@ def multi_endpoints_chart_data():
             "cf": g.cf,
             "endpoint": "sum",
             "counter": c,
-    }
+            }
     if g.sum == "on" or g.sumonly == "on":
         sum = []
         tmp_ts = []
@@ -188,16 +120,16 @@ def multi_counters_chart_data():
     if not g.id:
         abort(400, "no graph id given")
 
-    tmp_graph = TmpGraph.get(g.id)
-    if not tmp_graph:
-        abort(404, "no graph which id is %s" %g.id)
+    j = TmpGraph.get(g.id)
+    if not j:
+        abort(400, "no such tmp_graph where id=%s" %g.id)
 
-    counters = tmp_graph.counters
+    counters = j.counters
     if not counters:
         abort(400, "no counters of %s" %g.id)
     counters = sorted(set(counters))
 
-    endpoints = tmp_graph.endpoints
+    endpoints = j.endpoints
     if not endpoints:
         abort(400, "no endpoints of %s" % g.id)
     endpoints = sorted(set(endpoints))
@@ -207,16 +139,10 @@ def multi_counters_chart_data():
         "title": "",
         "series": []
     }
-    ret['title'] = endpoints[0]
     e = endpoints[0]
-    endpoint_counters = []
-    for c in counters:
-        endpoint_counters.append({
-            "endpoint": e,
-            "counter": c,
-        })
+    ret['title'] = e
 
-    query_result = graph_query(endpoint_counters, g.cf, g.start, g.end)
+    query_result = graph_history(endpoints[:1], counters, g.cf, g.start, g.end)
 
     series = []
     for i in range(0, len(query_result)):
@@ -229,7 +155,7 @@ def multi_counters_chart_data():
                     "cf": g.cf,
                     "endpoint": query_result[i]["endpoint"],
                     "counter": query_result[i]["counter"],
-            }
+                    }
             series.append(serie)
         except:
             pass
@@ -240,7 +166,7 @@ def multi_counters_chart_data():
             "cf": g.cf,
             "endpoint": e,
             "counter": "sum",
-    }
+            }
     if g.sum == "on" or g.sumonly == "on":
         sum = []
         tmp_ts = []
@@ -270,16 +196,16 @@ def multi_chart_data():
     if not g.id:
         abort(400, "no graph id given")
 
-    tmp_graph = TmpGraph.get(g.id)
-    if not tmp_graph:
-        abort(404, "no graph which id is %s" %g.id)
+    j = TmpGraph.get(g.id)
+    if not j:
+        abort(400, "no such tmp_graph where id=%s" %g.id)
 
-    counters = tmp_graph.counters
+    counters = j.counters
     if not counters:
         abort(400, "no counters of %s" %g.id)
     counters = sorted(set(counters))
 
-    endpoints = tmp_graph.endpoints
+    endpoints = j.endpoints
     if not endpoints:
         abort(400, "no endpoints of %s, and tags:%s" %(g.id, g.tags))
     endpoints = sorted(set(endpoints))
@@ -290,14 +216,7 @@ def multi_chart_data():
         "series": []
     }
 
-    endpoint_counters = []
-    for e in endpoints:
-        for c in counters:
-            endpoint_counters.append({
-                "endpoint": e,
-                "counter": c,
-            })
-    query_result = graph_query(endpoint_counters, g.cf, g.start, g.end)
+    query_result = graph_history(endpoints, counters, g.cf, g.start, g.end)
 
     series = []
     for i in range(0, len(query_result)):
@@ -310,7 +229,7 @@ def multi_chart_data():
                     "cf": g.cf,
                     "endpoint": "",
                     "counter": "",
-            }
+                    }
             series.append(serie)
         except:
             pass
@@ -321,7 +240,7 @@ def multi_chart_data():
             "cf": g.cf,
             "endpoint": "",
             "counter": "",
-    }
+            }
     if g.sum == "on" or g.sumonly == "on":
         sum = []
         tmp_ts = []
@@ -351,16 +270,16 @@ def charts():
     if not g.id:
         abort(400, "no graph id given")
 
-    tmp_graph = TmpGraph.get(g.id)
-    if not tmp_graph:
-        abort(404, "no graph which id is %s" %g.id)
+    j = TmpGraph.get(g.id)
+    if not j:
+        abort(400, "no such tmp_graph where id=%s" %g.id)
 
-    counters = tmp_graph.counters
+    counters = j.counters
     if not counters:
         abort(400, "no counters of %s" %g.id)
     counters = sorted(set(counters))
 
-    endpoints = tmp_graph.endpoints
+    endpoints = j.endpoints
     if not endpoints:
         abort(400, "no endpoints of %s" %g.id)
     endpoints = sorted(set(endpoints))
@@ -379,7 +298,6 @@ def charts():
     }
 
     if g.graph_type == GRAPH_TYPE_KEY:
-
         for x in endpoints:
             id_ = TmpGraph.add([x], counters)
             if not id_:
@@ -407,4 +325,3 @@ def charts():
             chart_urls.append(src)
 
     return render_template("chart/multi_ng.html", **locals())
-

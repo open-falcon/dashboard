@@ -16,7 +16,7 @@ from rrd import config
 
 @app.route("/screen", methods=["GET", "POST"])
 def dash_screens():
-    top_screens = DashboardScreen.gets(pid='0')
+    top_screens = DashboardScreen.gets_by_pid(pid='0')
     top_screens = sorted(top_screens, key=lambda x:x.name)
 
     return render_template("screen/index.html", **locals())
@@ -80,7 +80,7 @@ def dash_screen(sid):
     start = request.args.get("start")
     end = request.args.get("end")
 
-    top_screens = DashboardScreen.gets(pid=0)
+    top_screens = DashboardScreen.gets_by_pid(pid=0)
     top_screens = sorted(top_screens, key=lambda x:x.name)
 
     screen = DashboardScreen.get(sid)
@@ -88,12 +88,12 @@ def dash_screen(sid):
         abort(404, "no screen")
 
     if str(screen.pid) == '0':
-        sub_screens = DashboardScreen.gets(pid=sid)
+        sub_screens = DashboardScreen.gets_by_pid(pid=sid)
         sub_screens = sorted(sub_screens, key=lambda x:x.name)
         return render_template("screen/top_screen.html", **locals())
 
     pscreen = DashboardScreen.get(screen.pid)
-    sub_screens = DashboardScreen.gets(pid=screen.pid)
+    sub_screens = DashboardScreen.gets_by_pid(pid=screen.pid)
     sub_screens = sorted(sub_screens, key=lambda x:x.name)
     graphs = DashboardGraph.gets_by_screen_id(screen.id)
 
@@ -143,7 +143,7 @@ def dash_screen_add():
 
 @app.route("/screen/<int:sid>/graph", methods=["GET", "POST"])
 def dash_graph_add(sid):
-    all_screens = DashboardScreen.gets()
+    all_screens = DashboardScreen.gets_all()
     top_screens = [x for x in all_screens if x.pid == '0']
     children = []
     for t in top_screens:
@@ -165,10 +165,10 @@ def dash_graph_add(sid):
         counters = counters and counters.split("\n") or []
         counters = [x.strip() for x in counters]
 
-        timespan = request.form.get("timespan", 3600)
+        timespan = int(request.form.get("timespan", 3600))
         graph_type = request.form.get("graph_type", 'h')
         method = request.form.get("method", '').upper()
-        position = request.form.get("position", 0)
+        position = int(request.form.get("position", 0))
 
         graph = DashboardGraph.add(title, hosts, counters, sid,
                 timespan, graph_type, method, position)
@@ -186,7 +186,7 @@ def dash_graph_edit(gid):
     if not graph:
         abort(404, "no graph")
 
-    all_screens = DashboardScreen.gets()
+    all_screens = DashboardScreen.gets_all()
     top_screens = [x for x in all_screens if x.pid == '0']
     children = []
     for t in top_screens:

@@ -1,6 +1,5 @@
 #-*- coding:utf-8 -*-
 import MySQLdb
-from rrd import config
 
 def connect_db(host, port, user, password, db):
     try:
@@ -60,18 +59,3 @@ class DB(object):
                 self._conn and self._conn.close()
                 self.connect()
                 self._conn and self._conn.rollback()
-
-dashboard_db_conn = DB(
-        config.DASHBOARD_DB_HOST,
-        config.DASHBOARD_DB_PORT,
-        config.DASHBOARD_DB_USER,
-        config.DASHBOARD_DB_PASSWD,
-        config.DASHBOARD_DB_NAME)
-
-graph_db_conn = DB(
-        config.GRAPH_DB_HOST,
-        config.GRAPH_DB_PORT,
-        config.GRAPH_DB_USER,
-        config.GRAPH_DB_PASSWD,
-        config.GRAPH_DB_NAME)
-

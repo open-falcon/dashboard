@@ -11,15 +11,15 @@ function fn_list_endpoints()
                     alert(ret.msg);
                     return;
                 }
-                var hosts = ret.data;
 
                 // display_endpoints
                 var tbody_hosts = $("#tbody-endpoints");
                 tbody_hosts.html("");
-                for (var hidx in hosts) {
-                    var h = hosts[hidx];
+                for (var hidx in ret.data) {
+                    var h = ret.data[hidx].endpoint;
+                    var eid = ret.data[hidx].id;
                     var line_html = '<tr>'
-                    + '<td><input type="checkbox" class="input shiftCheckbox" data-fullname="'+ h +'"></input></td>'
+                    + '<td><input type="checkbox" class="input shiftCheckbox" data-eid="'+ eid +'"  data-fullname="'+ h +'"></input></td>'
                     + '<td>' + h + '</td>'
                     + '</tr>';
                     tbody_hosts.append($(line_html));
@@ -34,12 +34,12 @@ function fn_list_endpoints()
 
 function fn_list_counters(){
     var qs = $.trim($("#counter-search").val());
-    var hosts = new Array();
+    var eids = new Array();
     $("#tbody-endpoints input:checked").each(function(i, o){
-        var name = $(o).attr("data-fullname");
-        hosts.push(name);
+        var eid = $(o).attr("data-eid");
+        eids.push(eid);
     });
-    if (hosts.length === 0){
+    if (eids.length === 0){
         alert("先选定一些endpoints");
         return false;
     }
@@ -50,7 +50,7 @@ function fn_list_counters(){
         method: "POST",
         url: "/api/counters",
         dataType: "json",
-        data: {"endpoints": JSON.stringify(hosts), "q": qs, "limit": limit, "_r": Math.random()},
+        data: {"eids": JSON.stringify(eids), "q": qs, "limit": limit, "_r": Math.random()},
         success:function(ret){
             $(".loading").hide();
             if(ret.ok){
