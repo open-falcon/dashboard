@@ -14,6 +14,7 @@
     {% block css %}
         <link href="{{url_for('static', filename='bootstrap3/css/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{url_for('static', filename='select2/select2.css')}}" rel="stylesheet">
+        <link href="{{url_for('static', filename='layer/skin/layer.css')}}" rel="stylesheet">
         <link href="{{url_for('static', filename='css/select2-bootstrap.css')}}" rel="stylesheet">
         <link href="{{url_for('static', filename='bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet"> </link>
         <link rel="stylesheet" href="{{url_for('static', filename='bootstrap-tokenfield/css/bootstrap-tokenfield.min.css')}}">
@@ -30,6 +31,7 @@
 
     {% block head_js %}
         <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+        <script src="{{url_for('static', filename='layer/layer.min.js')}}"></script>
         <script src="{{url_for('static', filename='js/jquery.query.js')}}"></script>
         <script src="{{url_for('static', filename='bootstrap3/js/bootstrap.min.js')}}"></script>
         <script src="{{url_for('static', filename='js/moment.min.js')}}"></script>
@@ -88,7 +90,7 @@
 <body style="height:100%; padding-top: 0px; padding-bottom: 40px; font-size:12px;">
 {%endblock%}
 
-    {%block navbar%}{%endblock%}
+    {%block navbar%} {%endblock%}
     {% block more_css%} {% endblock %}
     {% block more_js%} {% endblock %}
     {% block nav%} {% endblock %}

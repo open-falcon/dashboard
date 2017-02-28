@@ -1,10 +1,11 @@
 #-*- coding:utf-8 -*-
 import time
-from flask import request, g, abort, render_template
+from flask import request, g, session, abort, render_template
 from MySQLdb import ProgrammingError
 
 from rrd import app
 from rrd.consts import RRD_CFS, GRAPH_TYPE_KEY, GRAPH_TYPE_HOST
+from rrd.view.utils import get_usertoken_from_session, get_current_user_profile
 
 @app.teardown_request
 def teardown_request(exception):
@@ -12,6 +13,9 @@ def teardown_request(exception):
 
 @app.before_request
 def chart_before():
+    g.user_token = get_usertoken_from_session(session)
+    g.user = get_current_user_profile(g.user_token)
+
     if request.method == "GET":
         now = int(time.time())
 

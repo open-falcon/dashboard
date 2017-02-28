@@ -1,0 +1,35 @@
+<nav class="navbar navbar-default" role="navigation" style="background-color: #fff;">
+<div class="container-fluid">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        </button>
+        <a class="navbar-brand" href="/">Falcon-Dashboard</a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/">Dashboard</a></li>
+          <li><a href="/screen">Screen</a></li>
+          <li><a href="/hostgroup">HostGroups</a></li>
+          <li><a href="/template">Templates</a></li>
+          <li><a href="/expression">Expressions</a></li>
+          <li><a href="/nodata">Nodata</a></li>
+          <li><a href="/alarm-dash">Alarm-Dashboard</a></li>
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">链接<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu" style="font-size:12px;">
+                  <li><a href="">Profile</a></li>
+                  <li><a href="">Users</a></li>
+                  <li><a href="">Teams</a></li>
+                  {%if g.user%}
+                      <li><a href="/auth/logout">Logout</a></li>
+                  {%else%}
+                      <li><a href="/auth/login">Login</a></li>
+                      <li><a href="/auth/register">Sign Up</a></li>
+                  {%endif%}
+                  <li><a href="https://github.com/open-falcon">fork me on Github</a></li>
+              </ul>
+          </li>
+        </ul>
+    </div>
+</div>
+</nav>

@@ -4,7 +4,6 @@ import os
 #-- app config --
 DEBUG = True
 SECRET_KEY = "secret-key"
-SESSION_COOKIE_NAME = "open-falcon"
 PERMANENT_SESSION_LIFETIME = 3600 * 24 * 30
 SITE_COOKIE = "open-falcon-ck"
 

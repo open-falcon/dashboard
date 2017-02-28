@@ -1,24 +1,30 @@
 #-*- coding:utf-8 -*-
-from rrd import config 
-from rrd.utils import randbytes
+import requests
+import json
 
-def auth_user_from_session(session_):
-    user = None
-    if config.SITE_COOKIE in session_:
-        cookies = session_[config.SITE_COOKIE]
-        user_id, session_id = cookies.split(":")
+def auth_requests(user_token, method, *args, **kwargs):
+    if not user_token:
+        raise Exception("no api token")
 
-    return user 
+    headers = {
+            "Apitoken": json.dumps({"name":user_token.name, "sig":user_token.sig})
+    }
 
-def set_user_cookie(user, session_):
-    if not user:
-        return None
-    session_id = user.session_id if user.session_id else randbytes(8)
-    #user.update_session(session_id)
-    session_[config.SITE_COOKIE] = "%s:%s" % (user.id, session_id)
+    if not kwargs:
+        kwargs = {}
 
-def logout_user(user):
-    if not user:
-        return 
-    #user.clear_session()
+    if "headers" in kwargs:
+        headers.update(kwargs["headers"])
+        del kwargs["headers"]
+
+    if method == "POST":
+        return requests.post(*args, headers=headers, **kwargs)
+    elif method == "GET":
+        return requests.get(*args, headers=headers, **kwargs)
+    elif method == "PUT":
+        return requests.put(*args, headers=headers, **kwargs)
+    elif method == "DELETE":
+        return requests.delete(*args, headers=headers, **kwargs)
+    else:
+        raise Exception("invalid http method")
 

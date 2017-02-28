@@ -1,0 +1,28 @@
+{% extends "user/base.html" %}
+
+
+{% block container_outer %}
+<div id="container" class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+
+			<div style="margin: 0 auto; max-width: 400px;">
+				<div class="thin-border" style="line-height:24px;">
+					<div class="pull-right">
+						<img src="/user/qrcode/{{user_info["id"]}}" width="120" height="120">
+					</div>
+					<div>
+						姓名：{{user_info["cnname"]}}<br>
+						手机：{{user_info["phone"]}}<br>
+						邮箱：{{user_info["email"]}}<br>
+						QQ：{{user_info["qq"]}}<br>
+						IM：{{user_info["im"]}}<br>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
+{%endblock%}
