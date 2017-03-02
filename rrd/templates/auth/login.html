@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "auth/base.html" %}
 
 {%block head_js%}
     {{super()}}
@@ -13,11 +13,6 @@
     });
     </script>
 
-    <script src="{{url_for('static', filename='js/g.js')}}"></script>
-{%endblock%}
-
-{%block navbar%}
-  {%include "navbar.html"%}
 {%endblock%}
 
 {% block container_outer %}

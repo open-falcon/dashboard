@@ -23,3 +23,9 @@ class User(object):
         return "<UserProfile id=%s, name=%s, cnname=%s>" \
                 % (self.id, self.name, self.cnname)
     __str__ = __repr__
+
+    def is_root(self):
+        return str(self.role) == "2"
+
+    def is_admin(self):
+        return str(self.role) == "1"

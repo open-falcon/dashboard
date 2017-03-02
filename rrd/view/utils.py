@@ -10,15 +10,19 @@ from rrd import corelib
 from rrd.utils import randbytes
 from rrd.model.user import User, UserToken
 
-def require_login(msg="please login first", redir=""):
+def require_login(redir="/auth/login", json_msg="", html_msg=""):
     def _(f):
         @wraps(f)
         def __(*a, **kw):
             if not g.user:
                 if redir:
-                    return redirect(redir or "/")
+                    return redirect(redir)
+                elif json_msg:
+                    return json.dumps({"msg": json_msg})
+                elif html_msg:
+                    return abort(403, html_msg)
                 else:
-                    return json.dumps({"msg": msg})
+                    return abort(403, "please login first")
             return f(*a, **kw)
         return __
     return _
@@ -56,9 +60,9 @@ def logout_user(user_token):
     if not user_token:
         return 
 
-    r = auth_requests(user_token, "POST", "%s/user/logout" %config.API_ADDR)
+    r = corelib.auth_requests(user_token, "GET", "%s/user/logout" %config.API_ADDR)
     if r.status_code != 200:
-        raise Exception("%s:%s", r.status_code, r.text)
+        raise Exception("%s:%s" %(r.status_code, r.text))
     clear_user_cookie(session)
 
 def login_user(name, password):

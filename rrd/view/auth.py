@@ -1,7 +1,9 @@
 #-*- coding:utf-8 -*-
-from flask import request, g, abort, render_template
+from flask import request, g, abort, render_template, redirect
 from rrd import app
+from rrd import config
 from rrd.view import utils as view_utils
+from rrd.view.utils import require_login
 
 import requests
 import json
@@ -9,6 +11,9 @@ import json
 @app.route("/auth/login", methods=["GET", "POST"])
 def auth_login():
     if request.method == "GET":
+        if g.user:
+            return redirect("/")
+
         return render_template("auth/login.html", **locals())
 
     if request.method == "POST":
@@ -35,15 +40,48 @@ def auth_login():
             ret["msg"] = str(e)
             return json.dumps(ret)
 
-@app.route("/auth/logout", methods=["POST",])
+@app.route("/auth/logout", methods=["GET",])
+@require_login()
 def auth_logout():
-    if request.method == "POST":
-        pass
+    if request.method == "GET":
+        view_utils.logout_user(g.user_token)
+        return redirect("/auth/login")
 
 @app.route("/auth/register", methods=["GET", "POST"])
 def auth_register():
     if request.method == "GET":
+        if g.user:
+            return redirect("/auth/login")
         return render_template("auth/register.html", **locals())
 
     if request.method == "POST":
-        pass
+        ret = {"msg":""}
+
+        name = request.form.get("name", "")
+        cnname = request.form.get("cnname", "")
+        email = request.form.get("email", "")
+        password = request.form.get("password", "")
+        repeat_password = request.form.get("repeat_password", "")
+
+        if not name or not password or not email or not cnname:
+            ret["msg"] = "not all form item entered"
+            return json.dumps(ret)
+
+        if password != repeat_password:
+            ret["msg"] = "repeat password not equal"
+            return json.dumps(ret)
+
+        h = {"Content-type":"application/json"}
+        d = {
+            "name": name,
+            "cnname": cnname,
+            "email": email,
+            "password": password,
+        }
+
+        r = requests.post("%s/user/create" %(config.API_ADDR,), \
+                data=json.dumps(d), headers=h)
+        if r.status_code != 200:
+            ret['msg'] = r.text
+
+        return json.dumps(ret)
