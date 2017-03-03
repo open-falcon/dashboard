@@ -124,7 +124,7 @@ function query_team() {
 }
 
 function create_user() {
-	$.post('/admin/user/create', {
+	$.post('/user/create', {
 		'name' : $("#name").val(),
 		'cnname' : $("#cnname").val(),
 		'email' : $("#email").val(),
@@ -171,7 +171,7 @@ function reset_password(id) {
 }
 
 function create_team() {
-	$.post('/admin/team/create', {
+	$.post('/team/create', {
 		'name' : $("#name").val(),
 		'resume' : $("#resume").val(),
 		'users' : $("#users").val()
@@ -185,7 +185,7 @@ function create_team() {
 }
 
 function edit_team(tid) {
-	$.post('/admin/team/'+tid+'/edit', {
+	$.post('/team/'+tid+'/edit', {
 		'resume' : $("#resume").val(),
 		'users' : $("#users").val(),
 		'id': tid
@@ -216,7 +216,7 @@ function delete_user(uid) {
 
 function delete_team(id) {
 	my_confirm("真的真的要删除么？", [ '确定', '取消' ], function() {
-		$.get('/admin/team/'+id+'/delete', {}, function(json) {
+		$.post('/team/'+id+'/delete', {}, function(json) {
 			if (json.msg.length > 0) {
 				err_message_quietly(json.msg);
 			} else {
@@ -224,9 +224,9 @@ function delete_team(id) {
 					location.reload();
 				});
 			}
-		});
+		}, "json");
 	}, function() {
-	}, "json");
+	});
 }
 
 function set_role(uid, obj) {
@@ -247,18 +247,3 @@ function set_role(uid, obj) {
 	}, "json");
 }
 
-function user_detail(uid) {
-	$("#user_detail_div").load("/user/detail?id=" + uid);
-	$.layer({
-		type : 1,
-		shade : [ 0.5, '#000' ],
-		shadeClose : true,
-		closeBtn : [ 0, true ],
-		area : [ '450px', '240px' ],
-		title : false,
-		border : [ 0 ],
-		page : {
-			dom : '#user_detail_div'
-		}
-	}, "json");
-}

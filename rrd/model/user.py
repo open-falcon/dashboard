@@ -5,7 +5,7 @@ class UserToken(object):
         self.sig = sig
     
     def __repr__(self):
-        return "<User name=%s, sig=%s>"  % (self.name, self.sig)
+        return "<UserToken name=%s, sig=%s>"  % (self.name, self.sig)
     __str__ = __repr__
 
 class User(object):
@@ -20,7 +20,7 @@ class User(object):
         self.role = role
 
     def __repr__(self):
-        return "<UserProfile id=%s, name=%s, cnname=%s>" \
+        return "<User id=%s, name=%s, cnname=%s>" \
                 % (self.id, self.name, self.cnname)
     __str__ = __repr__
 

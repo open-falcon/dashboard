@@ -82,7 +82,6 @@ def user_change_passwd():
 
         return json.dumps(ret)
         
-##admin
 @app.route("/user/list", methods=["GET",])
 @require_login()
 def user_list():
@@ -95,8 +94,9 @@ def user_list():
                     "limit": g.limit or 50,
                     "page": g.page or 1,
             }
+            h = {"Content-type":"application/json"}
             r = corelib.auth_requests(g.user_token, "GET", "%s/user/users" \
-                    %(config.API_ADDR,), params=d)
+                    %(config.API_ADDR,), params=d, headers=h)
             if r.status_code != 200:
                 abort(400, "request to api fail: %s" %(r.text,))
             j = r.json() or []
@@ -106,20 +106,35 @@ def user_list():
 
         return render_template("user/list.html", **locals())
 
-@app.route("/admin/user/create", methods=["GET", "POST"])
-@require_login()
-def admin_user_create():
+@app.route("/user/query", methods=["GET",])
+@require_login(json_msg="login first")
+def user_query():
     if request.method == "GET":
-        if not (g.user.is_admin() or g.user.is_root()):
-            abort(403, "no such privilege")
+        query_term = request.args.get("query", "")
+        if query_term:
+            d = {
+                    "q": query_term,
+                    "limit": g.limit or 50,
+                    "page": g.page or 1,
+            }
+            h = {"Content-type":"application/json"}
+            r = corelib.auth_requests(g.user_token, "GET", "%s/user/users" \
+                    %(config.API_ADDR,), params=d, headers=h)
+            if r.status_code != 200:
+                ret['msg'] = t.text
+                return json.dumps(ret)
+
+            j = r.json() or []
+            return json.dumps({"users": j})
+
+@app.route("/user/create", methods=["GET", "POST"])
+@require_login()
+def user_create():
+    if request.method == "GET":
         return render_template("user/create.html", **locals())
     
     if request.method == "POST":
         ret = {"msg":""}
-
-        if not (g.user.is_admin() or g.user.is_root()):
-            ret["msg"] = "no such privilege"
-            return json.dumps(ret)
 
         name = request.form.get("name", "")
         cnname = request.form.get("cnname", "")
@@ -144,8 +159,7 @@ def admin_user_create():
 
         return json.dumps(ret)
 
-
-
+##admin
 @app.route("/admin/user/<int:user_id>/edit", methods=["GET", "POST"])
 @require_login()
 def admin_user_edit(user_id):
@@ -215,7 +229,6 @@ def admin_user_change_password(user_id):
             ret["msg"] = r.text
 
         return json.dumps(ret)
-
 
 @app.route("/admin/user/<int:user_id>/role", methods=["POST", ])
 @require_login(json_msg="login first")
