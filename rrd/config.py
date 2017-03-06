@@ -2,7 +2,7 @@
 import os
 
 #-- app config --
-DEBUG = True
+LOG_LEVEL = 'debug'
 SECRET_KEY = "secret-key"
 PERMANENT_SESSION_LIFETIME = 3600 * 24 * 30
 SITE_COOKIE = "open-falcon-ck"

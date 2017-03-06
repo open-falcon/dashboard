@@ -1,5 +1,4 @@
 #-*- coding:utf-8 -*-
-import requests
 import json
 import copy
 import re

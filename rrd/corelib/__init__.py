@@ -2,12 +2,13 @@
 import requests
 import json
 
-def auth_requests(user_token, method, *args, **kwargs):
-    if not user_token:
+def auth_requests(method, *args, **kwargs):
+    from flask import g
+    if not g.user_token:
         raise Exception("no api token")
 
     headers = {
-            "Apitoken": json.dumps({"name":user_token.name, "sig":user_token.sig})
+        "Apitoken": json.dumps({"name":g.user_token.name, "sig":g.user_token.sig})
     }
 
     if not kwargs:

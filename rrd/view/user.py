@@ -4,7 +4,7 @@ from flask import request, g, abort, render_template
 from rrd import app
 from rrd import corelib
 from rrd import config
-from rrd.view.utils import require_login
+from rrd.view.utils import require_login, require_login_json 
 from rrd.model.user import User
 
 @app.route("/user/about/<username>", methods=["GET",])
@@ -12,14 +12,14 @@ from rrd.model.user import User
 def user_info(username):
     if request.method == "GET":
         h = {"Content-type": "application/json"}
-        r = corelib.auth_requests(g.user_token, "GET", "%s/user/u/%s" %(config.API_ADDR, username), headers=h)
+        r = corelib.auth_requests("GET", "%s/user/u/%s" %(config.API_ADDR, username), headers=h)
         if r.status_code != 200:
             abort(400, "%s:%s" %(r.status_code, r.text))
         user_info = r.json()
         return render_template("user/about.html", **locals())
 
 @app.route("/user/profile", methods=["GET", "POST"])
-@require_login(json_msg = "please login first")
+@require_login()
 def user_profile():
     if request.method == "GET":
         current_user = g.user
@@ -45,7 +45,7 @@ def user_profile():
                 "qq": qq,
         }
 
-        r = corelib.auth_requests(g.user_token, "PUT", "%s/user/update" %(config.API_ADDR,), \
+        r = corelib.auth_requests("PUT", "%s/user/update" %(config.API_ADDR,), \
                 data=json.dumps(d), headers=h)
         if r.status_code != 200:
             ret["msg"] = r.text
@@ -53,7 +53,7 @@ def user_profile():
         return json.dumps(ret)
 
 @app.route("/user/chpwd", methods=["POST", ])
-@require_login(json_msg = "please login first")
+@require_login_json()
 def user_change_passwd():
     if request.method == "POST":
         ret = {"msg": ""}
@@ -75,7 +75,7 @@ def user_change_passwd():
             "new_password": new_password,
         }
 
-        r = corelib.auth_requests(g.user_token, "PUT", "%s/user/cgpasswd" %(config.API_ADDR,), \
+        r = corelib.auth_requests("PUT", "%s/user/cgpasswd" %(config.API_ADDR,), \
                 data=json.dumps(d), headers=h)
         if r.status_code != 200:
             ret['msg'] = r.text
@@ -95,7 +95,7 @@ def user_list():
                     "page": g.page or 1,
             }
             h = {"Content-type":"application/json"}
-            r = corelib.auth_requests(g.user_token, "GET", "%s/user/users" \
+            r = corelib.auth_requests("GET", "%s/user/users" \
                     %(config.API_ADDR,), params=d, headers=h)
             if r.status_code != 200:
                 abort(400, "request to api fail: %s" %(r.text,))
@@ -107,7 +107,7 @@ def user_list():
         return render_template("user/list.html", **locals())
 
 @app.route("/user/query", methods=["GET",])
-@require_login(json_msg="login first")
+@require_login_json()
 def user_query():
     if request.method == "GET":
         query_term = request.args.get("query", "")
@@ -118,7 +118,7 @@ def user_query():
                     "page": g.page or 1,
             }
             h = {"Content-type":"application/json"}
-            r = corelib.auth_requests(g.user_token, "GET", "%s/user/users" \
+            r = corelib.auth_requests("GET", "%s/user/users" \
                     %(config.API_ADDR,), params=d, headers=h)
             if r.status_code != 200:
                 ret['msg'] = t.text
@@ -152,7 +152,7 @@ def user_create():
         d = {
                 "name": name, "cnname": cnname, "password": password, "email": email, "phone": phone, "im": im, "qq": qq,
         }
-        r = corelib.auth_requests(g.user_token ,"POST", "%s/user/create" %(config.API_ADDR,), \
+        r = corelib.auth_requests("POST", "%s/user/create" %(config.API_ADDR,), \
                 data=json.dumps(d), headers=h)
         if r.status_code != 200:
             ret["msg"] = r.text
@@ -168,7 +168,7 @@ def admin_user_edit(user_id):
             abort(403, "no such privilege")
 
         h = {"Content-type":"application/json"}
-        r = corelib.auth_requests(g.user_token ,"GET", "%s/user/u/%s" %(config.API_ADDR, user_id), headers=h)
+        r = corelib.auth_requests("GET", "%s/user/u/%s" %(config.API_ADDR, user_id), headers=h)
         if r.status_code != 200:
             abort(r.status_code, r.text)
         j = r.json()
@@ -197,7 +197,7 @@ def admin_user_edit(user_id):
         d = {
                 "user_id": user_id, "cnname": cnname, "email": email, "phone": phone, "im": im, "qq": qq,
         }
-        r = corelib.auth_requests(g.user_token ,"PUT", "%s/admin/change_user_profile" %(config.API_ADDR,), \
+        r = corelib.auth_requests("PUT", "%s/admin/change_user_profile" %(config.API_ADDR,), \
                 data=json.dumps(d), headers=h)
         if r.status_code != 200:
             ret["msg"] = r.text
@@ -205,7 +205,7 @@ def admin_user_edit(user_id):
         return json.dumps(ret)
 
 @app.route("/admin/user/<int:user_id>/chpwd", methods=["POST", ])
-@require_login(json_msg="login first")
+@require_login_json()
 def admin_user_change_password(user_id):
     if request.method == "POST":
         ret = {"msg": ""}
@@ -223,7 +223,7 @@ def admin_user_change_password(user_id):
         d = {
                 "user_id": user_id, "password": password,
         }
-        r = corelib.auth_requests(g.user_token ,"PUT", "%s/admin/change_user_passwd" %(config.API_ADDR,), \
+        r = corelib.auth_requests("PUT", "%s/admin/change_user_passwd" %(config.API_ADDR,), \
                 data=json.dumps(d), headers=h)
         if r.status_code != 200:
             ret["msg"] = r.text
@@ -231,7 +231,7 @@ def admin_user_change_password(user_id):
         return json.dumps(ret)
 
 @app.route("/admin/user/<int:user_id>/role", methods=["POST", ])
-@require_login(json_msg="login first")
+@require_login_json()
 def admin_user_change_role(user_id):
     if request.method == "POST":
         ret = {"msg": ""}
@@ -250,7 +250,7 @@ def admin_user_change_role(user_id):
         h = {"Content-type":"application/json"}
         d = {"admin": admin, "user_id": int(user_id)}
 
-        r = corelib.auth_requests(g.user_token, "PUT", "%s/admin/change_user_role" \
+        r = corelib.auth_requests("PUT", "%s/admin/change_user_role" \
                 %(config.API_ADDR,), data=json.dumps(d), headers=h)
         if r.status_code != 200:
             ret["msg"] = r.text
@@ -258,7 +258,7 @@ def admin_user_change_role(user_id):
         return json.dumps(ret)
 
 @app.route("/admin/user/<int:user_id>/delete", methods=["POST", ])
-@require_login(json_msg="login first")
+@require_login_json()
 def admin_user_delete(user_id):
     if request.method == "POST":
         ret = {"msg": ""}
@@ -270,7 +270,7 @@ def admin_user_delete(user_id):
         h = {"Content-type":"application/json"}
         d = {"user_id": int(user_id)}
 
-        r = corelib.auth_requests(g.user_token, "DELETE", "%s/admin/delete_user" \
+        r = corelib.auth_requests("DELETE", "%s/admin/delete_user" \
                 %(config.API_ADDR,), data=json.dumps(d), headers=h)
         if r.status_code != 200:
             ret["msg"] = r.text

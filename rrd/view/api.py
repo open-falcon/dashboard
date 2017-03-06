@@ -1,11 +1,13 @@
 #-*- coding:utf-8 -*-
 import json
-import requests
 from flask import request, abort, g
 from rrd import app, config
+from rrd import corelib
+from rrd.view.utils import require_login_json
 
 #done, TODO:query by tags
 @app.route("/api/endpoints")
+@require_login_json()
 def api_endpoints():
     ret = {
             "ok": False,
@@ -22,7 +24,8 @@ def api_endpoints():
         ret["msg"] = "no query params given"
         return json.dumps(ret)
 
-    r = requests.get(config.API_ADDR + "/graph/endpoint?q=%s&limit=%s&tags=%s" %(q, limit, tags))
+    h = {"Content-type": "application/json"}
+    r = corelib.auth_requests("GET", config.API_ADDR + "/graph/endpoint?q=%s&limit=%s&tags=%s" %(q, limit, tags), headers=h)
     if r.status_code != 200:
         abort(400, r.text)
 
@@ -36,6 +39,7 @@ def api_endpoints():
 
 #done
 @app.route("/api/counters", methods=["POST"])
+@require_login_json()
 def api_get_counters():
     ret = {
             "ok": False,
@@ -52,7 +56,9 @@ def api_get_counters():
         ret['msg'] = "no endpoints or counter given"
         return json.dumps(ret)
 
-    r = requests.get(config.API_ADDR + "/graph/endpoint_counter?eid=%s&metricQuery=%s&limit=%s" %(",".join(eids), q, limit))
+
+    h = {"Content-type": "application/json"}
+    r = corelib.auth_requests("GET", config.API_ADDR + "/graph/endpoint_counter?eid=%s&metricQuery=%s&limit=%s" %(",".join(eids), q, limit), headers=h)
     if r.status_code != 200:
         abort(400, r.text)
     j = r.json()

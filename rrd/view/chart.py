@@ -8,8 +8,10 @@ from rrd.consts import GRAPH_TYPE_KEY, GRAPH_TYPE_HOST
 from rrd.utils.rrdgraph import merge_list
 from rrd.utils.rrdgraph import graph_history
 from rrd.model.tmpgraph import TmpGraph
+from rrd.view.utils import require_login, require_login_json, require_login_abort
 
 @app.route("/chart", methods=["POST",])
+@require_login_json()
 def chart():
     endpoints = request.form.getlist("endpoints[]") or []
     counters = request.form.getlist("counters[]") or []
@@ -28,10 +30,12 @@ def chart():
     return json.dumps(ret)
 
 @app.route("/chart/big", methods=["GET",])
+@require_login()
 def chart_big():
     return render_template("chart/big_ng.html", **locals())
 
 @app.route("/chart/embed", methods=["GET",])
+@require_login()
 def chart_embed():
     w = request.args.get("w")
     w = int(w) if w else 600
@@ -40,6 +44,7 @@ def chart_embed():
     return render_template("chart/embed.html", **locals())
 
 @app.route("/chart/h", methods=["GET"])
+@require_login_abort()
 def multi_endpoints_chart_data():
     if not g.id:
         abort(400, "no graph id given")
@@ -116,6 +121,7 @@ def multi_endpoints_chart_data():
     return json.dumps(ret)
 
 @app.route("/chart/k", methods=["GET"])
+@require_login_abort()
 def multi_counters_chart_data():
     if not g.id:
         abort(400, "no graph id given")
@@ -192,6 +198,7 @@ def multi_counters_chart_data():
     return json.dumps(ret)
 
 @app.route("/chart/a", methods=["GET"])
+@require_login_abort()
 def multi_chart_data():
     if not g.id:
         abort(400, "no graph id given")
@@ -266,6 +273,7 @@ def multi_chart_data():
     return json.dumps(ret)
 
 @app.route("/charts", methods=["GET"])
+@require_login_abort()
 def charts():
     if not g.id:
         abort(400, "no graph id given")

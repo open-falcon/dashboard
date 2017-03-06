@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 import json
-import requests
 from rrd.config import API_ADDR
+from rrd import corelib
 
 class DashboardGraph(object):
     def __init__(self, id, title, hosts, counters, screen_id,
@@ -23,18 +23,20 @@ class DashboardGraph(object):
 
     @classmethod
     def gets_by_screen_id(cls, screen_id):
-        r = requests.get(API_ADDR + "/dashboard/graphs/screen/%s" %(screen_id,))
+        h = {"Content-type": "application/json"}
+        r = corelib.auth_requests("GET", API_ADDR + "/dashboard/graphs/screen/%s" %(screen_id,), headers=h)
         if r.status_code != 200:
-            return
+            raise Exception(r.text)
         j = r.json()
         return [cls(*[x["graph_id"], x["title"], x["endpoints"], x["counters"], \
                 x["screen_id"], x["timespan"], x["graph_type"], x["method"], x["position"]]) for x in j]
 
     @classmethod
     def get(cls, id):
-        r = requests.get(API_ADDR + "/dashboard/graph/%s" %(id,))
+        h = {"Content-type": "application/json"}
+        r = corelib.auth_requests("GET", API_ADDR + "/dashboard/graph/%s" %(id,), headers=h)
         if r.status_code != 200:
-            return
+            raise Exception(r.text)
         x = r.json()
         return x and cls(*[x["graph_id"], x["title"], x["endpoints"], x["counters"], \
                 x["screen_id"], x["timespan"], x["graph_type"], x["method"], x["position"]])
@@ -55,9 +57,9 @@ class DashboardGraph(object):
             "falcon_tags": "",
         }
         h = {"Content-type": "application/json"}
-        r = requests.post(API_ADDR + "/dashboard/graph", data = json.dumps(d), headers =h )
+        r = corelib.auth_requests("POST", API_ADDR + "/dashboard/graph", data = json.dumps(d), headers =h )
         if r.status_code != 200:
-            return
+            raise Exception(r.text)
         j = r.json()
 
         graph_id = j and j.get("id")
@@ -65,9 +67,10 @@ class DashboardGraph(object):
 
     @classmethod
     def remove(cls, id):
-        r = requests.delete(API_ADDR + "/dashboard/graph/%s" %(id,))
+        h = {"Content-type": "application/json"}
+        r = corelib.auth_requests("DELETE", API_ADDR + "/dashboard/graph/%s" %(id,), headers=h)
         if r.status_code != 200:
-            return
+            raise Exception(r.text)
         return r.json()
 
     def update(self, title=None, hosts=None, counters=None, screen_id=None,
@@ -94,9 +97,9 @@ class DashboardGraph(object):
             "falcon_tags": "",
         }
         h = {"Content-type": "application/json"}
-        r = requests.put(API_ADDR + "/dashboard/graph/%s" %(self.id,), data = json.dumps(d), headers =h )
+        r = corelib.auth_requests("PUT", API_ADDR + "/dashboard/graph/%s" %(self.id,), data = json.dumps(d), headers =h )
         if r.status_code != 200:
-            return
+            raise Exception(r.text)
         j = r.json()
 
         graph_id = j and j.get("id")
@@ -111,20 +114,3 @@ class DashboardGraph(object):
             grh = cls.get(id)
             grh and grh.update(hosts=hosts, counters=counters)
         
-
-
-'''
-CREATE TABLE `dashboard_graph` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `title` char(128) NOT NULL,
-  `hosts` varchar(10240) NOT NULL DEFAULT '',
-  `counters` varchar(1024) NOT NULL DEFAULT '',
-  `screen_id` int(11) unsigned NOT NULL,
-  `timespan` int(11) unsigned NOT NULL DEFAULT '3600',
-  `graph_type` char(2) NOT NULL DEFAULT 'h',
-  `method` char(8) DEFAULT '',
-  `position` int(11) unsigned NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),
-  KEY `idx_sid` (`screen_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-'''

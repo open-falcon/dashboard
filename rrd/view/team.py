@@ -3,7 +3,7 @@ import json
 from flask import request, g, abort, render_template
 from rrd import app
 from rrd import config, corelib
-from rrd.view.utils import require_login
+from rrd.view.utils import require_login, require_login_json
 from rrd.model.team import Team
 from rrd.model.user import User
 
@@ -14,7 +14,7 @@ def team_users(team_id):
         ret = {"msg":""}
 
         h = {"Content-type": "application/json"}
-        r = corelib.auth_requests(g.user_token, "GET", "%s/team/%s" \
+        r = corelib.auth_requests("GET", "%s/team/%s" \
                 %(config.API_ADDR, team_id), headers=h)
         if r.status_code != 200:
             ret["msg"] = r.text
@@ -44,7 +44,7 @@ def team_list():
             }
 
         h = {"Content-type": "application/json"}
-        r = corelib.auth_requests(g.user_token, "GET", "%s/team" \
+        r = corelib.auth_requests("GET", "%s/team" \
                 %(config.API_ADDR,), params=d, headers=h)
         if r.status_code != 200:
             abort(400, "request to api fail: %s" %(r.text,))
@@ -81,7 +81,7 @@ def team_create():
         d = {
                 "team_name": name, "resume": resume, "users": user_ids,
         }
-        r = corelib.auth_requests(g.user_token ,"POST", "%s/team" %(config.API_ADDR,), \
+        r = corelib.auth_requests("POST", "%s/team" %(config.API_ADDR,), \
                 data=json.dumps(d), headers=h)
         if r.status_code != 200:
             ret["msg"] = r.text
@@ -94,7 +94,7 @@ def team_edit(team_id):
     if request.method == "GET":
 
         h = {"Content-type": "application/json"}
-        r = corelib.auth_requests(g.user_token, "GET", "%s/team/%s" \
+        r = corelib.auth_requests("GET", "%s/team/%s" \
                 %(config.API_ADDR, team_id), headers=h)
         if r.status_code != 200:
             abort(r.status_code, r.text)
@@ -118,7 +118,7 @@ def team_edit(team_id):
         d = {
                 "team_id": team_id, "resume": resume, "users": user_ids,
         }
-        r = corelib.auth_requests(g.user_token ,"PUT", "%s/team" %(config.API_ADDR,), \
+        r = corelib.auth_requests("PUT", "%s/team" %(config.API_ADDR,), \
                 data=json.dumps(d), headers=h)
         if r.status_code != 200:
             ret["msg"] = r.text
@@ -126,13 +126,13 @@ def team_edit(team_id):
         return json.dumps(ret)
 
 @app.route("/team/<int:team_id>/delete", methods=["POST"])
-@require_login(json_msg = "login first")
+@require_login_json()
 def team_delete(team_id):
     if request.method == "POST":
         ret = {"msg": ""}
         
         h = {"Content-type": "application/json"}
-        r = corelib.auth_requests(g.user_token, "DELETE", "%s/team/%s" \
+        r = corelib.auth_requests("DELETE", "%s/team/%s" \
                 %(config.API_ADDR, team_id), headers=h)
         if r.status_code != 200:
             ret['msg'] = "%s:%s" %(r.status_code, r.text)

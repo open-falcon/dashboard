@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 import json
-import requests
 from rrd.config import API_ADDR
+from rrd import corelib
 
 class DashboardScreen(object):
     def __init__(self, id, pid, name):
@@ -15,9 +15,10 @@ class DashboardScreen(object):
 
     @classmethod
     def get(cls, id):
-        r = requests.get(API_ADDR + "/dashboard/screen/%s" %(id,))
+        h = {"Content-type": "application/json"}
+        r = corelib.auth_requests("GET", API_ADDR + "/dashboard/screen/%s" %(id,), headers=h)
         if r.status_code != 200:
-            return
+            raise Exception(r.text)
         j = r.json()
         if j:
             row = [j["id"], j["pid"], j["name"]]
@@ -25,34 +26,38 @@ class DashboardScreen(object):
 
     @classmethod
     def gets_by_pid(cls, pid):
-        r = requests.get(API_ADDR + "/dashboard/screens/pid/%s" %(pid,))
+        h = {"Content-type": "application/json"}
+        r = corelib.auth_requests("GET", API_ADDR + "/dashboard/screens/pid/%s" %(pid,), headers=h)
         if r.status_code != 200:
-            return
-        j = r.json()
+            raise Exception(r.text)
+        j = r.json() or []
         return [cls(*[x["id"], x["pid"], x["name"]]) for x in j]
 
     @classmethod
     def gets_all(cls, limit=500):
-        r = requests.get(API_ADDR + "/dashboard/screens?limit=%s" %(limit,))
+        h = {"Content-type": "application/json"}
+        r = corelib.auth_requests("GET", API_ADDR + "/dashboard/screens?limit=%s" %(limit,), headers=h)
         if r.status_code != 200:
-            return
-        j = r.json()
+            raise Exception(r.text)
+        j = r.json() or []
         return [cls(*[x["id"], x["pid"], x["name"]]) for x in j]
 
     @classmethod
     def add(cls, pid, name):
         d = {"pid": pid, "name": name}
-        r = requests.post(API_ADDR + "/dashboard/screen", data = d)
+        h = {"Content-type": "application/json"}
+        r = corelib.auth_requests("POST", API_ADDR + "/dashboard/screen", data = d, headers=h)
         if r.status_code != 200:
-            return
+            raise Exception(r.text)
         j = r.json()
         return cls(*[j["id"], j["pid"], j["name"]])
 
     @classmethod
     def remove(cls, id):
-        r = requests.delete(API_ADDR + "/dashboard/screen/%s" %(id,))
+        h = {"Content-type": "application/json"}
+        r = corelib.auth_requests("DELETE", API_ADDR + "/dashboard/screen/%s" %(id,), headers=h)
         if r.status_code != 200:
-            return
+            raise Exception(r.text)
         return r.json()
 
     def update(self, pid=None, name=None):
@@ -62,7 +67,8 @@ class DashboardScreen(object):
         if name:
             d["name"] = name
 
-        r = requests.put(API_ADDR + "/dashboard/screen/%s" %self.id, data = d)
+        h = {"Content-type": "application/json"}
+        r = corelib.auth_requests("PUT", API_ADDR + "/dashboard/screen/%s" %self.id, data = d, headers=h)
         if r.status_code != 200:
-            return
+            raise Exception(r.text)
         return r.json()

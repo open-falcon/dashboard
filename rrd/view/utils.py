@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 import json
 import requests
-from flask import g, redirect, session
+from flask import g, redirect, session, abort
 
 from functools import wraps
 
@@ -10,19 +10,32 @@ from rrd import corelib
 from rrd.utils import randbytes
 from rrd.model.user import User, UserToken
 
-def require_login(redir="/auth/login", json_msg="", html_msg=""):
+def require_login(redir="/auth/login"):
     def _(f):
         @wraps(f)
         def __(*a, **kw):
             if not g.user:
-                if redir:
-                    return redirect(redir)
-                elif json_msg:
-                    return json.dumps({"msg": json_msg})
-                elif html_msg:
-                    return abort(403, html_msg)
-                else:
-                    return abort(403, "please login first")
+                return redirect(redir or "/auth/login")
+            return f(*a, **kw)
+        return __
+    return _
+
+def require_login_abort(status_code=403, msg="login first"):
+    def _(f):
+        @wraps(f)
+        def __(*a, **kw):
+            if not g.user:
+                return abort(status_code, msg)
+            return f(*a, **kw)
+        return __
+    return _
+
+def require_login_json(json_msg={"ok":False, "msg":"login first"}):
+    def _(f):
+        @wraps(f)
+        def __(*a, **kw):
+            if not g.user:
+                return json.dumps(json_msg)
             return f(*a, **kw)
         return __
     return _
@@ -49,7 +62,7 @@ def get_current_user_profile(user_token):
         return 
 
     h = {"Content-type": "application/json"}
-    r = corelib.auth_requests(user_token, "GET", "%s/user/current" %config.API_ADDR, headers=h)
+    r = corelib.auth_requests("GET", "%s/user/current" %config.API_ADDR, headers=h)
     if r.status_code != 200:
         return
 
@@ -60,7 +73,7 @@ def logout_user(user_token):
     if not user_token:
         return 
 
-    r = corelib.auth_requests(user_token, "GET", "%s/user/logout" %config.API_ADDR)
+    r = corelib.auth_requests("GET", "%s/user/logout" %config.API_ADDR)
     if r.status_code != 200:
         raise Exception("%s:%s" %(r.status_code, r.text))
     clear_user_cookie(session)

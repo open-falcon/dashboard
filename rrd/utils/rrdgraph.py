@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
-import requests
 from rrd.config import API_ADDR
 import json
+from rrd import corelib
 
 def graph_history(endpoints, counters, cf, start, end):
     #TODO:step
@@ -13,7 +13,7 @@ def graph_history(endpoints, counters, cf, start, end):
         "counters": counters,
     }
     h = {"Content-type": "application/json"}
-    r = requests.post("%s/graph/history" %API_ADDR, headers=h, data=json.dumps(params))
+    r = corelib.auth_requests("POST", "%s/graph/history" %API_ADDR, headers=h, data=json.dumps(params))
     if r.status_code != 200:
         raise Exception("{} : {}".format(r.status_code, r.text))
 
