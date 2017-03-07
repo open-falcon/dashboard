@@ -13,7 +13,7 @@ log = logging.getLogger(__file__)
 @app.errorhandler(Exception)
 def all_exception_handler(error):
     tb = traceback.format_exc()
-    err_msg = u'dashboard 暂时无法访问,请联系管理员.\nerror:%s\ntraceback日志如下:%s' %(error, tb)
+    err_msg = '<pre>dashboard 暂时无法访问,请联系管理员.\n\nerror: %s\n\ntraceback日志如下:\n%s</pre>' %(error, tb)
     return err_msg, 500
 
 from view import index

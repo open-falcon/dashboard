@@ -2,20 +2,14 @@
 import json
 from flask import request, g, abort, render_template
 from rrd import app
-from rrd import corelib
-from rrd import config
 from rrd.view.utils import require_login, require_login_json 
 from rrd.model.user import User
 
-@app.route("/user/about/<username>", methods=["GET",])
+@app.route("/user/about/<int:user_id>", methods=["GET",])
 @require_login()
-def user_info(username):
+def user_info(user_id):
     if request.method == "GET":
-        h = {"Content-type": "application/json"}
-        r = corelib.auth_requests("GET", "%s/user/u/%s" %(config.API_ADDR, username), headers=h)
-        if r.status_code != 200:
-            abort(400, "%s:%s" %(r.status_code, r.text))
-        user_info = r.json()
+        user = User.get_by_id(user_id)
         return render_template("user/about.html", **locals())
 
 @app.route("/user/profile", methods=["GET", "POST"])
@@ -28,16 +22,13 @@ def user_profile():
     if request.method == "POST":
         ret = {"msg":""}
 
-        name = g.user.name
         cnname = request.form.get("cnname", "")
         email = request.form.get("email", "")
         im = request.form.get("im", "")
         phone = request.form.get("phone", "")
         qq = request.form.get("qq", "")
 
-        h = {"Content-type": "application/json"}
         d = {
-                "name": name,
                 "cnname": cnname,
                 "email": email,
                 "im": im,
@@ -45,10 +36,10 @@ def user_profile():
                 "qq": qq,
         }
 
-        r = corelib.auth_requests("PUT", "%s/user/update" %(config.API_ADDR,), \
-                data=json.dumps(d), headers=h)
-        if r.status_code != 200:
-            ret["msg"] = r.text
+        try:
+            User.update_user_profile(d)
+        except Exception as e:
+            ret['msg'] = str(e)
 
         return json.dumps(ret)
 
@@ -69,16 +60,10 @@ def user_change_passwd():
             ret["msg"] = "repeat and new password not equal"
             return json.dumps(ret)
 
-        h = {"Content-type":"application/json"}
-        d = {
-            "old_password": old_password,
-            "new_password": new_password,
-        }
-
-        r = corelib.auth_requests("PUT", "%s/user/cgpasswd" %(config.API_ADDR,), \
-                data=json.dumps(d), headers=h)
-        if r.status_code != 200:
-            ret['msg'] = r.text
+        try:
+            User.change_user_passwd(old_password, new_password)
+        except Exception as e:
+            ret['msg'] = str(e)
 
         return json.dumps(ret)
         
@@ -87,23 +72,9 @@ def user_change_passwd():
 def user_list():
     if request.method == "GET":
         query_term = request.args.get("query", "")
-        users = []
-        if query_term:
-            d = {
-                    "q": query_term,
-                    "limit": g.limit or 50,
-                    "page": g.page or 1,
-            }
-            h = {"Content-type":"application/json"}
-            r = corelib.auth_requests("GET", "%s/user/users" \
-                    %(config.API_ADDR,), params=d, headers=h)
-            if r.status_code != 200:
-                abort(400, "request to api fail: %s" %(r.text,))
-            j = r.json() or []
-            for x in j:
-                u = User(x["id"], x["name"], x["cnname"], x["email"], x["phone"], x["im"], x["qq"], x["role"])
-                users.append(u)
-
+        limit = g.limit or 20
+        page = g.page or 1
+        users = User.get_users(query_term, limit, page)
         return render_template("user/list.html", **locals())
 
 @app.route("/user/query", methods=["GET",])
@@ -111,22 +82,20 @@ def user_list():
 def user_query():
     if request.method == "GET":
         query_term = request.args.get("query", "")
-        if query_term:
-            d = {
-                    "q": query_term,
-                    "limit": g.limit or 50,
-                    "page": g.page or 1,
-            }
-            h = {"Content-type":"application/json"}
-            r = corelib.auth_requests("GET", "%s/user/users" \
-                    %(config.API_ADDR,), params=d, headers=h)
-            if r.status_code != 200:
-                ret['msg'] = t.text
-                return json.dumps(ret)
+        limit = g.limit or 20
+        page = g.page or 1
 
-            j = r.json() or []
-            return json.dumps({"users": j})
+        ret = {"users":[], "msg":""}
+        try:
+            users = User.get_users(query_term, limit, page)
+            ret['users'] = [u.dict() for u in users]
+        except Exception as e:
+            ret['msg'] = str(e)
+            logger.error(str(e))
 
+        return json.dumps(ret)
+
+#anyone can create a new user
 @app.route("/user/create", methods=["GET", "POST"])
 @require_login()
 def user_create():
@@ -148,14 +117,10 @@ def user_create():
             ret["msg"] = "not all form item entered"
             return json.dumps(ret)
         
-        h = {"Content-type": "application/json"}
-        d = {
-                "name": name, "cnname": cnname, "password": password, "email": email, "phone": phone, "im": im, "qq": qq,
-        }
-        r = corelib.auth_requests("POST", "%s/user/create" %(config.API_ADDR,), \
-                data=json.dumps(d), headers=h)
-        if r.status_code != 200:
-            ret["msg"] = r.text
+        try:
+            User.create_user(name, cnname, password, email, phone, im, qq)
+        except Exception as e:
+            ret['msg'] = str(e)
 
         return json.dumps(ret)
 
@@ -167,13 +132,7 @@ def admin_user_edit(user_id):
         if not (g.user.is_admin() or g.user.is_root()):
             abort(403, "no such privilege")
 
-        h = {"Content-type":"application/json"}
-        r = corelib.auth_requests("GET", "%s/user/u/%s" %(config.API_ADDR, user_id), headers=h)
-        if r.status_code != 200:
-            abort(r.status_code, r.text)
-        j = r.json()
-        user = j and User(j["id"], j["name"], j["cnname"], j["email"], j["phone"], j["im"], j["qq"], j["role"])
-
+        user = User.get_by_id(user_id)
         if not user:
             abort(404, "no such user where id=%s" % user_id)
 
@@ -193,14 +152,13 @@ def admin_user_edit(user_id):
         im = request.form.get("im", "")
         qq = request.form.get("qq", "")
 
-        h = {"Content-type": "application/json"}
         d = {
-                "user_id": user_id, "cnname": cnname, "email": email, "phone": phone, "im": im, "qq": qq,
+            "user_id": user_id, "cnname": cnname, "email": email, "phone": phone, "im": im, "qq": qq,
         }
-        r = corelib.auth_requests("PUT", "%s/admin/change_user_profile" %(config.API_ADDR,), \
-                data=json.dumps(d), headers=h)
-        if r.status_code != 200:
-            ret["msg"] = r.text
+        try:
+            User.admin_update_user_profile(d)
+        except Exception as e:
+            ret['msg'] = str(e)
 
         return json.dumps(ret)
 
@@ -219,14 +177,10 @@ def admin_user_change_password(user_id):
             ret["msg"] = "no password entered"
             return json.dumps(ret)
 
-        h = {"Content-type": "application/json"}
-        d = {
-                "user_id": user_id, "password": password,
-        }
-        r = corelib.auth_requests("PUT", "%s/admin/change_user_passwd" %(config.API_ADDR,), \
-                data=json.dumps(d), headers=h)
-        if r.status_code != 200:
-            ret["msg"] = r.text
+        try:
+            User.admin_change_user_passwd(user_id, password)
+        except Exception as e:
+            ret['msg'] = str(e)
 
         return json.dumps(ret)
 
@@ -246,14 +200,10 @@ def admin_user_change_role(user_id):
             return json.dumps(ret)
 
         admin = "yes" if role == '1' else "no"
-
-        h = {"Content-type":"application/json"}
-        d = {"admin": admin, "user_id": int(user_id)}
-
-        r = corelib.auth_requests("PUT", "%s/admin/change_user_role" \
-                %(config.API_ADDR,), data=json.dumps(d), headers=h)
-        if r.status_code != 200:
-            ret["msg"] = r.text
+        try:
+            User.admin_change_user_role(user_id, admin)
+        except Exception as e:
+            ret['msg'] = str(e)
 
         return json.dumps(ret)
 
@@ -267,12 +217,9 @@ def admin_user_delete(user_id):
             ret["msg"] = "you do not have permissions"
             return json.dumps(ret)
 
-        h = {"Content-type":"application/json"}
-        d = {"user_id": int(user_id)}
-
-        r = corelib.auth_requests("DELETE", "%s/admin/delete_user" \
-                %(config.API_ADDR,), data=json.dumps(d), headers=h)
-        if r.status_code != 200:
-            ret["msg"] = r.text
+        try:
+            User.admin_delete_user(user_id)
+        except Exception as e:
+            ret['msg'] = str(e)
 
         return json.dumps(ret)

@@ -1,12 +1,14 @@
 #-*- coding:utf-8 -*-
 from flask import request, g, abort, render_template, redirect
+import requests
+import json
 from rrd import app
 from rrd import config
 from rrd.view import utils as view_utils
 from rrd.view.utils import require_login
 
-import requests
-import json
+from rrd.utils.logger import logging
+log = logging.getLogger(__file__)
 
 @app.route("/auth/login", methods=["GET", "POST"])
 def auth_login():
@@ -81,6 +83,8 @@ def auth_register():
 
         r = requests.post("%s/user/create" %(config.API_ADDR,), \
                 data=json.dumps(d), headers=h)
+        log.debug("%s:%s" %(r.status_code, r.text))
+
         if r.status_code != 200:
             ret['msg'] = r.text
 
