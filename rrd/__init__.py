@@ -17,7 +17,8 @@ def all_exception_handler(error):
     return err_msg, 500
 
 from view import index
-from view import auth
-from view import user, team
 from view import api
-from view import chart, screen
+from view.auth import auth
+from view.user import user
+from view.team import team
+from view.dashboard import chart, screen
