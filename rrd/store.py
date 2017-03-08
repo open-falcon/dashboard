@@ -1,61 +1,108 @@
 #-*- coding:utf-8 -*-
+from rrd import config
 import MySQLdb
 
-def connect_db(host, port, user, password, db):
+def connect_db(cfg):
     try:
         conn = MySQLdb.connect(
-            host=host,
-            port=port,
-            user=user,
-            passwd=password,
-            db=db,
+            host=cfg.DB_HOST,
+            port=cfg.DB_PORT,
+            user=cfg.DB_USER,
+            passwd=cfg.DB_PASS,
+            db=cfg.DB_NAME,
             use_unicode=True,
             charset="utf8")
         return conn
     except Exception, e:
-        print "Fatal: connect db fail:%s" % e
+        logging.getLogger().critical('connect db: %s' % e)
         return None
 
+
 class DB(object):
+    def __init__(self, cfg):
+        self.config = cfg
+        self.conn = None
 
-    def __init__(self, host, port, user, password, db):
-        self.host = host
-        self.port = port
-        self.user = user
-        self.password = password
-        self.db = db
-        self._conn = connect_db(host, port, user, password, db)
-
-    def connect(self):
-        self._conn = connect_db(self.host, self.port, self.user, self.password, self.db)
-        return self._conn
+    def get_conn(self):
+        if self.conn is None:
+            self.conn = connect_db(self.config)
+        return self.conn
 
     def execute(self, *a, **kw):
         cursor = kw.pop('cursor', None)
         try:
-            cursor = cursor or self._conn.cursor()
+            cursor = cursor or self.get_conn().cursor()
             cursor.execute(*a, **kw)
         except (AttributeError, MySQLdb.OperationalError):
-            self._conn and self._conn.close()
-            self.connect()
-            cursor = self._conn.cursor()
+            self.conn and self.conn.close()
+            self.conn = None
+            cursor = self.get_conn().cursor()
             cursor.execute(*a, **kw)
         return cursor
 
+    # insert one record in a transaction
+    # return last id
+    def insert(self, *a, **kw):
+        cursor = None
+        try:
+            cursor = self.execute(*a, **kw)
+            row_id = cursor.lastrowid
+            self.commit()
+            return row_id
+        except MySQLdb.IntegrityError:
+            self.rollback()
+        finally:
+            cursor and cursor.close()
+
+    # update in a transaction
+    # return affected row count
+    def update(self, *a, **kw):
+        cursor = None
+        try:
+            cursor = self.execute(*a, **kw)
+            self.commit()
+            row_count = cursor.rowcount
+            return row_count
+        except MySQLdb.IntegrityError:
+            self.rollback()
+        finally:
+            cursor and cursor.close()
+
+    def query_all(self, *a, **kw):
+        cursor = None
+        try:
+            cursor = self.execute(*a, **kw)
+            return cursor.fetchall()
+        finally:
+            cursor and cursor.close()
+
+    def query_one(self, *a, **kw):
+        rows = self.query_all(*a, **kw)
+        if rows:
+            return rows[0]
+        else:
+            return None
+
+    def query_column(self, *a, **kw):
+        rows = self.query_all(*a, **kw)
+        if rows:
+            return [row[0] for row in rows]
+        else:
+            return []
+
     def commit(self):
-        if self._conn:
+        if self.conn:
             try:
-                self._conn.commit()
+                self.conn.commit()
             except MySQLdb.OperationalError:
-                self._conn and self._conn.close()
-                self.connect()
-                self._conn and self._conn.commit()
+                self.conn = None
 
     def rollback(self):
-        if self._conn:
+        if self.conn:
             try:
-                self._conn.rollback()
+                self.conn.rollback()
             except MySQLdb.OperationalError:
-                self._conn and self._conn.close()
-                self.connect()
-                self._conn and self._conn.rollback()
+                self.conn = None
+
+
+db = DB(config)

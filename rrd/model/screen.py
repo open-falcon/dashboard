@@ -15,8 +15,7 @@ class DashboardScreen(object):
 
     @classmethod
     def get(cls, id):
-        h = {"Content-type": "application/json"}
-        r = corelib.auth_requests("GET", API_ADDR + "/dashboard/screen/%s" %(id,), headers=h)
+        r = corelib.auth_requests("GET", API_ADDR + "/dashboard/screen/%s" %(id,))
         if r.status_code != 200:
             raise Exception(r.text)
         j = r.json()
@@ -26,8 +25,7 @@ class DashboardScreen(object):
 
     @classmethod
     def gets_by_pid(cls, pid):
-        h = {"Content-type": "application/json"}
-        r = corelib.auth_requests("GET", API_ADDR + "/dashboard/screens/pid/%s" %(pid,), headers=h)
+        r = corelib.auth_requests("GET", API_ADDR + "/dashboard/screens/pid/%s" %(pid,))
         if r.status_code != 200:
             raise Exception(r.text)
         j = r.json() or []
@@ -35,8 +33,7 @@ class DashboardScreen(object):
 
     @classmethod
     def gets_all(cls, limit=500):
-        h = {"Content-type": "application/json"}
-        r = corelib.auth_requests("GET", API_ADDR + "/dashboard/screens?limit=%s" %(limit,), headers=h)
+        r = corelib.auth_requests("GET", API_ADDR + "/dashboard/screens?limit=%s" %(limit,))
         if r.status_code != 200:
             raise Exception(r.text)
         j = r.json() or []
@@ -45,8 +42,7 @@ class DashboardScreen(object):
     @classmethod
     def add(cls, pid, name):
         d = {"pid": pid, "name": name}
-        h = {"Content-type": "application/json"}
-        r = corelib.auth_requests("POST", API_ADDR + "/dashboard/screen", data = d, headers=h)
+        r = corelib.auth_requests("POST", API_ADDR + "/dashboard/screen", data = d)
         if r.status_code != 200:
             raise Exception(r.text)
         j = r.json()
@@ -67,8 +63,7 @@ class DashboardScreen(object):
         if name:
             d["name"] = name
 
-        h = {"Content-type": "application/json"}
-        r = corelib.auth_requests("PUT", API_ADDR + "/dashboard/screen/%s" %self.id, data = d, headers=h)
+        r = corelib.auth_requests("PUT", API_ADDR + "/dashboard/screen/%s" %self.id, data = d)
         if r.status_code != 200:
             raise Exception(r.text)
         return r.json()

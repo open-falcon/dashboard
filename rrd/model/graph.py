@@ -46,14 +46,14 @@ class DashboardGraph(object):
                 timespan=3600, graph_type='h', method='', position=0):
 
         d = {
-            "screen_id": screen_id,
+            "screen_id": int(screen_id),
             "title": title,
             "endpoints": hosts,
             "counters": counters,
-            "timespan": timespan,
+            "timespan": int(timespan),
             "graph_type": graph_type,
             "method": method,
-            "position": position,
+            "position": int(position),
             "falcon_tags": "",
         }
         h = {"Content-type": "application/json"}
@@ -86,14 +86,14 @@ class DashboardGraph(object):
         position = position or self.position
     
         d = {
-            "screen_id": screen_id,
+            "screen_id": int(screen_id),
             "title": title,
             "endpoints": hosts,
             "counters": counters,
-            "timespan": timespan,
+            "timespan": int(timespan),
             "graph_type": graph_type,
             "method": method,
-            "position": position,
+            "position": int(position),
             "falcon_tags": "",
         }
         h = {"Content-type": "application/json"}

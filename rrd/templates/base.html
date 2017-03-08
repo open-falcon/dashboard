@@ -33,12 +33,14 @@
     {% block head_js %}
         <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
         <script src="{{url_for('static', filename='layer/layer.min.js')}}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='layer/extend/layer.ext.js') }}"></script>
         <script src="{{url_for('static', filename='js/jquery.query.js')}}"></script>
         <script src="{{url_for('static', filename='bootstrap3/js/bootstrap.min.js')}}"></script>
         <script src="{{url_for('static', filename='js/moment.min.js')}}"></script>
         <script src="{{url_for('static', filename='select2/select2.min.js')}}"></script>
         <script src="{{url_for('static', filename='bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js')}}"></script>
         <script src="{{url_for('static', filename='bootstrap-tokenfield/bootstrap-tokenfield.min.js')}}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/moment-with-locales.js') }}"></script>
         <script>
             function readablizeBytes(size) {
                 if (size <= 100000){

@@ -1,6 +1,12 @@
 body, input, div, span, h1, h2, h3, h4, h5, table, th, td, ul, li, dl, dt, dd, a {
 	font-family: 'verdana', 'Microsoft YaHei', 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono';
 }
+
+dt, dd, a {
+    font-family: 'verdana', 'Microsoft YaHei', 'Consolas',
+    'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono';
+}
+
 .text-center {
   text-align: center;
 }
@@ -70,6 +76,15 @@ ul.catlist li:last-child:after { content: ""; }
     -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
     background-color: #fff;
+}
+
+.question-title {
+    font-weight: bold;
+}
+
+.question-content {
+    text-indent: 2em;
+    line-height: 2em;
 }
 
 .links {

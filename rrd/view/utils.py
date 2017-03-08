@@ -1,7 +1,7 @@
 #-*- coding:utf-8 -*-
 import json
 import requests
-from flask import g, redirect, session, abort
+from flask import g, redirect, session, abort, request
 
 from functools import wraps
 
@@ -9,6 +9,12 @@ from rrd import config
 from rrd import corelib
 from rrd.utils import randbytes
 from rrd.model.user import User, UserToken
+
+def remote_ip():
+    if not request.headers.getlist("X-Forward-For"):
+        return request.remote_addr
+    else:
+        return request.headers.getlist("X-Forward-For")[0]
 
 def require_login(redir="/auth/login"):
     def _(f):

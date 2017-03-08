@@ -146,7 +146,10 @@ def dash_screen_add():
         return redirect("/screen/%s" % screen.id)
     else:
         pid = request.args.get("pid", '0')
-        screen = DashboardScreen.get(pid)
+        try:
+            screen = DashboardScreen.get(pid)
+        except:
+            screen = None
         return render_template("screen/add.html", **locals())
 
 @app.route("/screen/<int:sid>/graph", methods=["GET", "POST"])

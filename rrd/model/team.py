@@ -8,11 +8,12 @@ from rrd.utils.logger import logging
 log = logging.getLogger(__file__)
 
 class Team(object):
-    def __init__(self, id, name, resume, creator, users=[]):
+    def __init__(self, id, name, resume, creator, creator_name, users=[]):
         self.id = id
         self.name = name
         self.resume = resume
-        self.creator = creator
+        self.creator = creator #creator id
+        self.creator_name = creator_name
         self.users = users
 
     def __repr__(self):
@@ -25,15 +26,26 @@ class Team(object):
             'name': self.name,
             'resume': self.resume,
             'creator': self.creator,
-            "users": self.users,
+            'creator_name': self.creator_name,
+            "users": [u.dict() for u in self.users],
         }
-
 
     @classmethod
     def get_team_users(cls, team_id):
         h = {"Content-type": "application/json"}
-        r = corelib.auth_requests("GET", "%s/team/%s" \
+        r = corelib.auth_requests("GET", "%s/team/t/%s" \
                 %(config.API_ADDR, team_id), headers=h)
+        log.debug("%s:%s" %(r.status_code, r.text))
+
+        if r.status_code != 200:
+            raise Exception("%s %s" %(r.status_code, r.text))
+        return r.json()
+
+    @classmethod
+    def get_team_users_by_name(cls, team_name):
+        h = {"Content-type": "application/json"}
+        r = corelib.auth_requests("GET", "%s/team/name/%s" \
+                %(config.API_ADDR, team_name), headers=h)
         log.debug("%s:%s" %(r.status_code, r.text))
 
         if r.status_code != 200:
@@ -61,7 +73,7 @@ class Team(object):
         teams = []
         for j in r.json():
             users = [User(x["id"], x["name"], x["cnname"], x["email"], x["phone"], x["im"], x["qq"], x["role"]) for x in j['users']]
-            t = Team(j["team"]["id"], j["team"]["name"], j["team"]["resume"], j['creator_name'], users)
+            t = Team(j["team"]["id"], j["team"]["name"], j["team"]["resume"], j["team"]["creator"], j['creator_name'], users)
             teams.append(t)
 
         return teams

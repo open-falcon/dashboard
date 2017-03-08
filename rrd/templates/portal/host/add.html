@@ -1,0 +1,31 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+    <span class="green">
+        <span class="glyphicon glyphicon-tag"></span>
+        {{ group.grp_name }}
+    </span>
+
+    <input type="hidden" id="group_id" value="{{ group.id }}">
+
+    <div>
+        <div class="mt20 mb20">
+            <div class="pull-left">
+                <textarea class="form-control" rows="17" id="hosts" placeholder="lg-dinp-docker01.bj"
+                          style="width: 600px;"></textarea>
+            </div>
+            <div class="pull-left" style="padding-left: 20px;" id="message">
+
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+
+        <button class="btn btn-default" onclick="batch_add_host();">
+            <span class="glyphicon glyphicon-plus"></span>
+            Add Host
+        </button>
+        <button class="btn btn-default" onclick="history.go(-1);">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+            Back
+        </button>
+    </div>
+{% endblock %}

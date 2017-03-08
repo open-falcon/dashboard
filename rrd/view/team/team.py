@@ -15,6 +15,16 @@ def team_users(team_id):
             ret = {"msg":str(e)}
         return json.dumps(ret)
 
+@app.route("/team/<team_name>/users", methods=["GET",])
+@require_login()
+def team_users_by_name(team_name):
+    if request.method == "GET":
+        try:
+            ret = Team.get_team_users_by_name(team_name)
+        except Exception as e:
+            ret = {"msg":str(e)}
+        return json.dumps(ret)
+
 @app.route("/team/list", methods=["GET",])
 @require_login()
 def team_list():
@@ -55,7 +65,7 @@ def team_create():
 def team_edit(team_id):
     if request.method == "GET":
         j = Team.get_team_users(team_id)
-        team = Team(j['id'], j['name'], j['resume'], j['creator'], [])
+        team = Team(j['id'], j['name'], j['resume'], j['creator'], j['creator_name'], [])
         team_user_ids = ",".join([str(x['id']) for x in j['users']])
 
         return render_template("team/edit.html", **locals())

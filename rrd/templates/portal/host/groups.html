@@ -1,0 +1,48 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading" style="padding-left: 8px;">binding groups</div>
+        <div class="panel-body" style="padding-left: 8px;">
+            host: <span class="green">{{ host.hostname }}</span>
+        </div>
+
+        <!-- Table -->
+        <table class="table table-hover table-bordered table-striped" style="margin-bottom: 0px; margin-top: 0px;">
+            <thead>
+            <tr>
+                <th>group</th>
+                <th>creator</th>
+                <th>operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for v in groups %}
+                <tr>
+                    <td>{{ v.grp_name }}</td>
+                    <td>{{ v.create_user }}</td>
+                    <td>
+                        <button class="btn btn-default btn-xs"
+                                onclick="host_unbind_group('{{ host.id }}', '{{ v.id }}');">
+                            <span class="glyphicon glyphicon-trash"></span>
+                            Unbind
+                        </button>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <button class="btn btn-default" onclick="history.go(-1);">
+        <span class="glyphicon glyphicon-arrow-left"></span>
+        Back
+    </button>
+
+{% endblock %}

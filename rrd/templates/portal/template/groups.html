@@ -1,0 +1,52 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading" style="padding-left: 8px;">host groups</div>
+        <div class="panel-body" style="padding-left: 8px;">
+            template: <span class="green">{{ data.tpl.tpl_name }}</span>
+        </div>
+
+        <!-- Table -->
+        <table class="table table-hover table-bordered table-striped" style="margin-bottom: 0px; margin-top: 0px;">
+            <thead>
+            <tr>
+                <th>name</th>
+                <th>creator</th>
+                <th>operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for v in data.gs %}
+                <tr>
+                    <td>{{ v.grp_name }}</td>
+                    <td>
+                        <a target="_blank"
+                           href="/user/about/{{ v.create_user }}">{{ v.create_user }}</a>
+                    </td>
+                    <td>
+                        <a href="javascript:tpl_unbind_group('{{ data.tpl.id }}', '{{ v.id }}');"
+                           style="text-decoration: none;">
+                            <span class="glyphicon glyphicon-trash orange"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="mt20 mb20">
+        <button class="btn btn-default" onclick="history.go(-1);">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+            <span>Back</span>
+        </button>
+    </div>
+
+{% endblock %}

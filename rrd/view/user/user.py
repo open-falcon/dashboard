@@ -12,6 +12,13 @@ def user_info(user_id):
         user = User.get_by_id(user_id)
         return render_template("user/about.html", **locals())
 
+@app.route("/user/about/<user_name>", methods=["GET",])
+@require_login()
+def user_info_by_name(user_name):
+    if request.method == "GET":
+        user = User.get_by_name(user_name)
+        return render_template("user/about.html", **locals())
+
 @app.route("/user/profile", methods=["GET", "POST"])
 @require_login()
 def user_profile():
