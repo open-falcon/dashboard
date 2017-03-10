@@ -12,10 +12,8 @@ from rrd.model.graph import DashboardGraph
 from rrd import consts
 from rrd.utils.graph_urls import generate_graph_urls 
 from rrd import config
-from rrd.view.utils import require_login, require_login_json
 
 @app.route("/screen", methods=["GET", "POST"])
-@require_login()
 def dash_screens():
     top_screens = DashboardScreen.gets_by_pid(pid='0') or []
     top_screens = sorted(top_screens, key=lambda x:x.name)
@@ -23,7 +21,6 @@ def dash_screens():
     return render_template("screen/index.html", **locals())
 
 @app.route("/screen/<int:sid>/delete")
-@require_login()
 def dash_screen_delete(sid):
     screen = DashboardScreen.get(sid)
     if not screen:
@@ -33,7 +30,6 @@ def dash_screen_delete(sid):
     return redirect("/screen")
 
 @app.route("/screen/<int:sid>/edit", methods=["GET", "POST"])
-@require_login()
 def dash_screen_edit(sid):
     screen = DashboardScreen.get(sid)
     if not screen:
@@ -47,7 +43,6 @@ def dash_screen_edit(sid):
         return render_template("screen/edit.html", **locals())
 
 @app.route("/screen/<int:sid>/clone", methods=["GET", "POST"])
-@require_login()
 def dash_screen_clone(sid):
     screen = DashboardScreen.get(sid)
     if not screen:
@@ -72,7 +67,6 @@ def dash_screen_clone(sid):
         return render_template("screen/clone.html", **locals())
 
 @app.route("/graph/<int:gid>/delete")
-@require_login()
 def dash_graph_delete(gid):
     graph = DashboardGraph.get(gid)
     if not graph:
@@ -81,7 +75,6 @@ def dash_graph_delete(gid):
     return redirect("/screen/" + graph.screen_id)
 
 @app.route("/screen/<int:sid>")
-@require_login()
 def dash_screen(sid):
     start = request.args.get("start")
     end = request.args.get("end")
@@ -113,7 +106,6 @@ def dash_screen(sid):
     return render_template("screen/screen.html", **locals())
 
 @app.route("/screen/embed/<int:sid>")
-@require_login()
 def dash_screen_embed(sid):
     start = request.args.get("start")
     end = request.args.get("end")
@@ -137,7 +129,6 @@ def dash_screen_embed(sid):
 
 
 @app.route("/screen/add", methods=["GET", "POST"])
-@require_login()
 def dash_screen_add():
     if request.method == "POST":
         name = request.form.get("screen_name")
@@ -153,7 +144,6 @@ def dash_screen_add():
         return render_template("screen/add.html", **locals())
 
 @app.route("/screen/<int:sid>/graph", methods=["GET", "POST"])
-@require_login()
 def dash_graph_add(sid):
     all_screens = DashboardScreen.gets_all()
     top_screens = [x for x in all_screens if x.pid == '0']
@@ -192,7 +182,6 @@ def dash_graph_add(sid):
         return render_template("screen/graph_add.html", config=config, **locals())
 
 @app.route("/graph/<int:gid>/edit", methods=["GET", "POST"])
-@require_login()
 def dash_graph_edit(gid):
     error = ""
     graph = DashboardGraph.get(gid)
@@ -242,7 +231,6 @@ def dash_graph_edit(gid):
         return render_template("screen/graph_edit.html", **locals())
 
 @app.route("/graph/multi_edit", methods=["GET", "POST"])
-@require_login()
 def dash_graph_multi_edit():
     ret = {
             "ok": False,

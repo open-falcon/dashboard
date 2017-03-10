@@ -1,6 +1,6 @@
 #-*- coding:utf-8 -*-
 import datetime
-from flask import g, session, request
+from flask import g, session, request, redirect
 
 from rrd import app
 from rrd.view.utils import get_usertoken_from_session, get_current_user_profile
@@ -21,10 +21,10 @@ def app_before():
     g.user_token = get_usertoken_from_session(session)
     g.user = get_current_user_profile(g.user_token)
 
-    if not g.user:
+    path = request.path
+    if not g.user and not path.startswith("/auth/login"):
         return redirect("/auth/login")
 
-    path = request.path
     if path.startswith("/screen"):
         g.nav_menu = "nav_screen"
     elif path.startswith("/portal/hostgroup"):

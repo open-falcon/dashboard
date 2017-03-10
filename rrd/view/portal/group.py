@@ -6,11 +6,9 @@ from flask import request, g, jsonify, render_template
 from rrd.model.portal.host_group import HostGroup
 from rrd.model.portal.grp_tpl import GrpTpl
 from rrd.service import group_service
-from rrd.view.utils import require_login, require_login_json
 
 
 @app.route('/portal/group/create', methods=['POST'])
-@require_login_json()
 def group_create_post():
     grp_name = request.form['grp_name'].strip()
     if not grp_name:
@@ -24,7 +22,6 @@ def group_create_post():
 
 
 @app.route('/portal/group/delete/<group_id>')
-@require_login_json()
 def group_delete_get(group_id):
     group_id = int(group_id)
     group = HostGroup.read(where='id = %s', params=[group_id])
@@ -38,7 +35,6 @@ def group_delete_get(group_id):
 
 
 @app.route('/portal/group/update/<group_id>', methods=['POST'])
-@require_login_json()
 def group_update_post(group_id):
     group_id = int(group_id)
     new_name = request.form['new_name'].strip()
@@ -57,13 +53,11 @@ def group_update_post(group_id):
 
 
 @app.route('/portal/group/advanced')
-@require_login()
 def group_advanced_get():
     return render_template('portal/group/advanced.html')
 
 
 @app.route('/portal/group/rename', methods=['POST'])
-@require_login_json()
 def group_rename_post():
     old_str = request.form['old_str'].strip()
     new_str = request.form['new_str'].strip()
@@ -74,7 +68,6 @@ def group_rename_post():
 
 
 @app.route('/portal/group/templates/<grp_id>')
-@require_login_json()
 def group_templates_get(grp_id):
     grp_id = int(grp_id)
     grp = HostGroup.read(where='id = %s', params=[grp_id])
@@ -87,7 +80,6 @@ def group_templates_get(grp_id):
 
 
 @app.route('/portal/group/bind/template')
-@require_login_json()
 def group_bind_template_get():
     tpl_id = request.args.get('tpl_id', '').strip()
     grp_id = request.args.get('grp_id', '').strip()

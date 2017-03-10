@@ -3,11 +3,9 @@ import json
 from flask import request, abort, g
 from rrd import app, config
 from rrd import corelib
-from rrd.view.utils import require_login_json
 
 #done, TODO:query by tags
 @app.route("/api/endpoints")
-@require_login_json()
 def api_endpoints():
     ret = {
             "ok": False,
@@ -39,7 +37,6 @@ def api_endpoints():
 
 #done
 @app.route("/api/counters", methods=["POST"])
-@require_login_json()
 def api_get_counters():
     ret = {
             "ok": False,

@@ -7,13 +7,11 @@ from rrd.model.portal.strategy import Strategy
 from rrd.model.portal.action import Action
 from rrd.model.portal.grp_tpl import GrpTpl
 from rrd.model.portal.host_group import HostGroup
-from rrd.view.utils import require_login, require_login_json
 
 from rrd.utils.logger import logging
 log = logging.getLogger(__file__)
 
 @app.route('/portal/template')
-@require_login_json()
 def templates_get():
     page = int(request.args.get('p', 1))
     limit = int(request.args.get('limit', 10))
@@ -37,7 +35,6 @@ def templates_get():
 
 
 @app.route('/portal/template/create', methods=['POST'])
-@require_login_json()
 def template_create_post():
     name = request.form['name'].strip()
     if not name:
@@ -54,7 +51,6 @@ def template_create_post():
 
 
 @app.route('/portal/template/update/<tpl_id>')
-@require_login()
 def template_update_get(tpl_id):
     tpl_id = int(tpl_id)
     t = Template.get(tpl_id)
@@ -69,7 +65,6 @@ def template_update_get(tpl_id):
 
 
 @app.route('/portal/template/binds/<tpl_id>')
-@require_login_json()
 def template_binds_get(tpl_id):
     tpl_id = int(tpl_id)
     t = Template.get(tpl_id)
@@ -84,7 +79,6 @@ def template_binds_get(tpl_id):
 
 
 @app.route('/portal/template/unbind/group')
-@require_login_json()
 def template_unbind_group_get():
     tpl_id = request.args.get('tpl_id', '')
     grp_id = request.args.get('grp_id', '')
@@ -99,7 +93,6 @@ def template_unbind_group_get():
 
 
 @app.route('/portal/template/unbind/node')
-@require_login_json()
 def template_unbind_grp_name_get():
     tpl_id = request.args.get('tpl_id', '')
     if not tpl_id:
@@ -118,7 +111,6 @@ def template_unbind_grp_name_get():
 
 
 @app.route('/portal/template/bind/node', methods=['POST'])
-@require_login_json()
 def template_bind_node_post():
     node = request.form['node'].strip()
     tpl_id = request.form['tpl_id'].strip()
@@ -137,7 +129,6 @@ def template_bind_node_post():
 
 
 @app.route('/portal/template/view/<tpl_id>')
-@require_login()
 def template_view_get(tpl_id):
     tpl_id = int(tpl_id)
     t = Template.get(tpl_id)
@@ -151,7 +142,6 @@ def template_view_get(tpl_id):
 
 
 @app.route('/portal/template/fork/<tpl_id>')
-@require_login_json()
 def template_fork_get(tpl_id):
     tpl_id = int(tpl_id)
     t = Template.get(tpl_id)
@@ -165,14 +155,12 @@ def template_fork_get(tpl_id):
 
 
 @app.route('/portal/template/help')
-@require_login_json()
 def template_help_get():
     contact = app.config['CONTACT']
     return render_template('portal/template/help.html', contact=contact)
 
 
 @app.route('/portal/template/delete/<tpl_id>')
-@require_login_json()
 def template_delete_get(tpl_id):
     tpl_id = int(tpl_id)
     t = Template.get(tpl_id)
@@ -194,7 +182,6 @@ def template_delete_get(tpl_id):
 
 
 @app.route('/portal/template/rename/<tpl_id>', methods=['POST'])
-@require_login_json()
 def template_rename_post(tpl_id):
     tpl_id = int(tpl_id)
     t = Template.get(tpl_id)
@@ -211,7 +198,6 @@ def template_rename_post(tpl_id):
 
 
 @app.route('/portal/template/action/update/<tpl_id>', methods=['POST'])
-@require_login_json()
 def template_action_update_post(tpl_id):
     tpl_id = int(tpl_id)
     t = Template.get(tpl_id)

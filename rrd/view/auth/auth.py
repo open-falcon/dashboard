@@ -5,7 +5,6 @@ import json
 from rrd import app
 from rrd import config
 from rrd.view import utils as view_utils
-from rrd.view.utils import require_login
 
 from rrd.utils.logger import logging
 log = logging.getLogger(__file__)
@@ -43,7 +42,6 @@ def auth_login():
             return json.dumps(ret)
 
 @app.route("/auth/logout", methods=["GET",])
-@require_login()
 def auth_logout():
     if request.method == "GET":
         view_utils.logout_user(g.user_token)

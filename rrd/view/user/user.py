@@ -2,25 +2,21 @@
 import json
 from flask import request, g, abort, render_template
 from rrd import app
-from rrd.view.utils import require_login, require_login_json 
 from rrd.model.user import User
 
 @app.route("/user/about/<int:user_id>", methods=["GET",])
-@require_login()
 def user_info(user_id):
     if request.method == "GET":
         user = User.get_by_id(user_id)
         return render_template("user/about.html", **locals())
 
 @app.route("/user/about/<user_name>", methods=["GET",])
-@require_login()
 def user_info_by_name(user_name):
     if request.method == "GET":
         user = User.get_by_name(user_name)
         return render_template("user/about.html", **locals())
 
 @app.route("/user/profile", methods=["GET", "POST"])
-@require_login()
 def user_profile():
     if request.method == "GET":
         current_user = g.user
@@ -51,7 +47,6 @@ def user_profile():
         return json.dumps(ret)
 
 @app.route("/user/chpwd", methods=["POST", ])
-@require_login_json()
 def user_change_passwd():
     if request.method == "POST":
         ret = {"msg": ""}
@@ -75,7 +70,6 @@ def user_change_passwd():
         return json.dumps(ret)
         
 @app.route("/user/list", methods=["GET",])
-@require_login()
 def user_list():
     if request.method == "GET":
         query_term = request.args.get("query", "")
@@ -85,7 +79,6 @@ def user_list():
         return render_template("user/list.html", **locals())
 
 @app.route("/user/query", methods=["GET",])
-@require_login_json()
 def user_query():
     if request.method == "GET":
         query_term = request.args.get("query", "")
@@ -104,7 +97,6 @@ def user_query():
 
 #anyone can create a new user
 @app.route("/user/create", methods=["GET", "POST"])
-@require_login()
 def user_create():
     if request.method == "GET":
         return render_template("user/create.html", **locals())
@@ -133,7 +125,6 @@ def user_create():
 
 ##admin
 @app.route("/admin/user/<int:user_id>/edit", methods=["GET", "POST"])
-@require_login()
 def admin_user_edit(user_id):
     if request.method == "GET":
         if not (g.user.is_admin() or g.user.is_root()):
@@ -170,7 +161,6 @@ def admin_user_edit(user_id):
         return json.dumps(ret)
 
 @app.route("/admin/user/<int:user_id>/chpwd", methods=["POST", ])
-@require_login_json()
 def admin_user_change_password(user_id):
     if request.method == "POST":
         ret = {"msg": ""}
@@ -192,7 +182,6 @@ def admin_user_change_password(user_id):
         return json.dumps(ret)
 
 @app.route("/admin/user/<int:user_id>/role", methods=["POST", ])
-@require_login_json()
 def admin_user_change_role(user_id):
     if request.method == "POST":
         ret = {"msg": ""}
@@ -215,7 +204,6 @@ def admin_user_change_role(user_id):
         return json.dumps(ret)
 
 @app.route("/admin/user/<int:user_id>/delete", methods=["POST", ])
-@require_login_json()
 def admin_user_delete(user_id):
     if request.method == "POST":
         ret = {"msg": ""}

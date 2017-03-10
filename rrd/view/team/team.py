@@ -2,11 +2,9 @@
 import json
 from flask import request, g, abort, render_template
 from rrd import app
-from rrd.view.utils import require_login, require_login_json
 from rrd.model.team import Team
 
 @app.route("/team/<int:team_id>/users", methods=["GET",])
-@require_login()
 def team_users(team_id):
     if request.method == "GET":
         try:
@@ -16,7 +14,6 @@ def team_users(team_id):
         return json.dumps(ret)
 
 @app.route("/team/<team_name>/users", methods=["GET",])
-@require_login()
 def team_users_by_name(team_name):
     if request.method == "GET":
         try:
@@ -26,7 +23,6 @@ def team_users_by_name(team_name):
         return json.dumps(ret)
 
 @app.route("/team/list", methods=["GET",])
-@require_login()
 def team_list():
     if request.method == "GET":
         query_term = request.args.get("query", "")
@@ -35,7 +31,6 @@ def team_list():
 
 
 @app.route("/team/create", methods=["GET", "POST"])
-@require_login()
 def team_create():
     if request.method == "GET":
         return render_template("team/create.html", **locals())
@@ -61,7 +56,6 @@ def team_create():
         return json.dumps(ret)
 
 @app.route("/team/<int:team_id>/edit", methods=["GET", "POST"])
-@require_login()
 def team_edit(team_id):
     if request.method == "GET":
         j = Team.get_team_users(team_id)
@@ -86,7 +80,6 @@ def team_edit(team_id):
         return json.dumps(ret)
 
 @app.route("/team/<int:team_id>/delete", methods=["POST"])
-@require_login_json()
 def team_delete(team_id):
     if request.method == "POST":
         ret = {"msg": ""}
