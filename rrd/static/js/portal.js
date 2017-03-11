@@ -625,3 +625,50 @@ function delete_cluster_monitor_item(cluster_id) {
         return false;
     });
 }
+
+// - alarm-dash business function -
+function events_all_select() {
+    var boxes = $("input[type=checkbox]");
+    for (var i = 0; i < boxes.length; i++) {
+        boxes[i].checked="checked";
+    }
+}
+
+function events_reverse_select() {
+    var boxes = $("input[type=checkbox]");
+    for (var i = 0; i < boxes.length; i++) {
+        if (boxes[i].checked) {
+            boxes[i].checked=""
+        } else {
+            boxes[i].checked="checked";
+        }
+    }
+}
+
+function events_batch_solve() {
+    var boxes = $("input[type=checkbox]");
+    var ids = []
+    for (var i = 0; i < boxes.length; i++) {
+        if (boxes[i].checked) {
+            ids.push($(boxes[i]).attr("alarm"))
+        }
+    }
+
+    $.post("/portal/event/solve", {"ids": ids.join(',,')}, function(msg){
+        if (msg=="") {
+            location.reload();
+        } else {
+            alert(msg);
+        }
+    });
+}
+
+function events_solve(id) {
+    $.post("/portal/event/solve", {"ids": id}, function(msg){
+        if (msg=="") {
+            location.reload();
+        } else {
+            alert(msg);
+        }
+    });
+}

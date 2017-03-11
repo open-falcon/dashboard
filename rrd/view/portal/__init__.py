@@ -12,4 +12,5 @@ __all__ = [
         "plugin",
         "strategy",
         "template",
+        "alarm",
         ]
