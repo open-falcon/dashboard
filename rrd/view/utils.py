@@ -10,6 +10,9 @@ from rrd import corelib
 from rrd.utils import randbytes
 from rrd.model.user import User, UserToken
 
+from rrd.utils.logger import logging
+log = logging.getLogger(__file__)
+
 def remote_ip():
     if not request.headers.getlist("X-Forward-For"):
         return request.remote_addr
@@ -98,3 +101,52 @@ def login_user(name, password):
     set_user_cookie(ut, session)
     return ut
 
+
+def ldap_login_user(name, password):
+    import ldap
+    if not config.LDAP_ENABLED:
+        raise Exception("ldap not enabled")
+
+    bind_dn = config.LDAP_BINDDN_FMT
+    try:
+        bind_dn = config.LDAP_BINDDN_FMT %name
+    except TypeError: pass
+
+    search_filter = config.LDAP_SEARCH_FMT
+    try:
+        search_filter = config.LDAP_SEARCH_FMT %name
+    except TypeError: pass
+    print bind_dn
+    print search_filter
+
+    cli = None
+    try:
+        ldap_server = config.LDAP_SERVER if config.LDAP_SERVER.startswith("ldap://") else "ldap://%s" %config.LDAP_SERVER
+        log.debug("bind_dn=%s base_dn=%s filter=%s attrs=%s" %(bind_dn, config.LDAP_BASE_DN, search_filter, config.LDAP_ATTRS))
+        cli = ldap.initialize(ldap_server)
+        cli.bind_s(bind_dn, password)
+        result = cli.search_s(config.LDAP_BASE_DN, ldap.SCOPE_SUBTREE, search_filter, config.LDAP_ATTRS)
+        log.debug("ldap result: %s" % result)
+        d = result[0][1]
+        email = d['mail'][0]
+        cnname = d['cn'][0]
+        if 'telephoneNumber' in d:
+            phone = d['telephoneNumber'] and d['telephoneNumber'][0] or ""
+        else:
+            phone = ""
+    
+        return {
+                "name": name,
+                "password": password,
+                "cnname": cnname,
+                "email": email,
+                "phone": phone,
+        }
+    except ldap.LDAPError as e:
+        cli and cli.unbind_s()
+        raise e
+    except (IndexError, KeyError) as e:
+        raise e
+    finally:
+        cli and cli.unbind_s()
+    

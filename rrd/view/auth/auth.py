@@ -4,6 +4,7 @@ import requests
 import json
 from rrd import app
 from rrd import config
+from rrd.model.user import User
 from rrd.view import utils as view_utils
 
 from rrd.utils.logger import logging
@@ -22,9 +23,33 @@ def auth_login():
 
         name = request.form.get("name")
         password = request.form.get("password")
+        ldap = request.form.get("ldap") or "0"
+
         if not name or not password:
             ret["msg"] = "no name or password"
             return json.dumps(ret)
+
+        if ldap == "1":
+            try:
+                ldap_info = view_utils.ldap_login_user(name, password)
+
+                h = {"Content-type":"application/json"}
+                d = {
+                    "name": name,
+                    "password": password,
+                    "cnname": ldap_info['cnname'],
+                    "email": ldap_info['email'],
+                    "phone": ldap_info['phone'],
+                }
+
+                r = requests.post("%s/user/create" %(config.API_ADDR,), \
+                        data=json.dumps(d), headers=h)
+                log.debug("%s:%s" %(r.status_code, r.text))
+
+                #TODO: update password in db if ldap password changed
+            except Exception as e:
+                ret["msg"] = str(e)
+                return json.dumps(ret)
 
         try:
             ut = view_utils.login_user(name, password)

@@ -49,7 +49,8 @@ function login() {
 	}
 	$.post('/auth/login', {
 		'name' : $('#name').val(),
-		'password' : $("#password").val()
+		'password' : $("#password").val(),
+        'ldap' : useLdap
 	}, function(json) {
 		if (json.msg.length > 0) {
 			err_message_quietly(json.msg);
