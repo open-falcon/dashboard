@@ -23,7 +23,7 @@ def api_endpoints():
         return json.dumps(ret)
 
     h = {"Content-type": "application/json"}
-    r = corelib.auth_requests("GET", config.API_ADDR + "/graph/endpoint?q=%s&limit=%s&tags=%s" %(q, limit, tags), headers=h)
+    r = corelib.auth_requests("GET", config.API_ADDR + "/graph/endpoint?q=%s&limit=%s&tags=%s" %(q, limit, ",".join(tags)), headers=h)
     if r.status_code != 200:
         abort(400, r.text)
 

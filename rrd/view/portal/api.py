@@ -11,6 +11,7 @@ from rrd.model.portal.host_group import HostGroup
 from rrd.model.portal.host import Host
 from rrd.model.portal.expression import Expression
 from rrd.model.portal.strategy import Strategy
+from rrd import corelib, config
 
 from rrd.utils.logger import logging
 log = logging.getLogger(__file__)
