@@ -22,7 +22,9 @@ def app_before():
     g.user = get_current_user_profile(g.user_token)
 
     path = request.path
-    if not g.user and not path.startswith("/auth/login") and not path.startswith("/static/"):
+    if not g.user and not path.startswith("/auth/login") and \
+            not path.startswith("/static/") and \
+            not path.startswith("/portal/links/"):
         return redirect("/auth/login")
 
     if path.startswith("/screen"):

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>alerts</title>
+    <style>
+        * {
+            font-family: 'verdana', 'Consolas', 'Microsoft YaHei';
+            font-size: 9px;
+        }
+
+        .alert-list {
+            line-height: 18px;
+        }
+
+        .item {
+            margin-bottom: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="alert-list">
+    {% for item in sms_strings %}
+    <div class="item">
+        {{item}}
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>

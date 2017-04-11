@@ -13,4 +13,5 @@ __all__ = [
         "strategy",
         "template",
         "alarm",
+        "alert_link",
         ]
