@@ -1,10 +1,10 @@
 #-*- coding:utf-8 -*-
 import json
+import re
 from flask import request, abort, g
 from rrd import app, config
 from rrd import corelib
 
-#done, TODO:query by tags
 @app.route("/api/endpoints")
 def api_endpoints():
     ret = {
@@ -15,7 +15,7 @@ def api_endpoints():
 
     q = request.args.get("q") or ""
     raw_tag = request.args.get("tags") or ""
-    tags = raw_tag and [x.strip() for x in raw_tag.split(",")] or []
+    tags = ','.join(re.split('\s*,\s*', raw_tag))
     limit = int(request.args.get("limit") or 100)
 
     if not q and not tags:
@@ -23,7 +23,7 @@ def api_endpoints():
         return json.dumps(ret)
 
     h = {"Content-type": "application/json"}
-    r = corelib.auth_requests("GET", config.API_ADDR + "/graph/endpoint?q=%s&limit=%s&tags=%s" %(q, limit, ",".join(tags)), headers=h)
+    r = corelib.auth_requests("GET", config.API_ADDR + "/graph/endpoint?q=%s&limit=%d&tags=%s" %(q, limit, tags), headers=h)
     if r.status_code != 200:
         abort(400, r.text)
 
