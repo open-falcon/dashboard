@@ -5,8 +5,12 @@
 <div id="container" class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-
 			<div style="margin: 0 auto; max-width: 400px;">
+				<ol class="breadcrumb">
+                    <li><a href="/user/list">通讯录</a></li>
+                    <li class="active">关于{{user.cnname}}</li>
+				</ol>
+
 				<div class="thin-border" style="line-height:24px;">
 					<div>
 						姓名：{{user.cnname}}<br>

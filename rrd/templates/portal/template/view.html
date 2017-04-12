@@ -86,6 +86,23 @@
                 <div class="mt10">
                     callback: {{ data.tpl.action.url }}
                 </div>
+                <pre><code>#callback request payload:
+
+{
+  "endpoint": event.Endpoint,
+  "metric": event.Metric(),
+  "status": event.Status,
+  "step": event.CurrentStep,
+  "priority": event.Priority(),
+  "time": event.FormattedTime(),
+  "tpl_id": event.TplId(),
+  "exp_id": event.ExpressionId(),
+  "stra_id": event.StrategyId(),
+  "tags": "srv=falcon,mount=sda"
+}
+
+# for more infomation, look the code https://github.com/open-falcon/falcon-plus/blob/master/common/model/event.go
+</code></pre>
 
                 <div class="mt10">
                     <label class="checkbox-inline">

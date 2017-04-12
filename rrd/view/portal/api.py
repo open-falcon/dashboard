@@ -114,7 +114,7 @@ def api_metric_query():
         return []
 
     metrics = r.json() or []
-    metrics.append(q)
+    metrics = [q,] + metrics
 
     return jsonify(data=[{'name': name} for name in metrics])
 

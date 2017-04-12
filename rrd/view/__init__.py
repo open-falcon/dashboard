@@ -29,7 +29,7 @@ def app_before():
 
     if path.startswith("/screen"):
         g.nav_menu = "nav_screen"
-    elif path.startswith("/portal/hostgroup"):
+    elif path.startswith("/portal/hostgroup") or path.startswith("/portal/group"):
         g.nav_menu = "p_hostgroup"
     elif path.startswith("/portal/template"):
         g.nav_menu = "p_template"
@@ -40,4 +40,4 @@ def app_before():
     elif path.startswith("/portal/alarm-dash"):
         g.nav_menu = "p_alarm-dash"
     else:
-        g.nav_menu = "nav_dashboard"
+        g.nav_menu = ""

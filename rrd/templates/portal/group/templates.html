@@ -27,11 +27,10 @@
             {% for v in ts %}
                 <tr>
                     <td>
-                        <a target="_blank" href="/portal/template/view/{{ v.id }}">{{ v.tpl_name }}</a>
+                        <a href="/portal/template/view/{{ v.id }}">{{ v.tpl_name }}</a>
                     </td>
                     <td>
-                        <a target="_blank"
-                           href="/user/about/{{ v.create_user }}">{{ v.create_user }}</a>
+                        <a href="/user/about/{{ v.create_user }}">{{ v.create_user }}</a>
                     </td>
                     <td>
                         <a href="javascript:tpl_unbind_group('{{ v.id }}', '{{ group.id }}');"
