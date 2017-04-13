@@ -3,7 +3,6 @@ __author__ = 'Ulric Qin'
 from .bean import Bean
 from rrd.store import db
 
-
 class Host(Bean):
     _tbl = 'host'
     _cols = 'id, hostname, maintain_begin, maintain_end'

@@ -12,11 +12,19 @@ API_ADDR = "http://127.0.0.1:8080/api/v1"
 
 # portal database
 # TODO: read from api instead of db
-DB_HOST = "127.0.0.1"
-DB_PORT = 3306
-DB_USER = "root"
-DB_PASS = ""
-DB_NAME = "falcon_portal"
+PORTAL_DB_HOST = "127.0.0.1"
+PORTAL_DB_PORT = 3306
+PORTAL_DB_USER = "root"
+PORTAL_DB_PASS = ""
+PORTAL_DB_NAME = "falcon_portal"
+
+# alarm database
+# TODO: read from api instead of db
+ALARM_DB_HOST = "127.0.0.1"
+ALARM_DB_PORT = 3306
+ALARM_DB_USER = "root"
+ALARM_DB_PASS = ""
+ALARM_DB_NAME = "alarms"
 
 # ldap config
 LDAP_ENABLED = False

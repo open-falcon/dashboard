@@ -2,14 +2,30 @@
 from rrd import config
 import MySQLdb
 
+portal_db_cfg = {
+        "DB_HOST": config.PORTAL_DB_HOST,
+        "DB_PORT": config.PORTAL_DB_PORT,
+        "DB_USER": config.PORTAL_DB_USER,
+        "DB_PASS": config.PORTAL_DB_PASS,
+        "DB_NAME": config.PORTAL_DB_NAME,
+}
+
+alarm_db_cfg = {
+        "DB_HOST": config.ALARM_DB_HOST,
+        "DB_PORT": config.ALARM_DB_PORT,
+        "DB_USER": config.ALARM_DB_USER,
+        "DB_PASS": config.ALARM_DB_PASS,
+        "DB_NAME": config.ALARM_DB_NAME,
+}
+
 def connect_db(cfg):
     try:
         conn = MySQLdb.connect(
-            host=cfg.DB_HOST,
-            port=cfg.DB_PORT,
-            user=cfg.DB_USER,
-            passwd=cfg.DB_PASS,
-            db=cfg.DB_NAME,
+            host=cfg['DB_HOST'],
+            port=cfg['DB_PORT'],
+            user=cfg['DB_USER'],
+            passwd=cfg['DB_PASS'],
+            db=cfg['DB_NAME'],
             use_unicode=True,
             charset="utf8")
         return conn
@@ -105,4 +121,5 @@ class DB(object):
                 self.conn = None
 
 
-db = DB(config)
+db = DB(portal_db_cfg)
+alarm_db = DB(alarm_db_cfg)

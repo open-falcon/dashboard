@@ -1,5 +1,6 @@
 #-*- coding:utf-8 -*-
 import datetime
+import time
 from flask import g, session, request, redirect
 
 from rrd import app
@@ -10,6 +11,25 @@ def fmt_time_filter(value, pattern="%Y-%m-%d %H:%M"):
     if not value:
         return ''
     return datetime.datetime.fromtimestamp(value).strftime(pattern)
+
+@app.template_filter('time_duration')
+def time_duration(v):
+    d = time.time() - time.mktime(v.timetuple())
+
+    if d <= 60:
+        return "just now"
+    if d <= 120:
+            return "1 minute ago"
+    if d <= 3600:
+        return "%d minutes ago" % (d/60)
+    if d <= 7200:
+        return "1 hour ago"
+    if d <= 3600*24:
+        return "%d hours ago" % (d/3600)
+    if d <= 3600*24*2:
+        return "1 day ago"
+
+    return "%d days ago" % (d/3600/24)
 
 @app.teardown_request
 def app_teardown(exception):

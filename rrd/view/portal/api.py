@@ -18,7 +18,6 @@ log = logging.getLogger(__file__)
 
 @app.route("/favicon.ico")
 def favicon():
-    print "----favicon"
     return ""
 
 

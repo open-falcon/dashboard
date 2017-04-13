@@ -33,10 +33,10 @@
         <tbody>
         {% for v in data.vs %}
             <tr>
-                <td><a target="_blank" href="{{ url_for('template_view_get', tpl_id=v.id) }}">{{ v.tpl_name }}</a></td>
-                <td>{% if v.parent %}<a target="_blank" href="{{ url_for('template_view_get', tpl_id=v.parent.id) }}">{{ v.parent.tpl_name }}</a>{% endif %}</td>
+                <td><a href="{{ url_for('template_view_get', tpl_id=v.id) }}">{{ v.tpl_name }}</a></td>
+                <td>{% if v.parent %}<a href="{{ url_for('template_view_get', tpl_id=v.parent.id) }}">{{ v.parent.tpl_name }}</a>{% endif %}</td>
                 <td>
-                    <a target="_blank" href="/user/about/{{ v.create_user }}">{{ v.create_user }}</a>
+                    <a href="/user/about/{{ v.create_user }}">{{ v.create_user }}</a>
                 </td>
                 <td>
                     <a data-toggle="tooltip" data-placement="top" title="克隆一份该模板" href="javascript:fork_template('{{ v.id }}');" style="text-decoration: none;">

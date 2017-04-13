@@ -72,19 +72,20 @@
         <div class="panel-body">
 
             <div class="pull-right">
-                <a target="_blank" href="/team/list">去UIC修改报警组内成员</a>
+                <a target="_blank" href="/team/list">修改报警组内成员</a>
             </div>
 
             {% if data.tpl.action %}
-                uic: {{ data.tpl.action.uic_href() | safe }}<br>
+                告警接收组: {{ data.tpl.action.uic_href() | safe }}<br>
             {% else %}
                 没有配置报警接收人哦<br>
             {% endif %}
+            <hr/>
 
             {% if data.tpl.action.url %}
 
                 <div class="mt10">
-                    callback: {{ data.tpl.action.url }}
+                    Callback: {{ data.tpl.action.url }}
                 </div>
                 <pre><code>#callback request payload:
 

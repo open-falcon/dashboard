@@ -59,7 +59,7 @@ function create_hostgroup() {
         handle_quietly(json, function () {
             window.location.reload();
         });
-    });
+    }, "json");
 }
 
 function delete_hostgroup(group_id) {
@@ -80,7 +80,7 @@ function edit_hostgroup(group_id, grp_name) {
             handle_quietly(json, function () {
                 location.reload();
             });
-        });
+        }, "json");
     })
 }
 
@@ -91,7 +91,7 @@ function rename_hostgroup() {
         handle_quietly(json, function () {
             window.location.href = '/?q=' + new_str;
         });
-    });
+    }, "json");
 }
 
 function bind_plugin(group_id) {
@@ -100,7 +100,7 @@ function bind_plugin(group_id) {
         handle_quietly(json, function () {
             location.reload();
         });
-    });
+    }, "json");
 }
 
 function unbind_plugin(plugin_id) {
@@ -148,7 +148,7 @@ function remove_hosts() {
         handle_quietly(json, function () {
             location.reload();
         });
-    });
+    }, "json");
 }
 
 function maintain() {
@@ -178,7 +178,7 @@ function maintain() {
         handle_quietly(json, function () {
             location.reload();
         });
-    });
+    }, "json");
 }
 
 function no_maintain() {
@@ -197,7 +197,7 @@ function no_maintain() {
         handle_quietly(json, function () {
             location.reload();
         });
-    });
+    }, "json");
 }
 
 function batch_add_host() {
@@ -213,7 +213,7 @@ function batch_add_host() {
         } else {
             $("#message").html(json.data);
         }
-    });
+    }, "json");
 }
 
 function host_unbind_group(host_id, group_id) {
@@ -266,8 +266,7 @@ function update_expression() {
         },
         function (json) {
             handle_quietly(json);
-        }
-    );
+        }, "json");
 }
 
 function pause_expression(id) {
@@ -356,7 +355,7 @@ function create_template() {
         } else {
             location.href = '/portal/template/update/' + json.id;
         }
-    });
+    }, "json");
 }
 
 function make_select2_for_template(selector) {
@@ -441,7 +440,7 @@ function update_template() {
     var parent_id = $("#parent_id").val();
     $.post('/portal/template/rename/' + tpl_id, {'name': name, 'parent_id': parent_id}, function (json) {
         handle_quietly(json);
-    });
+    }, "json");
 }
 
 function save_action_for_tpl(tpl_id) {
@@ -460,8 +459,7 @@ function save_action_for_tpl(tpl_id) {
         },
         function (json) {
             handle_quietly(json);
-        }
-    );
+        }, "json");
 }
 
 function goto_strategy_add_div() {
@@ -489,7 +487,7 @@ function save_strategy() {
         handle_quietly(json, function () {
             location.reload();
         });
-    })
+    }, "json")
 }
 
 function clone_strategy(sid) {
@@ -582,7 +580,7 @@ function node_bind_tpl() {
         handle_quietly(json, function () {
             location.reload();
         });
-    });
+    }, "json");
 }
 
 function create_cluster_monitor_metric(grp_id) {
@@ -597,7 +595,7 @@ function create_cluster_monitor_metric(grp_id) {
         handle_quietly(json, function () {
             location.href = "/group/" + grp_id + "/cluster";
         });
-    })
+    }, "json")
 }
 
 function update_cluster_monitor_metric(cluster_id, grp_id) {
@@ -611,7 +609,7 @@ function update_cluster_monitor_metric(cluster_id, grp_id) {
         'grp_id': grp_id
     }, function (json) {
         handle_quietly(json);
-    });
+    }, "json");
 }
 
 function delete_cluster_monitor_item(cluster_id) {
@@ -620,21 +618,37 @@ function delete_cluster_monitor_item(cluster_id) {
             handle_quietly(json, function () {
                 location.reload();
             })
-        });
+        }, "json");
     }, function () {
         return false;
     });
 }
 
 // - alarm-dash business function -
-function events_all_select() {
+function alarm_case_all_select() {
+    var boxes = $("input[type=checkbox]");
+    for (var i = 0; i < boxes.length; i++) {
+        boxes[i].checked="checked";
+    }
+}
+function alarm_case_event_all_select() {
     var boxes = $("input[type=checkbox]");
     for (var i = 0; i < boxes.length; i++) {
         boxes[i].checked="checked";
     }
 }
 
-function events_reverse_select() {
+function alarm_case_reverse_select() {
+    var boxes = $("input[type=checkbox]");
+    for (var i = 0; i < boxes.length; i++) {
+        if (boxes[i].checked) {
+            boxes[i].checked=""
+        } else {
+            boxes[i].checked="checked";
+        }
+    }
+}
+function alarm_case_event_reverse_select() {
     var boxes = $("input[type=checkbox]");
     for (var i = 0; i < boxes.length; i++) {
         if (boxes[i].checked) {
@@ -645,7 +659,7 @@ function events_reverse_select() {
     }
 }
 
-function events_batch_solve() {
+function alarm_case_batch_rm() {
     var boxes = $("input[type=checkbox]");
     var ids = []
     for (var i = 0; i < boxes.length; i++) {
@@ -654,21 +668,56 @@ function events_batch_solve() {
         }
     }
 
-    $.post("/portal/event/solve", {"ids": ids.join(',,')}, function(msg){
-        if (msg=="") {
-            location.reload();
-        } else {
-            alert(msg);
-        }
+    my_confirm('确定要删除？？？', ['确定', '取消'], function () {
+        $.post('/portal/alarm-dash/case/delete', {"ids": ids.join(',')}, function (json) {
+            handle_quietly(json, function () {
+                location.reload();
+            });
+        }, "json");
+    }, function () {
+        return false;
     });
 }
 
-function events_solve(id) {
-    $.post("/portal/event/solve", {"ids": id}, function(msg){
-        if (msg=="") {
-            location.reload();
-        } else {
-            alert(msg);
+function alarm_case_rm(id) {
+    my_confirm('确定要删除？？？', ['确定', '取消'], function () {
+        $.post('/portal/alarm-dash/case/delete', {"ids": id}, function (json) {
+            handle_quietly(json, function () {
+                location.reload();
+            });
+        }, "json");
+    }, function () {
+        return false;
+    });
+}
+
+function alarm_case_event_rm(id) {
+    my_confirm('确定要删除？？？', ['确定', '取消'], function () {
+        $.post('/portal/alarm-dash/case/event/delete', {"ids": id}, function (json) {
+            handle_quietly(json, function () {
+                location.reload();
+            });
+        }, "json");
+    }, function () {
+        return false;
+    });
+}
+function alarm_case_event_batch_rm() {
+    var boxes = $("input[type=checkbox]");
+    var ids = []
+    for (var i = 0; i < boxes.length; i++) {
+        if (boxes[i].checked) {
+            ids.push($(boxes[i]).attr("alarm"))
         }
+    }
+
+    my_confirm('确定要删除？？？', ['确定', '取消'], function () {
+        $.post('/portal/alarm-dash/case/event/delete', {"ids": ids.join(',')}, function (json) {
+            handle_quietly(json, function () {
+                location.reload();
+            });
+        }, "json");
+    }, function () {
+        return false;
     });
 }

@@ -2,11 +2,11 @@
 __author__ = 'Ulric Qin'
 from rrd.store import db
 
-
 class Bean(object):
     _tbl = ''
     _id = 'id'
     _cols = ''
+    _db = db
 
     @classmethod
     def insert(cls, data=None):
@@ -17,27 +17,27 @@ class Bean(object):
         keys = data.keys()
         safe_keys = ['`%s`' % k for k in keys]
         sql = 'INSERT INTO `%s`(%s) VALUES(%s)' % (cls._tbl, ','.join(safe_keys), '%s' + ',%s' * (size - 1))
-        last_id = db.insert(sql, [data[key] for key in keys])
+        last_id = cls._db.insert(sql, [data[key] for key in keys])
         return last_id
 
     @classmethod
     def delete(cls, where=None, params=None):
         sql = 'DELETE FROM `%s`' % cls._tbl
         if not where:
-            return db.update(sql)
+            return cls._db.update(sql)
 
         sql += ' WHERE ' + where
-        return db.update(sql, params)
+        return cls._db.update(sql, params)
 
     @classmethod
     def delete_one(cls, pk=None):
         sql = 'DELETE FROM `%s` WHERE %s = %%s' % (cls._tbl, cls._id)
-        return db.update(sql, [pk])
+        return cls._db.update(sql, [pk])
 
     @classmethod
     def update(cls, clause=None, params=None):
         sql = 'UPDATE `%s` SET %s' % (cls._tbl, clause)
-        return db.update(sql, params)
+        return cls._db.update(sql, params)
 
     @classmethod
     def update_dict(cls, data=None, where='', params=None):
@@ -83,7 +83,7 @@ class Bean(object):
                 offset = 0
             sql = '%s OFFSET %s' % (sql, offset)
 
-        return db.query_all(sql, params)
+        return cls._db.query_all(sql, params)
 
     @classmethod
     def select_vs(cls, where=None, params=None, order=None, limit=None, page=None, offset=None):
@@ -114,11 +114,11 @@ class Bean(object):
     def total(cls, where=None, params=None):
         sql = 'SELECT COUNT(1) FROM `%s`' % cls._tbl
         if not where:
-            ret = db.query_column(sql)
+            ret = cls._db.query_column(sql)
             return ret[0]
 
         sql += ' WHERE ' + where
-        ret = db.query_column(sql, params)
+        ret = cls._db.query_column(sql, params)
         return ret[0]
 
     @classmethod
