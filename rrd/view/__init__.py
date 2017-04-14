@@ -44,7 +44,8 @@ def app_before():
     path = request.path
     if not g.user and not path.startswith("/auth/login") and \
             not path.startswith("/static/") and \
-            not path.startswith("/portal/links/"):
+            not path.startswith("/portal/links/") and \
+            not path.startswith("/auth/register"):
         return redirect("/auth/login")
 
     if path.startswith("/screen"):
