@@ -1,6 +1,7 @@
 #-*- coding:utf-8 -*-
-from rrd import config
 import MySQLdb
+from rrd import config
+from rrd.utils.logger import logging
 
 portal_db_cfg = {
         "DB_HOST": config.PORTAL_DB_HOST,

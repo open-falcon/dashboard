@@ -3,7 +3,7 @@ __author__ = 'Ulric Qin'
 from .bean import Bean
 from rrd.config import MAINTAINERS
 from rrd.store import db
-
+from rrd.model.user import User
 
 class HostGroup(Bean):
     _tbl = 'grp'

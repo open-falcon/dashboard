@@ -103,7 +103,7 @@ class DashboardGraph(object):
         j = r.json()
 
         graph_id = j and j.get("id")
-        return graph_id and cls.get(graph_id)
+        return graph_id and DashboardGraph.get(graph_id)
 
     @classmethod
     def update_multi(cls, rows):

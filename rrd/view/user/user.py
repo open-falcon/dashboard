@@ -3,6 +3,8 @@ import json
 from flask import request, g, abort, render_template
 from rrd import app
 from rrd.model.user import User
+from rrd.utils.logger import logging
+log = logging.getLogger(__file__)
 
 @app.route("/user/about/<int:user_id>", methods=["GET",])
 def user_info(user_id):
@@ -91,7 +93,7 @@ def user_query():
             ret['users'] = [u.dict() for u in users]
         except Exception as e:
             ret['msg'] = str(e)
-            logger.error(str(e))
+            logging.error(str(e))
 
         return json.dumps(ret)
 

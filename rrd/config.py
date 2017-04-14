@@ -1,6 +1,4 @@
 #-*-coding:utf8-*-
-import os
-
 # app config
 LOG_LEVEL = 'DEBUG'
 SECRET_KEY = "secret-key"

@@ -2,6 +2,7 @@
 __author__ = 'Ulric Qin'
 from .bean import Bean
 from rrd.config import MAINTAINERS
+from rrd.model.user import User
 import time
 
 

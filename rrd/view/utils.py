@@ -116,8 +116,6 @@ def ldap_login_user(name, password):
     try:
         search_filter = config.LDAP_SEARCH_FMT %name
     except TypeError: pass
-    print bind_dn
-    print search_filter
 
     cli = None
     try:

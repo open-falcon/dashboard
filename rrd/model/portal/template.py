@@ -4,6 +4,7 @@ from .bean import Bean
 from rrd.config import MAINTAINERS
 from .strategy import Strategy
 from .action import Action
+from rrd.model.user import User
 
 
 class Template(Bean):

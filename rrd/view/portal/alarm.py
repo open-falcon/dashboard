@@ -54,7 +54,7 @@ def alarm_dash_case_delete():
     params = ids
     EventCase.delete(where=where, params=params)
     for x in ids:
-        Event.delete(where='event_caseId=%s', params=[x], limit=1)
+        Event.delete(where='event_caseId=%s', params=[x])
 
     return json.dumps(ret)
 
