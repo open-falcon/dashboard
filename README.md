@@ -8,6 +8,16 @@ dashboard是Open-Falcon统一的front-end组件，提供以下功能：
 - 告警合并管理：alarm-links
 - 用户注册、登录和权限管理：login、logout、register、ldap_login
 
+Open-Falcon 官网为：[http://open-falcon.org](http://open-falcon.org)
+
+## Demo site
+- TODO
+
+## Screenshots
+
+<img src="https://raw.githubusercontent.com/open-falcon/dashboard/plus-dev/screenshots/dashboard.jpeg" width=500px/>
+<img src="https://raw.githubusercontent.com/open-falcon/dashboard/plus-dev/screenshots/alarm-dashboard-case.jpeg" width=500px/>
+<img src="https://raw.githubusercontent.com/open-falcon/dashboard/plus-dev/screenshots/alarm-dashboard-case-events.jpeg" width=500px/>
 
 ## Clone & Prepare
 
@@ -68,3 +78,32 @@ dashboard是Open-Falcon统一的front-end组件，提供以下功能：
 ## Check log
 
     $ bash control tail
+    
+ 
+## Mailing lists
+
+- [openfalcon-users](https://groups.google.com/forum/#!forum/openfalcon-users) – for discussions around openfalcon usage and community support
+- [openfalcon-developers](https://groups.google.com/forum/#!forum/openfalcon-developers) – for discussions around openfalcon development
+
+##Issue tracker
+
+We are using the [github issue tracker](https://github.com/open-falcon/falcon-plus/issues) for the various Open-Falcon repositories to fix bugs and features request. If you need support, please send your questions to the [openfalcon-users](https://groups.google.com/forum/#!forum/openfalcon-users) mailing list rather than filing a GitHub issue.
+
+Please do not ask individual project members for support. Use the channels above instead, where the whole community can help you and benefit from the solutions provided. If community support is insufficient for your situation, please refer to the Commercial Support section below.
+
+## CONTRIBUTING
+We welcome community contributions! Open-Falcon uses GitHub to manage reviews of pull requests.
+
+If you have a trivial fix or improvement, go ahead and create a pull request, addressing (with `@...`) the maintainer of this repository in the description of the pull request.
+
+If you plan to do something more involved, first discuss your ideas on our mailing list. This will avoid unnecessary work and surely give you and us a good deal of inspiration.
+
+##ACKNOWLEDGEMENTS
+
+Open-Falcon was initially started by Xiaomi and we would also like to acknowledge early contributions by engineers from these companies.
+
+[Wei Lai](https://github.com/laiwei) is the founder of Open-Falcon software and community. 
+
+The Open-Falcon logo and website were contributed by Cepave Design Team.
+
+
