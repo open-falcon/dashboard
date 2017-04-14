@@ -1,9 +1,15 @@
 ## Introduction
+dashboard是Open-Falcon统一的front-end组件，提供以下功能：
 
-dashboard是提供给用户，以图表的方式查看push上来的数据
+- 自定义仪表盘：dashboard、screen
+- 告警配置管理：hostgroup、template 
+- 历史告警信息管理： alarm-dashboard（告警列表、未恢复告警、删除告警信息）
+- 用户组和通讯录：teams、users
+- 告警合并管理：alarm-links
+- 用户注册、登录和权限管理：login、logout、register、ldap_login
 
 
-## Clone
+## Clone & Prepare
 
     $ export HOME=/home/work/
 
@@ -23,21 +29,32 @@ dashboard是提供给用户，以图表的方式查看push上来的数据
 
 ## Init database
 
-    $ mysql -h localhost -u root -p < ../scripts/db_schema/dashboard-db-schema.sql
-    $ mysql -h localhost -u root -p < ../scripts/db_schema/graph-db-schema.sql
+    $ cd /tmp/ && git clone https://github.com/open-falcon/falcon-plus.git 
+    $ cd /tmp/falcon-plus/scripts/mysql/db_schema/
+    $ mysql -h 127.0.0.1 -u root -p < alarms-db-schema.sql
+    $ mysql -h 127.0.0.1 -u root -p < portal-db-schema.sql
 
-    ## default mysql user is root, default passwd is ""
-    ## change mysql info in rrd/config.py if necessary
+**if you are upgrading from v0.1 to current version v0.2.0,then**
 
+    $  mysql -h 127.0.0.1 -u root -p < alarms-db-schema.sql
+    
+## Configure
+    dashboard config file is 'rrd/config.py', change it if necessary.
+   
+    ## set API_ADDR to your falcon-plus api modules addr, default value as bellow:
+    API_ADDR = "http://127.0.0.1:8080/api/v1" 
 
-## Start
+    ## set PORTAL_DB_* if necessary, default mysql user is root, default passwd is ""
+    ## set ALARM_DB_* if necessary, default mysql user is root, default passwd is ""
+
+## Start in debug mode
 
     $ ./env/bin/python wsgi.py
 
     --> goto http://127.0.0.1:8081
 
 
-## Run with gunicorn
+## Run with gunicorn in production mode
 
     $ bash control start
 
