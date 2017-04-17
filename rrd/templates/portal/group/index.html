@@ -11,14 +11,15 @@
         </button>
         <input type="checkbox" name="mine" id="mine" {% if data.mine == '1' %}checked="checked"{% endif %}>
         <span>mine</span>
-        {% if data.is_root %}
+        <!-- anyone could create a hostgroup
+        {% if data.is_root %}{% endif %}
+        -->
         <div class="pull-right">
             <input type="text" placeholder="input name to create" class="form-control" id="grp_name" onkeydown="if(event.keyCode==13)create_hostgroup()">
             <button type="button" onclick="create_hostgroup();" class="btn btn-default">
                 <span class="glyphicon glyphicon-plus"></span>
             </button>
         </div>
-        {% endif %}
     </div>
 
     <table class="table table-hover table-bordered table-striped" style="margin-bottom: 0px; margin-top: 10px;">
@@ -59,11 +60,6 @@
         {% endfor %}
         </tbody>
     </table>
-    <div class="pull-right" style="margin-top: 20px;">
-        <a href="" class="btn btn-default">
-            <span class="glyphicon glyphicon-cog"></span>
-        </a>
-    </div>
     {% import "portal/blocks.html" as blocks %}
     {{ blocks.pager('/portal/hostgroup?q='+data.query+'&mine='+data.mine, data.total, data.limit, data.page) }}
 
