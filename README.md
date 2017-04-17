@@ -37,10 +37,14 @@ Open-Falcon 官网为：[http://open-falcon.org](http://open-falcon.org)
     $ cd /tmp/falcon-plus/scripts/mysql/db_schema/
     $ mysql -h 127.0.0.1 -u root -p < alarms-db-schema.sql
     $ mysql -h 127.0.0.1 -u root -p < portal-db-schema.sql
+    $ mysql -h 127.0.0.1 -u root -p < uic-db-schema.sql
+    $ mysql -h 127.0.0.1 -u root -p < graph-db-schema.sql
+    $ mysql -h 127.0.0.1 -u root -p < dashboard-db-schema.sql
+    $ rm -rf /tmp/falcon-plus/
 
 **if you are upgrading from v0.1 to current version v0.2.0,then**
 
-    $  mysql -h 127.0.0.1 -u root -p < alarms-db-schema.sql
+    $ mysql -h 127.0.0.1 -u root -p < alarms-db-schema.sql
     
 ## Configure
     dashboard config file is 'rrd/config.py', change it if necessary.
@@ -76,9 +80,9 @@ Open-Falcon 官网为：[http://open-falcon.org](http://open-falcon.org)
 
 ## Screenshots
 
-<img src="https://raw.githubusercontent.com/open-falcon/dashboard/plus-dev/screenshots/dashboard.jpeg" width=500px/>
-<img src="https://raw.githubusercontent.com/open-falcon/dashboard/plus-dev/screenshots/alarm-dashboard-case.jpeg" width=500px/>
-<img src="https://raw.githubusercontent.com/open-falcon/dashboard/plus-dev/screenshots/alarm-dashboard-case-events.jpeg" width=500px/>
+<img src="screenshots/dashboard.jpeg" width=500px />
+<img src="screenshots/alarm-dashboard-case.jpeg" width=500px />
+<img src="screenshots/alarm-dashboard-case-events.jpeg" width=500px />
  
 ## Mailing lists
 
