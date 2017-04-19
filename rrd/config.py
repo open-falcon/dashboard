@@ -31,6 +31,13 @@ LDAP_BASE_DN = "dc=example,dc=com"
 LDAP_BINDDN_FMT = "uid=%s,dc=example,dc=com"
 LDAP_SEARCH_FMT = "uid=%s"
 LDAP_ATTRS = ["cn","mail","telephoneNumber"]
+LDAP_TLS_START_TLS = False
+LDAP_TLS_CACERTDIR = ""
+LDAP_TLS_CACERTFILE = "/etc/openldap/certs/ca.crt"
+LDAP_TLS_CERTFILE = ""
+LDAP_TLS_KEYFILE = ""
+LDAP_TLS_REQUIRE_CERT = True
+LDAP_TLS_CIPHER_SUITE = ""
 
 # portal site config
 MAINTAINERS = ['root']
