@@ -141,7 +141,7 @@ def ldap_login_user(name, password):
         email = d['mail'][0]
         cnname = d['cn'][0]
         if 'sn' in d and 'givenName' in d:
-            cnname = d['sn'][0] + d['givenName'][0]
+            cnname = d['givenName'][0] + ' ' + d['sn'][0]
         if 'displayName' in d:
             cnname = d['displayName'][0]
         if 'telephoneNumber' in d:
