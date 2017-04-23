@@ -35,7 +35,7 @@ class User(object):
         return {
             'id': self.id,
             'name': self.name,
-            'cnmame': self.cnname,
+            'cnname': self.cnname,
             'email': self.email,
             'phone': self.phone,
             'im': self.im,
