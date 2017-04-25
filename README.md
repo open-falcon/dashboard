@@ -23,7 +23,10 @@ Open-Falcon 官网为：[http://open-falcon.org](http://open-falcon.org)
 
 ## Install dependency
 
-    # yum install -y python-virtualenv
+    $ yum install -y python-virtualenv
+    $ yum install -y python-devel
+    $ yum install -y openldap-devel
+    $ yum groupinstall "Development tools"
 
     $ cd $HOME/open-falcon/dashboard/
     $ virtualenv ./env
