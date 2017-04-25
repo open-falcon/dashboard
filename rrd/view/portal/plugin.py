@@ -6,7 +6,7 @@ from rrd.model.portal.host_group import HostGroup
 from rrd.model.portal.plugin_dir import PluginDir
 
 
-@app.route('/group/<group_id>/plugins')
+@app.route('/portal/group/<group_id>/plugins')
 def plugin_list_get(group_id):
     group_id = int(group_id)
 
@@ -18,7 +18,7 @@ def plugin_list_get(group_id):
     return render_template('portal/plugin/list.html', group=group, plugins=plugins)
 
 
-@app.route('/plugin/bind', methods=['POST'])
+@app.route('/portal/plugin/bind', methods=['POST'])
 def plugin_bind_post():
     group_id = int(request.form['group_id'].strip())
     plugin_dir = request.form['plugin_dir'].strip()
@@ -30,7 +30,7 @@ def plugin_bind_post():
     return jsonify(msg='')
 
 
-@app.route('/plugin/delete/<plugin_id>')
+@app.route('/portal/plugin/delete/<plugin_id>')
 def plugin_delete_get(plugin_id):
     plugin_id = int(plugin_id)
     plugin = PluginDir.read(where='id = %s', params=[plugin_id])

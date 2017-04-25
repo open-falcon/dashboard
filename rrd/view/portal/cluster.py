@@ -7,7 +7,7 @@ from rrd.model.portal.cluster import Cluster
 from rrd.utils.params import required_chk
 
 
-@app.route('/group/<group_id>/cluster')
+@app.route('/portal/group/<group_id>/cluster')
 def cluster_list_get(group_id):
     group_id = int(group_id)
 
@@ -19,7 +19,7 @@ def cluster_list_get(group_id):
     return render_template('portal/cluster/list.html', **locals())
 
 
-@app.route('/group/<group_id>/cluster/creator', methods=['GET'])
+@app.route('/portal/group/<group_id>/cluster/creator', methods=['GET'])
 def cluster_creator_get(group_id):
     group_id = int(group_id)
     group = HostGroup.read(where='id = %s', params=[group_id])
@@ -29,7 +29,7 @@ def cluster_creator_get(group_id):
     return render_template('portal/cluster/creator.html', **locals())
 
 
-@app.route('/group/<group_id>/cluster/creator', methods=['POST'])
+@app.route('/portal/group/<group_id>/cluster/creator', methods=['POST'])
 def cluster_node_post(group_id):
     group_id = int(group_id)
     group = HostGroup.read(where='id = %s', params=[group_id])
@@ -77,7 +77,7 @@ def cluster_node_post(group_id):
         return jsonify(msg='occur error')
 
 
-@app.route('/cluster/edit/<cluster_id>', methods=['GET'])
+@app.route('/portal/cluster/edit/<cluster_id>', methods=['GET'])
 def cluster_edit_get(cluster_id):
     cluster_id = int(cluster_id)
     cluster = Cluster.get(cluster_id)
@@ -85,7 +85,7 @@ def cluster_edit_get(cluster_id):
     return render_template('portal/cluster/edit.html', **locals())
 
 
-@app.route('/cluster/clone/<cluster_id>', methods=['GET'])
+@app.route('/portal/cluster/clone/<cluster_id>', methods=['GET'])
 def cluster_clone_get(cluster_id):
     cluster_id = int(cluster_id)
     cluster = Cluster.get(cluster_id)
@@ -95,14 +95,14 @@ def cluster_clone_get(cluster_id):
     return render_template('portal/cluster/edit.html', **locals())
 
 
-@app.route('/cluster/delete/<cluster_id>', methods=['POST'])
+@app.route('/portal/cluster/delete/<cluster_id>', methods=['POST'])
 def cluster_delete_post(cluster_id):
     cluster_id = int(cluster_id)
     Cluster.delete_one(cluster_id)
     return jsonify(msg='')
 
 
-@app.route('/cluster/edit/<cluster_id>', methods=['POST'])
+@app.route('/portal/cluster/edit/<cluster_id>', methods=['POST'])
 def cluster_edit_post(cluster_id):
     cluster_id = int(cluster_id)
     numerator = request.form['numerator'].strip()
