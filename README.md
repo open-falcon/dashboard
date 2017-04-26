@@ -14,40 +14,44 @@ Open-Falcon 官网为：[http://open-falcon.org](http://open-falcon.org)
 - TODO
 
 ## Clone & Prepare
+```
+export HOME=/home/work/
 
-    $ export HOME=/home/work/
+mkdir -p $HOME/open-falcon/
+cd $HOME/open-falcon && git clone https://github.com/open-falcon/dashboard.git
+cd dashboard;
 
-    $ mkdir -p $HOME/open-falcon/
-    $ cd $HOME/open-falcon && git clone https://github.com/open-falcon/dashboard.git
-    $ cd dashboard;
+```
 
 ## Install dependency
+```
+yum install -y python-virtualenv
+yum install -y python-devel
+yum install -y openldap-devel
+yum groupinstall "Development tools"
 
-    $ yum install -y python-virtualenv
-    $ yum install -y python-devel
-    $ yum install -y openldap-devel
-    $ yum groupinstall "Development tools"
+cd $HOME/open-falcon/dashboard/
+virtualenv ./env
 
-    $ cd $HOME/open-falcon/dashboard/
-    $ virtualenv ./env
+./env/bin/pip install -r pip_requirements.txt -i http://pypi.douban.com/simple
 
-    $ ./env/bin/pip install -r pip_requirements.txt -i http://pypi.douban.com/simple
-
+```
 
 ## Init database
-
-    $ cd /tmp/ && git clone https://github.com/open-falcon/falcon-plus.git 
-    $ cd /tmp/falcon-plus/scripts/mysql/db_schema/
-    $ mysql -h 127.0.0.1 -u root -p < alarms-db-schema.sql
-    $ mysql -h 127.0.0.1 -u root -p < portal-db-schema.sql
-    $ mysql -h 127.0.0.1 -u root -p < uic-db-schema.sql
-    $ mysql -h 127.0.0.1 -u root -p < graph-db-schema.sql
-    $ mysql -h 127.0.0.1 -u root -p < dashboard-db-schema.sql
-    $ rm -rf /tmp/falcon-plus/
+```
+    cd /tmp/ && git clone https://github.com/open-falcon/falcon-plus.git 
+    cd /tmp/falcon-plus/scripts/mysql/db_schema/
+    mysql -h 127.0.0.1 -u root -p < uic-db-schema.sql
+    mysql -h 127.0.0.1 -u root -p < portal-db-schema.sql
+    mysql -h 127.0.0.1 -u root -p < graph-db-schema.sql
+    mysql -h 127.0.0.1 -u root -p < dashboard-db-schema.sql
+    mysql -h 127.0.0.1 -u root -p < alarms-db-schema.sql
+    rm -rf /tmp/falcon-plus/
+```
 
 **if you are upgrading from v0.1 to current version v0.2.0,then**
 
-    $ mysql -h 127.0.0.1 -u root -p < alarms-db-schema.sql
+    mysql -h 127.0.0.1 -u root -p < alarms-db-schema.sql
     
 ## Configure
     dashboard config file is 'rrd/config.py', change it if necessary.
