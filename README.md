@@ -28,6 +28,7 @@ cd dashboard;
 yum install -y python-virtualenv
 yum install -y python-devel
 yum install -y openldap-devel
+yum install -y mysql-devel
 yum groupinstall "Development tools"
 
 cd $HOME/open-falcon/dashboard/
