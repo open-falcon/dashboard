@@ -40,14 +40,14 @@ virtualenv ./env
 
 ## Init database
 ```
-    cd /tmp/ && git clone https://github.com/open-falcon/falcon-plus.git 
-    cd /tmp/falcon-plus/scripts/mysql/db_schema/
-    mysql -h 127.0.0.1 -u root -p < uic-db-schema.sql
-    mysql -h 127.0.0.1 -u root -p < portal-db-schema.sql
-    mysql -h 127.0.0.1 -u root -p < graph-db-schema.sql
-    mysql -h 127.0.0.1 -u root -p < dashboard-db-schema.sql
-    mysql -h 127.0.0.1 -u root -p < alarms-db-schema.sql
-    rm -rf /tmp/falcon-plus/
+cd /tmp/ && git clone https://github.com/open-falcon/falcon-plus.git 
+cd /tmp/falcon-plus/scripts/mysql/db_schema/
+mysql -h 127.0.0.1 -u root -p < uic-db-schema.sql
+mysql -h 127.0.0.1 -u root -p < portal-db-schema.sql
+mysql -h 127.0.0.1 -u root -p < graph-db-schema.sql
+mysql -h 127.0.0.1 -u root -p < dashboard-db-schema.sql
+mysql -h 127.0.0.1 -u root -p < alarms-db-schema.sql
+rm -rf /tmp/falcon-plus/
 ```
 
 **if you are upgrading from v0.1 to current version v0.2.0,then**
