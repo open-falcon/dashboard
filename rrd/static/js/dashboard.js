@@ -8,7 +8,7 @@ function fn_list_endpoints()
     $.getJSON("/api/endpoints", {q: qs, tags: tags, limit:limit, _r:Math.random()}, function(ret){
                 $(".loading").hide();
                 if (!ret.ok) {
-                    alert(ret.msg);
+                    err_message_quietly(ret.msg);
                     return;
                 }
 
@@ -28,7 +28,7 @@ function fn_list_endpoints()
                 fn_check_all_hosts();
     }).error(function(req, ret, errorThrown){
         $(".loading").hide();
-        alert(req.statusText)
+        err_message_quietly(req.statusText)
     })
 }
 
@@ -40,7 +40,7 @@ function fn_list_counters(){
         eids.push(eid);
     });
     if (eids.length === 0){
-        alert("先选定一些endpoints");
+        err_message_quietly("先选定一些endpoints");
         return false;
     }
 
@@ -75,11 +75,106 @@ function fn_list_counters(){
                     tbody_items.find('.shiftCheckbox').shiftcheckbox();
                 }
             }else{
-                alert("搜索失败：" + ret.msg);
+                err_message_quietly("搜索失败：" + ret.msg);
                 return false;
             }
         }
     });
+}
+
+function fn_delete_counters(){
+    var checked_hosts = new Array();
+    $("#tbody-endpoints input:checked").each(function(i, o){
+        if($(o).is(":visible")){
+            var hostfullname = $(o).attr("data-fullname");
+            checked_hosts.push(hostfullname);
+        }
+    });
+    if(checked_hosts.length === 0){
+        err_message_quietly("先选endpoint：）");
+        return false;
+    }
+
+    var checked_items = new Array();
+    $("#tbody-counters input:checked").each(function(i, o){
+        if($(o).is(":visible")){
+            var key_ = $(o).attr("data-fullkey");
+            checked_items.push(key_);
+        }
+    });
+    if (checked_items.length === 0){
+        err_message_quietly("请选择counter");
+        return false;
+    }
+    if(checked_items.length > 10) {
+        err_message_quietly("每次删除不能超过10个，免得你后悔:");
+        return false;
+    }
+
+
+	my_confirm("真的要删除么？这会删除MySQL中对应的内容，也会清除磁盘上对应的数据文件", [ '确定', '取消' ], function() {
+        $.ajax({
+            url: "/api/counters",
+            dataType: "json",
+            method: "DELETE",
+            data: {"endpoints": checked_hosts, "counters": checked_items, "_r": Math.random()},
+            success: function(ret) {
+                if (ret.ok) {
+                    ok_message_quietly(ret.data);
+                }else {
+                    err_message_quietly("请求出错了");
+                }
+            },
+            error: function(){
+                err_message_quietly("请求出错了");
+            }
+        });
+
+	}, function() {
+	});
+
+    return false;
+}
+
+function fn_delete_endpoints(){
+    var checked_hosts = new Array();
+    $("#tbody-endpoints input:checked").each(function(i, o){
+        if($(o).is(":visible")){
+            var hostfullname = $(o).attr("data-fullname");
+            checked_hosts.push(hostfullname);
+        }
+    });
+    if(checked_hosts.length === 0){
+        err_message_quietly("先选endpoint：）");
+        return false;
+    }
+
+    if(checked_hosts.length > 2) {
+        err_message_quietly("每次删除不能超过2个，免得你后悔:");
+        return false;
+    }
+
+	my_confirm("真的要删除么？这会删除MySQL中对应的内容，也会清除磁盘上对应的数据文件", [ '确定', '取消' ], function() {
+        $.ajax({
+            url: "/api/endpoints",
+            dataType: "json",
+            method: "DELETE",
+            data: {"endpoints": checked_hosts, "_r": Math.random()},
+            success: function(ret) {
+                if (ret.ok) {
+                    ok_message_quietly(ret.data);
+                }else {
+                    err_message_quietly("请求出错了");
+                }
+            },
+            error: function(){
+                err_message_quietly("请求出错了");
+            }
+        });
+	}, function() {
+	});
+
+    return false;
 }
 
 
@@ -148,7 +243,7 @@ function fn_show_chart(counter)
         }
     });
     if(checked_hosts.length === 0){
-        alert("先选endpoint：）");
+        err_message_quietly("先选endpoint：）");
         return false;
     }
 
@@ -164,11 +259,11 @@ function fn_show_chart(counter)
             if (ret.ok) {
                 setTimeout(function(){w.location='/chart/big?id='+ret.id;}, 0);
             } else {
-                alert("请求出错了");
+                err_message_quietly("请求出错了");
             }
         },
         error: function(){
-            alert("请求出错了");
+            err_message_quietly("请求出错了");
         }
     });
     return false;
@@ -184,7 +279,7 @@ function fn_show_all(graph_type)
         }
     });
     if(checked_hosts.length === 0){
-        alert("先选endpoint：）");
+        err_message_quietly("先选endpoint：）");
         return false;
     }
 
@@ -196,7 +291,7 @@ function fn_show_all(graph_type)
         }
     });
     if (checked_items.length === 0){
-        alert("请选择counter");
+        err_message_quietly("请选择counter");
         return false;
     }
 
@@ -210,11 +305,11 @@ function fn_show_all(graph_type)
             if (ret.ok) {
                 setTimeout(function(){w.location="/charts?id="+ret.id+"&graph_type="+graph_type;}, 0);
             }else {
-                alert("请求出错了");
+                err_message_quietly("请求出错了");
             }
         },
         error: function(){
-            alert("请求出错了");
+            err_message_quietly("请求出错了");
         }
     });
     return false;

@@ -18,6 +18,8 @@ def api_endpoints():
     tags = ','.join(re.split('\s*,\s*', raw_tag))
     limit = int(request.args.get("limit") or 100)
 
+    if not q:
+        q = "."
     if not q and not tags:
         ret["msg"] = "no query params given"
         return json.dumps(ret)
@@ -35,7 +37,6 @@ def api_endpoints():
 
     return json.dumps(ret)
 
-#done
 @app.route("/api/counters", methods=["POST"])
 def api_get_counters():
     ret = {
@@ -69,4 +70,57 @@ def api_get_counters():
     ret['data'] = sorted_values
     ret['ok'] = True
 
+    return json.dumps(ret)
+
+
+@app.route("/api/counters", methods=["DELETE"])
+def api_delete_counters():
+    ret = {
+            "ok": False,
+            "msg": "",
+    }
+
+    endpoints = request.form.getlist("endpoints[]") or []
+    counters = request.form.getlist("counters[]") or []
+    if len(endpoints) == 0 or len(counters) == 0:
+        ret['msg'] = "no endpoint and counter"
+        return json.dumps(ret)
+
+    h = {"Content-type": "application/json"}
+    d = {
+            "endpoints": endpoints,
+            "counters": counters,
+    }
+    r = corelib.auth_requests("DELETE", config.API_ADDR + "/graph/counter", headers=h, data=json.dumps(d))
+    if r.status_code != 200:
+        abort(r.status_code, r.text)
+    j = r.json()
+
+    ret["ok"] = True
+    ret["data"] = "%s counters affected" %j.get("affected_counter")
+    return json.dumps(ret)
+
+
+@app.route("/api/endpoints", methods=["DELETE"])
+def api_delete_endpoints():
+    ret = {
+            "ok": False,
+            "msg": "",
+    }
+
+    endpoints = request.form.getlist("endpoints[]") or []
+    if len(endpoints) == 0:
+        ret['msg'] = "no endpoint"
+        return json.dumps(ret)
+
+    h = {"Content-type": "application/json"}
+    d = endpoints
+
+    r = corelib.auth_requests("DELETE", config.API_ADDR + "/graph/endpoint", headers=h, data=json.dumps(d))
+    if r.status_code != 200:
+        abort(r.status_code, r.text)
+    j = r.json()
+
+    ret["ok"] = True
+    ret["data"] = "%s counters affected, %s endpoints affected" %(j.get("affected_counter"), j.get("affected_endpoint"))
     return json.dumps(ret)
