@@ -74,7 +74,7 @@
         </a>
     </div>
     {% import "portal/blocks.html" as blocks %}
-    {{ blocks.pager('/templates?q='+data.query+'&mine='+data.mine, data.total, data.limit, data.page) }}
+    {{ blocks.pager('/portal/template?q='+data.query+'&mine='+data.mine, data.total, data.limit, data.page) }}
 
     <script>
         $(function () {
