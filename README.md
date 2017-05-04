@@ -13,6 +13,28 @@ Open-Falcon 官网为：[http://open-falcon.org](http://open-falcon.org)
 ## Demo site
 - TODO
 
+## Run as docker
+```
+# 构建镜像，在 dashboard 目录下执行如下命令:
+docker build -t falcon-dashboard:v1.0 .
+
+# 从镜像运行容器
+docker run -itd --name aaa --net host \
+	-e API_ADDR=http://127.0.0.1:8080/api/v1 \
+	-e PORTAL_DB_HOST=127.0.0.1 \
+	-e PORTAL_DB_PORT=3306 \
+	-e PORTAL_DB_USER=root \
+	-e PORTAL_DB_PASS=123456 \
+  	-e PORTAL_DB_NAME=falcon_portal \
+    -e ALARM_DB_PASS=123456 \
+	-e ALARM_DB_HOST=127.0.0.1 \
+	-e ALARM_DB_PORT=3306 \
+	-e ALARM_DB_USER=root \
+	-e ALARM_DB_PASS=123456 \
+    -e ALARM_DB_NAME=alarms \
+	falcon-dashboard:v1.0
+```
+
 ## Clone & Prepare
 ```
 export HOME=/home/work/
