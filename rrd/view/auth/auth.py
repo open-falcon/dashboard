@@ -33,20 +33,76 @@ def auth_login():
             try:
                 ldap_info = view_utils.ldap_login_user(name, password)
 
-                h = {"Content-type":"application/json"}
-                d = {
-                    "name": name,
-                    "password": password,
-                    "cnname": ldap_info['cnname'],
-                    "email": ldap_info['email'],
-                    "phone": ldap_info['phone'],
-                }
-
-                r = requests.post("%s/user/create" %(config.API_ADDR,), \
-                        data=json.dumps(d), headers=h)
+                #query user by name
+                server_side_header = {"Content-type":"application/json",
+                                 "apiToken": "{\"name\":\"root\",\"sig\":\"%s\"}" % config.PLUS_API_TOKEN
+                                 }
+                r = requests.get("%s/user/name/%s" %(config.API_ADDR, name), headers=server_side_header)
                 log.debug("%s:%s" %(r.status_code, r.text))
 
-                #TODO: update password in db if ldap password changed
+                #record not found
+                if r.status_code < 400:
+                    user = json.loads(r.text)
+
+                else:
+                    user = None
+                    h = {"Content-type": "application/json"}
+                    d = {
+                        "name": name,
+                        "password": password,
+                        "cnname": ldap_info['cnname'],
+                        "email": ldap_info['email'],
+                        "phone": ldap_info['phone'],
+                    }
+
+                    r = requests.post("%s/user/create" % (config.API_ADDR,), \
+                                      data=json.dumps(d), headers=h)
+                    log.debug("%s:%s" % (r.status_code, r.text))
+
+
+                #update user info from ldap
+                log.debug(ldap_info)
+                if user and (ldap_info["phone"] != user["phone"] or user["cnname"] == "" or user["email"] != ldap_info["email"]):
+                    new_user = {
+                        "name": name,
+                        "cnname": ldap_info['cnname'],
+                        "email": ldap_info['email'],
+                        "im": user["im"],
+                        "phone": ldap_info['phone'],
+                        "qq": user["qq"]
+                    }
+                    current_user_header = {"Content-type": "application/json",
+                                     "apiToken": "{\"name\":\"%s\",\"sig\":\"%s\"}" % (name, config.PLUS_API_TOKEN)
+                                           }
+                    r = requests.put("%s/user/update" % (config.API_ADDR),
+                                     data=json.dumps(new_user), headers=current_user_header)
+                    log.debug("%s:%s" % (r.status_code, r.text))
+
+
+                #Try to login with name/password
+                #If ldap password has been updated, update password of falcon user
+                ut = view_utils.login_user(name, password)
+                # update password in db if ldap password changed
+                if not user:
+                    ret["msg"] = "no such user"
+                    return json.dumps(ret)
+
+                if not ut and user:
+                    change_user_passwd_data = {
+                        "user_id": user["id"],
+                        "password": password
+                    }
+
+                    r = requests.put("%s/admin/change_user_passwd" % (config.API_ADDR),
+                                     data=json.dumps(change_user_passwd_data), headers=server_side_header)
+                    log.debug("%s:%s" % (r.status_code, r.text))
+                else:
+                    ret["data"] = {
+                        "name": ut.name,
+                        "sig": ut.sig,
+                    }
+                    return json.dumps(ret)
+
             except Exception as e:
                 ret["msg"] = str(e)
                 return json.dumps(ret)
