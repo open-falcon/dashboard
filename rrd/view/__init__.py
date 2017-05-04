@@ -33,8 +33,9 @@ def time_duration(v):
 
 @app.teardown_request
 def app_teardown(exception):
-    from rrd.store import db
+    from rrd.store import db, alarm_db
     db.commit()
+    alarm_db.commit()
 
 @app.before_request
 def app_before():
