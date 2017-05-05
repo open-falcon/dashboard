@@ -55,7 +55,7 @@
 
         {% import "portal/blocks.html" as blocks %}
         <div class="pull-left">
-            {{ blocks.pager('/portal/alarm-dash/case', total, limit, page) }}
+            {{ blocks.pager('/portal/alarm-dash/case?status='+status, total, limit, page) }}
         </div>
 
     </div>

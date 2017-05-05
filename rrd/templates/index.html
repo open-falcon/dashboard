@@ -88,6 +88,13 @@
                                         <option value="100">Limit 100</option>
                                         <option value="500">Limit 500</option>
                                     </select>
+                                    <select class="form-control input-sm" id="endpoint-page" onchange="fn_list_endpoints();return false;">
+                                        {%for p in range(1, 21)%}
+                                        <option value="{{p}}"> page {{p}}</option>
+                                        {%endfor%}
+                                    </select>
+                                    <span class="cut-line">¦</span>
+                                    <button class="btn btn-default btn-sm" onclick="fn_delete_endpoints();return false;">删除endpoints</button>
                                 </div>
                             </form>
                             <hr/>
@@ -109,7 +116,6 @@
                                 </span>
                                 <span class="pull-right">
                                     <button class="btn btn-default btn-xs" onclick="fn_list_counters();return false;">刷新counter列表</button>
-                                    <button class="btn btn-default btn-xs" onclick="fn_delete_endpoints();return false;">删除endpoints</button>
                                 </span>
                                 </th>
                             </tr></thead>
@@ -118,7 +124,15 @@
                             <thead>
                                 <th width="15"></th> <th></th>
                             </thead>
-                            <tbody id="tbody-endpoints"> </tbody>
+                            <tbody id="tbody-endpoints">
+                                {%for obj in endpoint_objs%}
+                                <tr>
+                                <td><input type="checkbox" class="input shiftCheckbox"
+                                    data-eid="{{obj['id']}}"  data-fullname="{{obj['endpoint']}}"></input></td>
+                                <td>{{obj['endpoint']}}</td>
+                                </tr>
+                                {%endfor%}
+                            </tbody>
                         </table>
 
                     </div>
@@ -156,14 +170,19 @@
                                         <option value="100">Limit 100</option>
                                         <option value="500">Limit 500</option>
                                     </select>
+                                    <select class="form-control input-sm" id="counter-page" onchange="fn_list_counters();return false;">
+                                        {%for p in range(1, 21)%}
+                                        <option value="{{p}}"> page {{p}}</option>
+                                        {%endfor%}
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <input id="counter-filter" type="text" class="form-control input-sm">
                                     <button class="btn btn-default btn-sm btn-info" onclick="filter_counter();return false;">快速过滤</button>
+                                    <button class="btn btn-default btn-sm" onclick="fn_delete_counters();return false;">删除counters</button>
                                 </div>
 
                                 <div class="dropdown form-group pull-right">
-                                    <button class="btn btn-default btn-sm" onclick="fn_delete_counters();return false;">删除counters</button>
                                     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#"> 看图 <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                       <li><a href="#" class="btn btn-link btn-xs" onclick="fn_show_all('h');return false;">Endpoint视角</a></li>

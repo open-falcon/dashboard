@@ -130,10 +130,11 @@ $(function(){
         </li>
         {%for c in top_screens%}
         <li class="screen" role="presentation">
-            <span role="menuitem" style="padding:10px;margin:10px;"> 
+            <span role="menuitem" style="margin-left:15px;line-height:25px;"> 
             <a href="/screen/{{c.id}}"><small>{{c.name}}</small></a>
             <a href='/screen/{{c.id}}/delete' class="glyphicon glyphicon-remove pull-right" style="margin-right:10px;" onclick="return confirm('确定要删除这个screen?');"></a>
             </span>
+            <hr style="margin:5px;"/>
         </li>
         {%endfor%}
       </ul>
@@ -160,6 +161,8 @@ $(function(){
         {%for c in sub_screens%}
         <li class="screen" role="presentation">
             <a role="menuitem" href="/screen/{{c.id}}"><small>{{c.name}}</small></a>
+            <hr style="margin:2px;"/>
+        </li>
         </li>
         {%endfor%}
       </ul>

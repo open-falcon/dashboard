@@ -3,9 +3,10 @@ function fn_list_endpoints()
     var qs = $.trim($("input[name='endpoint_search']").val());
     var tags = $.trim($("input[name='tag_search']").val());
     var limit = $("#endpoint-limit").val();
+    var page = $("#endpoint-page").val();
 
     $(".loading").show();
-    $.getJSON("/api/endpoints", {q: qs, tags: tags, limit:limit, _r:Math.random()}, function(ret){
+    $.getJSON("/api/endpoints", {q: qs, tags: tags, limit:limit, page:page, _r:Math.random()}, function(ret){
                 $(".loading").hide();
                 if (!ret.ok) {
                     err_message_quietly(ret.msg);
@@ -45,12 +46,13 @@ function fn_list_counters(){
     }
 
     var limit = $("#counter-limit").val();
+    var page = $("#counter-page").val();
     $(".loading").show();
     $.ajax({
         method: "POST",
         url: "/api/counters",
         dataType: "json",
-        data: {"eids": JSON.stringify(eids), "q": qs, "limit": limit, "_r": Math.random()},
+        data: {"eids": JSON.stringify(eids), "q": qs, "limit": limit, "page":page, "_r": Math.random()},
         success:function(ret){
             $(".loading").hide();
             if(ret.ok){
