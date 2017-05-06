@@ -7,4 +7,3 @@ def randbytes(bytes_):
 
 def random_string (length):
     return ''.join(random.choice(string.letters) for ii in range (length + 1))
-

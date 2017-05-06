@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}Falcon</title>
+
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='img/logo.png') }}"/>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}?v=100"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='layer/skin/layer.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/g.css') }}?v=100"/>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='layer/layer.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/g.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='layer/extend/layer.ext.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/moment-with-locales.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/portal.js') }}"></script>
+</head>
+<body>
+{% block content %}{% endblock %}
+</body>
+</html>

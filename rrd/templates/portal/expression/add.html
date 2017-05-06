@@ -1,0 +1,102 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='select2/select2.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select2-bootstrap.css') }}"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='select2/select2.min.js') }}"></script>
+
+    <input type="hidden" id="expression_id" value="{{ data.expression.id }}">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">{% if data.expression.id %}modify{% else %}add{% endif %} expression <span class="gray">e.g. each(metric=qps srv=falcon) </span></div>
+        <div class="panel-body">
+
+            <textarea class="form-control" rows="2" id="expression"
+                      placeholder="e.g. each(metric=qps srv=falcon)">{{ data.expression.expression }}</textarea>
+
+            <div class="form-inline mt10" role="form">
+                <div class="form-group">
+                    if <input type="text" value="{{ data.expression.func or 'all(#3)' }}" class="form-control" id="func"
+                              style="width: 100px;">
+                    <select class="form-control" id="op">
+                        <option value="=="
+                                {% if data.expression.op == '==' or data.expression.op == '=' %}selected{% endif %}
+                                >==
+                        </option>
+                        <option value="!=" {% if data.expression.op == '!=' %}selected{% endif %}>!=</option>
+                        <option value="<" {% if data.expression.op == '<' %}selected{% endif %}>&lt;</option>
+                        <option value="<=" {% if data.expression.op == '<=' %}selected{% endif %}>&lt;=</option>
+                        <option value=">" {% if data.expression.op == '>' %}selected{% endif %}>&gt;</option>
+                        <option value=">=" {% if data.expression.op == '>=' %}selected{% endif %}>&gt;=</option>
+                    </select>
+                    <input type="text" value="{{ data.expression.right_value or '0' }}" class="form-control"
+                           id="right_value"
+                           style="width: 100px;">
+                    : alarm(); callback();
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">def alarm(): #配置了UIC组才会发报警</div>
+        <div class="panel-body">
+            报警接收组（在UIC中管理报警组，<a target="_blank" href="/team/list">快捷入口</a>）：
+            <input class="form-control" id="uic" value="{{ data.action.uic }}">
+
+            <div class="form-inline mt10" role="form">
+                <div class="form-group">
+                    最多报警次数：<input class="form-control" id="max_step" style="width: 100px;"
+                                  value="{{ data.expression.max_step or '3' }}">
+                    报警级别（&lt;3: sms and mail; &gt;=3: mail）：
+                    <input class="form-control" id="priority"
+                           style="width: 60px;"
+                           value="{{ data.expression.priority or '0' }}">
+                    备注信息（将附在告警内容中发送）：<input class="form-control" id="note" value="{{ data.expression.note }}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">def callback(): #高级用法，配置了callback地址才会触发回调</div>
+        <div class="panel-body">
+            callback地址（只支持http get方式回调）：
+            <input class="form-control" id="callback_url" value="{{ data.action.url }}">
+
+            <div class="mt10">
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="before_callback_sms"
+                           {% if data.action.before_callback_sms == 1 %}checked="checked"{% endif %}> 回调之前发提醒短信
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="before_callback_mail"
+                           {% if data.action.before_callback_mail == 1 %}checked="checked"{% endif %}> 回调之前发提醒邮件
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="after_callback_sms"
+                           {% if data.action.after_callback_sms == 1 %}checked="checked"{% endif %}> 回调之后发结果短信
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="after_callback_mail"
+                           {% if data.action.after_callback_mail == 1 %}checked="checked"{% endif %}> 回调之后发结果邮件
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb20">
+        <button class="btn btn-default" onclick="update_expression();">Submit</button>
+        <button class="btn btn-default" onclick="history.go(-1);">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+            <span>Back</span>
+        </button>
+    </div>
+
+    <script>
+        $(function () {
+            make_select2_for_uic_group('#uic');
+        });
+    </script>
+
+{% endblock %}

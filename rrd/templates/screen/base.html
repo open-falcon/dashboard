@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "screen/screen_layout.html" as screen_layout %}
 
-{%block title%}Dashboard-Screen{%endblock%}
+{%block title%}Falon+ Screen{%endblock%}
 
 {%block body_head%}
 <body>
@@ -32,28 +32,7 @@ function fn_query(kvs) {
 {%endblock%}
 
 {%block navbar%}
-<nav class="navbar navbar-default" role="navigation" style="background-color: #fff;">
-<div class="container-fluid">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-        </button>
-        <a class="navbar-brand" href="/screen">Falcon-Screen</a>
-    </div>
-
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/screen/add">+导航</a></li>
-          <li><a href="/">Falcon-Dashboard</a></li>
-          <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">链接<span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu" style="font-size:12px;">
-                  <li><a href="https://github.com/open-falcon">fork me on Github</a></li>
-              </ul>
-          </li>
-        </ul>
-    </div>
-</div>
-</nav>
+    {%include "navbar.html"%}
 {%endblock%}
 
 {%block container%} {% endblock %}

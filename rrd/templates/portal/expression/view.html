@@ -1,0 +1,40 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+
+    <input type="hidden" id="expression_id" value="{{ data.expression.id }}">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">expression detail</div>
+        <div class="panel-body">
+
+            {% set left = '{' %}
+            {% set right = '}' %}
+            <div class="">{{ data.expression.expression }}</div>
+            <div class="mt10">
+                <span class="gray">if {{ data.expression.func }}{{ data.expression.op }}{{ data.expression.right_value }}
+                    {{ left }}{{ data.action.html()|safe }}{{ right }}</span>
+
+                {% if data.expression.writable(g.user) %}
+                    <div class="pull-right">
+                        <button onclick="pause_expression('{{data.expression.id}}')" class="btn btn-default">
+                            <span id="i-{{data.expression.id}}" class="glyphicon glyphicon-{% if data.expression.pause %}play{% else %}pause{% endif %} orange"></span>
+                        </button>
+                        <a href="{{ url_for('expression_add_get', id=data.expression.id) }}" class="btn btn-default"
+                           style="text-decoration: none;">
+                            <span class="glyphicon glyphicon-edit orange"></span>
+                        </a>
+                        <button onclick="delete_expression('{{ data.expression.id }}');" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash orange"></span>
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="mt10 gray">
+                note: {{ data.expression.note }} (Max:{{ data.expression.max_step }}, P{{ data.expression.priority }})
+                by {{ data.expression.create_user }}
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% macro pager(_uri, total, limit, curr_page, left=3, right=7) -%}
+{% if '?' in _uri %}
+{% set uri = _uri + '&' %}
+{% else %}
+{% set uri = _uri + '?' %}
+{% endif %}
+{% if total > limit %}
+{% set page_num = total//limit if total%limit==0 else total//limit+1 %}
+{% set pre_page = curr_page - 1 %}
+{% set pre_page = 1 if pre_page < 1 else pre_page %}
+{% set next_page = curr_page + 1 %}
+{% set next_page = page_num if next_page > page_num else next_page %}
+{% set begin_idx = 1 if curr_page <= 3 else curr_page - left %}
+{% set end_idx = begin_idx + right %}
+{% set end_idx = page_num if end_idx > page_num else end_idx %}
+<ul class="pagination">
+    {%if curr_page > 1 %}
+    <li><a href="{{uri}}p=1&limit={{ limit }}">|&lt;</a></li>
+    <li><a href="{{uri}}p={{pre_page}}&limit={{ limit }}">&lt;</a></li>
+    {%else%}
+    <li class="disabled"><a>|&lt;</a></li>
+    <li class="disabled"><a>&lt;</a></li>
+    {%endif%}
+    {% for idx in range(begin_idx, end_idx+1) %}
+    <li class="{%if curr_page == idx %}active{%endif%}">
+    <a href="{{uri}}p={{idx}}&limit={{ limit }}">{{idx}}</a>
+    </li>
+    {% endfor %}
+    {%if curr_page < page_num %}
+    <li><a href="{{uri}}p={{next_page}}&limit={{ limit }}">&gt;</a></li>
+    <li><a href="{{uri}}p={{page_num}}&limit={{ limit }}">&gt;|</a></li>
+    {%else%}
+    <li
+    class="disabled"><a>&gt;</a></li>
+    <li
+    class="disabled"><a>&gt;|</a></li>
+    {%endif%}
+</ul>
+{%endif%}
+{%- endmacro %}

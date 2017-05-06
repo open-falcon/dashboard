@@ -1,0 +1,60 @@
+{% extends "auth/base.html" %}
+
+{%block head_js%}
+    {{super()}}
+    <script>
+    $(function() {
+        $("#password").keypress(function(e) {
+            var key = e.which;
+            if (key == 13) {
+                login();
+            }
+        });
+    });
+    </script>
+
+{%endblock%}
+
+{% block container_outer %}
+<div id="container" class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+
+			<div style="margin: 0 auto; max-width: 400px;">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							Sign in
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-sign" role="form">
+							<div class="form-group">
+								<input type="text" placeholder="name" id="name"
+								class="form-control" required autofocus />
+							</div>
+							<div class="form-group">
+								<input type="password" placeholder="password" id="password"
+								class="form-control" required />
+							</div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" id="ldap"> ldap account
+								</label>
+							</div>
+							<button class="btn btn-default btn-block" type="button" id="sign"
+							onclick="login();">Sign in</button>
+
+							<div style="margin-top: 10px">
+								no account? <a href="/auth/register">sign up</a>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+{%endblock%}

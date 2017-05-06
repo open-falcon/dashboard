@@ -1,0 +1,68 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading" style="padding-left: 8px;">
+            集群聚合配置列表
+            <div class="pull-right">
+                <a class="btn btn-success btn-xs" href="/portal/group/{{ group.id }}/cluster/creator">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    新建
+                </a>
+            </div>
+        </div>
+        <div class="panel-body" style="padding-left: 8px;">
+            当前HostGroup：<span class="green">{{ group.grp_name }}</span>
+        </div>
+
+        <!-- Table -->
+        <table class="table table-hover table-bordered table-striped" style="margin-bottom: 0px; margin-top: 0px;">
+            <thead>
+            <tr>
+                <th>endpoint</th>
+                <th>metric</th>
+                <th>tags</th>
+                <th>creator</th>
+                <th>operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for c in clusters %}
+                <tr>
+                    <td>
+                        {{ c.endpoint }}
+                    </td>
+                    <td>
+                        {{ c.metric }}
+                    </td>
+                    <td>
+                        {{ c.tags }}
+                    </td>
+                    <td>{{ c.creator }}</td>
+                    <td>
+                        <a data-toggle="tooltip" href="{{ url_for('cluster_edit_get', cluster_id=c.id) }}" title="修改">
+                            <span class="glyphicon glyphicon-edit orange"></span>
+                        </a>
+                        <span class="cut-line">¦</span>
+                        <a data-toggle="tooltip" href="{{ url_for('cluster_clone_get', cluster_id=c.id) }}" title="克隆">
+                            <span class="glyphicon glyphicon-duplicate orange"></span>
+                        </a>
+                        <span class="cut-line">¦</span>
+                        <a data-toggle="tooltip" href="javascript:delete_cluster_monitor_item('{{ c.id }}');" title="删除">
+                            <span class="glyphicon glyphicon-trash orange"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+
+{% endblock %}
