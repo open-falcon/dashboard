@@ -46,6 +46,9 @@ cd dashboard;
 ```
 
 ## Install dependency
+
+CentOS
+
 ```
 yum install -y python-virtualenv
 yum install -y python-devel
@@ -53,12 +56,31 @@ yum install -y openldap-devel
 yum install -y mysql-devel
 yum groupinstall "Development tools"
 
+
 cd $HOME/open-falcon/dashboard/
 virtualenv ./env
 
-./env/bin/pip install -r pip_requirements.txt -i http://pypi.douban.com/simple
+./env/bin/pip install -r pip_requirements.txt -i https://pypi.douban.com/simple
+```
+Ubuntu
 
 ```
+apt-get install -y python-virtualenv
+apt-get install -y slapd ldap-utils
+apt-get install -y libmysqld-dev
+apt-get install -y build-essential
+apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
+
+cd $HOME/open-falcon/dashboard/
+virtualenv ./env
+
+./env/bin/pip install -r pip_requirements.txt -i https://pypi.douban.com/simple
+```
+
+
+
+
+
 
 ## Init database
 ```
