@@ -45,9 +45,10 @@ cd dashboard;
 
 ```
 
-## Install dependenc
+## Install dependency
 
 CentOS
+
 ```
 yum install -y python-virtualenv
 yum install -y python-devel
