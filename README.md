@@ -1,37 +1,38 @@
 ## Introduction
-dashboard是Open-Falcon统一的front-end组件，提供以下功能：
 
-- 自定义仪表盘：dashboard、screen
-- 告警配置管理：hostgroup、template 
-- 历史告警信息管理： alarm-dashboard（告警列表、未恢复告警、删除告警信息）
-- 用户组和通讯录：teams、users
-- 告警合并管理：alarm-links
-- 用户注册、登录和权限管理：login、logout、register、ldap_login
+dashboard is the Open-Falcon unified default forntend component, including:
 
-Open-Falcon 官网为：[http://open-falcon.org](http://open-falcon.org)
+- user-defined dashboard and screen.
+- configure managent of alerting, hostgroup, template. 
+- alerting history managent and display.
+- team management.
+- combine the multiple alerting.
+- user management, such as login, logout, register, ldap_login, etc.
+
+Open-Falcon homepage：[http://open-falcon.org](http://open-falcon.org)
 
 ## Demo site
 - TODO
 
-## Run as docker
+## Run in docker
 ```
-# 构建镜像，在 dashboard 目录下执行如下命令:
+# make the image，run commands under dir of dashboard:
 docker build -t falcon-dashboard:v1.0 .
 
-# 从镜像运行容器
+# start the container
 docker run -itd --name aaa --net host \
 	-e API_ADDR=http://127.0.0.1:8080/api/v1 \
 	-e PORTAL_DB_HOST=127.0.0.1 \
 	-e PORTAL_DB_PORT=3306 \
 	-e PORTAL_DB_USER=root \
 	-e PORTAL_DB_PASS=123456 \
-  	-e PORTAL_DB_NAME=falcon_portal \
-    -e ALARM_DB_PASS=123456 \
+	-e PORTAL_DB_NAME=falcon_portal \
+	-e ALARM_DB_PASS=123456 \
 	-e ALARM_DB_HOST=127.0.0.1 \
 	-e ALARM_DB_PORT=3306 \
 	-e ALARM_DB_USER=root \
 	-e ALARM_DB_PASS=123456 \
-    -e ALARM_DB_NAME=alarms \
+	-e ALARM_DB_NAME=alarms \
 	falcon-dashboard:v1.0
 ```
 
@@ -47,7 +48,7 @@ cd dashboard;
 
 ## Install dependency
 
-CentOS
+- **CentOS**
 
 ```
 yum install -y python-virtualenv
@@ -62,7 +63,8 @@ virtualenv ./env
 
 ./env/bin/pip install -r pip_requirements.txt -i https://pypi.douban.com/simple
 ```
-Ubuntu
+
+- **Ubuntu**
 
 ```
 apt-get install -y python-virtualenv
@@ -76,11 +78,6 @@ virtualenv ./env
 
 ./env/bin/pip install -r pip_requirements.txt -i https://pypi.douban.com/simple
 ```
-
-
-
-
-
 
 ## Init database
 ```
@@ -97,10 +94,11 @@ rm -rf /tmp/falcon-plus/
 **if you are upgrading from v0.1 to current version v0.2.0,then**
 
     mysql -h 127.0.0.1 -u root -p < alarms-db-schema.sql
-    
+
+
 ## Configure
     dashboard config file is 'rrd/config.py', change it if necessary.
-   
+
     ## set API_ADDR to your falcon-plus api modules addr, default value as bellow:
     API_ADDR = "http://127.0.0.1:8080/api/v1" 
 
@@ -111,14 +109,14 @@ rm -rf /tmp/falcon-plus/
 
     $ ./env/bin/python wsgi.py
 
-    --> goto http://127.0.0.1:8081
+    open http://127.0.0.1:8081 in your browser.
 
 
 ## Run with gunicorn in production mode
 
     $ bash control start
 
-    --> goto http://127.0.0.1:8081
+    open http://127.0.0.1:8081 in your browser.
 
 
 ## Stop gunicorn
