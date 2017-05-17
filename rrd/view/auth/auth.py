@@ -4,7 +4,6 @@ import requests
 import json
 from rrd import app
 from rrd import config
-from rrd.model.user import User
 from rrd.view import utils as view_utils
 
 from rrd.utils.logger import logging
@@ -61,8 +60,8 @@ def auth_login():
 
 
                 #update user info from ldap
-                log.debug(ldap_info)
-                if user and (ldap_info["phone"] != user["phone"] or user["cnname"] == "" or user["email"] != ldap_info["email"]):
+                #log.debug(ldap_info)
+                if ldap_info["phone"] != user["phone"] or user["cnname"] == "" or user["email"] != ldap_info["email"]:
                     new_user = {
                         "name": name,
                         "cnname": ldap_info['cnname'],
@@ -78,15 +77,16 @@ def auth_login():
                                      data=json.dumps(new_user), headers=current_user_header)
                     log.debug("%s:%s" % (r.status_code, r.text))
 
+                ut = None
+                try:
+                    #login with name/password
+                    #if invalid password, exception is raised
+                    ut = view_utils.login_user(name, password)
+                    # update password in db if ldap password changed
+                except Exception as e:
+                    log.debug(e)
 
-                #Try to login with name/password
-                #If ldap password has been updated, update password of falcon user
-                ut = view_utils.login_user(name, password)
-                # update password in db if ldap password changed
-                if not user:
-                    ret["msg"] = "no such user"
-                    return json.dumps(ret)
-
+                #update password of falcon user with ldap password if login failed for the first time
                 if not ut and user:
                     change_user_passwd_data = {
                         "user_id": user["id"],
