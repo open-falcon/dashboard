@@ -153,7 +153,7 @@ def admin_user_edit(user_id):
         qq = request.form.get("qq", "")
 
         d = {
-            "user_id": user_id, "cnname": cnname, "email": email, "phone": phone, "im": im, "qq": qq,
+            "user_id": int(user_id), "cnname": cnname, "email": email, "phone": phone, "im": im, "qq": qq,
         }
         try:
             User.admin_update_user_profile(d)
