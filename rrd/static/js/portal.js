@@ -545,7 +545,7 @@ function create_cluster_monitor_metric(grp_id) {
         'step': $("#step").val()
     }, function (json) {
         handle_quietly(json, function () {
-            location.href = "/group/" + grp_id + "/cluster";
+            location.href = "/portal/group/" + grp_id + "/cluster";
         });
     }, "json")
 }
