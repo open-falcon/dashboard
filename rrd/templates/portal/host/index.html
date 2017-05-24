@@ -92,7 +92,7 @@
     <input type="hidden" id="xbox" value="{{ g.xbox or '' }}">
     {% import "portal/blocks.html" as blocks %}
     <div class="pull-left">
-        {{ blocks.pager('/group/'+data.group.id.__str__()+'/hosts?q='+data.query+'&maintaining='+data.maintaining+'&xbox='+g.xbox, data.total, data.limit, data.page) }}
+        {{ blocks.pager('/protal/group/'+data.group.id.__str__()+'/hosts?q='+data.query+'&maintaining='+data.maintaining+'&xbox='+g.xbox, data.total, data.limit, data.page) }}
     </div>
     <div class="pull-left" style="margin-left: 10px; margin-top: 20px;">
         <div class="pull-left" style="line-height: 30px;">total: {{ data.total }}, page size:</div>
