@@ -46,7 +46,7 @@ class EndpointCounter(object):
             return []
 
         eid_str = ",".join(endpoint_ids)
-        r = corelib.auth_requests("GET", API_ADDR + "/graph/endpoint_counter?eid=%s&metricQuery=%s&limit=%d" %(eid_str, qs, limit))
+        r = corelib.auth_requests("GET", API_ADDR + "/graph/endpoint_counter?eid=%s&metricQuery=%s&limit=%d" %(eid_str, " ".join(qs), limit))
         if r.status_code != 200:
             raise Exception(r.text)
         j = r.json() or []

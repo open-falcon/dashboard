@@ -32,7 +32,7 @@ def generate_graph_urls(graph, start, end):
             for q in c.split():
                 q = q.strip()
                 if q.startswith("metric="):
-                    metric = q.replace("metric=", "", 1)
+                    metric = q.replace("metric=", "^", 1)
                     qs.append(metric)
                 else:
                     qs.append(q)
