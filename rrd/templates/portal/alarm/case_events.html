@@ -3,8 +3,8 @@
 
     <div class="panel panel-danger">
         <div class="panel-heading">
-            <h4 class="panel-title">case:{{case.id}} 所关联的事件列表
-                <a href="/portal/alarm-dash/case" class="pull-right small">返回</a></h4>
+            <h4 class="panel-title">case:{{case.id}} {{_('event list')}}
+                <a href="/portal/alarm-dash/case" class="pull-right small">{{_('back')}}</a></h4>
         </div>
         <div class="panel-body">
             <div class="alarms">
@@ -31,9 +31,9 @@
                 </div>
                 <hr>
                 {%endfor%}
-                <a href="javascript:alarm_case_event_all_select();">全选</a>/
-                <a href="javascript:alarm_case_event_reverse_select();">反选</a>
-                <button class="btn btn-warning btn-sm" onclick="alarm_case_event_batch_rm();">批量删除</button>
+                <a href="javascript:alarm_case_event_all_select();">{{_('select all')}}</a>/
+                <a href="javascript:alarm_case_event_reverse_select();">{{_('reverse select')}}</a>
+                <button class="btn btn-warning btn-sm" onclick="alarm_case_event_batch_rm();">{{_('batch delete')}}</button>
             </div>
         </div>
 

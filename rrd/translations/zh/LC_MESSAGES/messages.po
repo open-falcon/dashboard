@@ -1,0 +1,230 @@
+# Chinese translations for PROJECT.
+# Copyright (C) 2017 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2017-06-07 23:01+0800\n"
+"PO-Revision-Date: 2017-06-07 17:26+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh\n"
+"Language-Team: zh <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.4.0\n"
+
+#: rrd/__init__.py:16
+msgid "Temporary error, please contact your administrator."
+msgstr "暂时无法访问,请联系管理员。"
+
+#: rrd/templates/base.html:114
+msgid "batch edit"
+msgstr "批量修改"
+
+#: rrd/templates/base.html:122
+msgid "Close"
+msgstr "关闭"
+
+#: rrd/templates/base.html:123
+msgid "OK"
+msgstr "确认"
+
+#: rrd/templates/index.html:68
+msgid "search endpoints"
+msgstr "搜索Endpoints"
+
+#: rrd/templates/index.html:76 rrd/templates/index.html:161
+msgid "using SPACE to separate keywords"
+msgstr "空格分割多个关键字"
+
+#: rrd/templates/index.html:79
+msgid "labels"
+msgstr "标签"
+
+#: rrd/templates/index.html:85
+msgid "global search"
+msgstr "全局搜索"
+
+#: rrd/templates/index.html:97
+msgid "delete endpoints"
+msgstr "删除endpoints"
+
+#: rrd/templates/index.html:104 rrd/templates/index.html:181
+msgid "quick filter"
+msgstr "快速过滤"
+
+#: rrd/templates/index.html:115
+msgid "using SHIFT to continue select"
+msgstr "支持shift范围选择"
+
+#: rrd/templates/index.html:118
+msgid "list counters"
+msgstr "刷新counter列表"
+
+#: rrd/templates/index.html:153
+msgid "search counters"
+msgstr "搜索Counters"
+
+#: rrd/templates/index.html:166
+msgid "search"
+msgstr "搜索"
+
+#: rrd/templates/index.html:182
+msgid "delete counters"
+msgstr "删除counters"
+
+#: rrd/templates/chart/multi_ng.html:96 rrd/templates/chart/multi_pic.html:44
+#: rrd/templates/index.html:186
+msgid "show"
+msgstr "看图"
+
+#: rrd/templates/chart/multi_ng.html:82 rrd/templates/chart/multi_pic.html:31
+#: rrd/templates/index.html:188
+msgid "endpoint view"
+msgstr "Endpoint视角"
+
+#: rrd/templates/chart/multi_ng.html:83 rrd/templates/chart/multi_pic.html:32
+#: rrd/templates/index.html:189
+msgid "counter view"
+msgstr "Counter视角"
+
+#: rrd/templates/chart/multi_ng.html:84 rrd/templates/index.html:190
+msgid "multi view"
+msgstr "组合视角"
+
+#: rrd/templates/index.html:202
+msgid "type"
+msgstr "类型"
+
+#: rrd/templates/index.html:203
+msgid "step"
+msgstr "频率"
+
+#: rrd/templates/auth/register.html:21
+msgid "UserName"
+msgstr "中文名"
+
+#: rrd/templates/chart/big_ng.html:56 rrd/templates/chart/embed.html:55
+msgid "date range"
+msgstr "时间范围"
+
+#: rrd/templates/chart/big_ng.html:67 rrd/templates/chart/embed.html:66
+#: rrd/templates/chart/multi_ng.html:72 rrd/templates/chart/multi_pic.html:21
+msgid "sampling method"
+msgstr "采样方法"
+
+#: rrd/templates/chart/big_ng.html:69 rrd/templates/chart/embed.html:68
+msgid "max"
+msgstr "最大值"
+
+#: rrd/templates/chart/big_ng.html:70 rrd/templates/chart/embed.html:69
+msgid "min"
+msgstr "最小值"
+
+#: rrd/templates/chart/big_ng.html:71 rrd/templates/chart/embed.html:70
+msgid "average"
+msgstr "平均值"
+
+#: rrd/templates/chart/big_ng.html:74 rrd/templates/chart/embed.html:73
+msgid "other"
+msgstr "其他"
+
+#: rrd/templates/chart/big_ng.html:76 rrd/templates/chart/embed.html:75
+#: rrd/templates/chart/multi_ng.html:91 rrd/templates/chart/multi_pic.html:39
+msgid "sum"
+msgstr "求和"
+
+#: rrd/templates/chart/big_ng.html:77 rrd/templates/chart/embed.html:76
+msgid "sum only"
+msgstr "只求和"
+
+#: rrd/templates/chart/big_ng.html:78 rrd/templates/chart/embed.html:77
+msgid "cancel sum"
+msgstr "取消求和"
+
+#: rrd/templates/chart/big_ng.html:79 rrd/templates/chart/embed.html:78
+#: rrd/templates/chart/multi_ng.html:99 rrd/templates/chart/multi_pic.html:47
+msgid "reset"
+msgstr "重置"
+
+#: rrd/templates/chart/big_ng.html:106 rrd/templates/portal/alarm/case.html:50
+#: rrd/templates/portal/alarm/case_events.html:34
+msgid "select all"
+msgstr "全选"
+
+#: rrd/templates/chart/big_ng.html:111 rrd/templates/portal/alarm/case.html:51
+#: rrd/templates/portal/alarm/case_events.html:35
+msgid "reverse select"
+msgstr "反选"
+
+#: rrd/templates/chart/big_ng.html:114
+msgid "refresh"
+msgstr "刷新"
+
+#: rrd/templates/chart/big_ng.html:119
+msgid "type to fiter, enter to refresh..."
+msgstr "输入字符过滤, 回车刷新..."
+
+#: rrd/templates/chart/multi_ng.html:46 rrd/templates/chart/multi_pic.html:11
+msgid "begin"
+msgstr "开始"
+
+#: rrd/templates/chart/multi_ng.html:59 rrd/templates/chart/multi_pic.html:16
+msgid "end"
+msgstr "结束"
+
+#: rrd/templates/chart/multi_ng.html:80 rrd/templates/chart/multi_pic.html:29
+msgid "view"
+msgstr "视角"
+
+#: rrd/templates/portal/alarm/case.html:6
+msgid "alerting cases"
+msgstr "告警case列表"
+
+#: rrd/templates/portal/alarm/case.html:7
+msgid "not recovered cases"
+msgstr "未恢复告警列表"
+
+#: rrd/templates/portal/alarm/case.html:34
+#: rrd/templates/portal/alarm/case_events.html:6
+msgid "event list"
+msgstr "告警事件列表"
+
+#: rrd/templates/portal/alarm/case.html:52
+#: rrd/templates/portal/alarm/case_events.html:36
+msgid "batch delete"
+msgstr "批量删除"
+
+#: rrd/templates/portal/alarm/case_events.html:7
+msgid "back"
+msgstr "返回"
+
+#: rrd/templates/portal/cluster/creator.html:8
+msgid "create cluster monitor metric"
+msgstr "创建集群监控项"
+
+#: rrd/templates/portal/cluster/creator.html:9
+msgid "configure help"
+msgstr "配置说明"
+
+#: rrd/view/dashboard/screen.py:58
+msgid "screen create fail"
+msgstr "创建screen失败"
+
+#: rrd/view/dashboard/screen.py:224
+msgid "edit successful"
+msgstr "更新成功"
+
+#: rrd/view/portal/cluster.py:85
+msgid "edit"
+msgstr "编辑"
+
+#: rrd/view/portal/cluster.py:95
+msgid "clone"
+msgstr "克隆"
+

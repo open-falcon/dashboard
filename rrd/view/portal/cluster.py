@@ -1,6 +1,7 @@
 #-*- coding:utf-8 -*-
 __author__ = 'Ulric Qin'
 from flask import jsonify, render_template, request, g
+from flask.ext.babel import gettext
 from rrd import app
 from rrd.model.portal.host_group import HostGroup
 from rrd.model.portal.cluster import Cluster
@@ -81,7 +82,7 @@ def cluster_node_post(group_id):
 def cluster_edit_get(cluster_id):
     cluster_id = int(cluster_id)
     cluster = Cluster.get(cluster_id)
-    op = u'修改'
+    op = gettext('edit')
     return render_template('portal/cluster/edit.html', **locals())
 
 
@@ -91,7 +92,7 @@ def cluster_clone_get(cluster_id):
     cluster = Cluster.get(cluster_id)
     # for clone
     cluster_id = 0
-    op = u'克隆'
+    op = gettext('clone')
     return render_template('portal/cluster/edit.html', **locals())
 
 

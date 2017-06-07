@@ -52,7 +52,7 @@
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu" style="min-width:400px; margin:0 0 0 0px;">
                         <table class="table table-striped">
-                            <tbody><tr><td width="100px;"><span>时间跨度</span>
+                            <tbody><tr><td width="100px;"><span>{{_('date range')}}</span>
                                     </td><td>
                                         <a ng-class="{enable: vm.param.start == -3600}" ng-click="vm.param.start=-3600" class="chart-opt">1h</a>
                                         <a ng-class="{enable: vm.param.start == -21600}" ng-click="vm.param.start=-21600" class="chart-opt">6h</a>
@@ -63,19 +63,19 @@
                                         <a ng-class="{enable: vm.param.start == -2592000}" ng-click="vm.param.start=-2592000" class="chart-opt">1m</a>
                                 </td></tr>
 
-                                <tr><td> <span>采样方法</span>
+                                <tr><td> <span>{{_('sampling method')}}</span>
                                     </td><td>
-                                        <a ng-class="{enable: vm.param.cf=='MAX'}" ng-click="vm.param.cf='MAX'" class="chart-opt">最大值</a>
-                                        <a ng-class="{enable: vm.param.cf=='MIN'}" ng-click="vm.param.cf='MIN'" class="chart-opt">最小值</a>
-                                        <a ng-class="{enable: vm.param.cf=='AVERAGE'}" ng-click="vm.param.cf='AVERAGE'" class="chart-opt">平均值</a>
+                                        <a ng-class="{enable: vm.param.cf=='MAX'}" ng-click="vm.param.cf='MAX'" class="chart-opt">{{_('max')}}</a>
+                                        <a ng-class="{enable: vm.param.cf=='MIN'}" ng-click="vm.param.cf='MIN'" class="chart-opt">{{_('min')}}</a>
+                                        <a ng-class="{enable: vm.param.cf=='AVERAGE'}" ng-click="vm.param.cf='AVERAGE'" class="chart-opt">{{_('average')}}</a>
                                 </td></tr>
 
-                                <tr><td><span>其他</span>
+                                <tr><td><span>{{_('other')}}</span>
                                     </td><td>
-                                        <a ng-click="vm.param.sum='on';vm.param.sumonly='off'" data-k="sum|sumonly" data-v="1| " class="chart-opt">求和</a>
-                                        <a ng-click="vm.param.sum='on';vm.param.sumonly='on'" data-k="sumonly" data-v="1" class="chart-opt">只显示sum</a>
-                                        <a ng-click="vm.param.sum='off';vm.param.sumonly='off'" data-k="sum|sumonly" data-v=" | " class="chart-opt">取消求和</a>
-                                        <a ng-click="vm.reset()" data-k="start|end|sum|cf|tongbi|sumonly" data-v=" | | | | | | " class="chart-opt"><b>重置</b></a>
+                                        <a ng-click="vm.param.sum='on';vm.param.sumonly='off'" data-k="sum|sumonly" data-v="1| " class="chart-opt">{{_('sum')}}</a>
+                                        <a ng-click="vm.param.sum='on';vm.param.sumonly='on'" data-k="sumonly" data-v="1" class="chart-opt">{{_('sum only')}}</a>
+                                        <a ng-click="vm.param.sum='off';vm.param.sumonly='off'" data-k="sum|sumonly" data-v=" | " class="chart-opt">{{_('cancel sum')}}</a>
+                                        <a ng-click="vm.reset()" data-k="start|end|sum|cf|tongbi|sumonly" data-v=" | | | | | | " class="chart-opt"><b>{{_('reset')}}</b></a>
                                 </td></tr>
                         </tbody></table>
                     </ul>

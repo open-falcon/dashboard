@@ -3,8 +3,8 @@
 
     <div class="panel panel-danger">
         <div class="panel-heading">
-            <h4 class="panel-title">报警case列表
-                <a class="pull-right small" href="/portal/alarm-dash/case?status=PROBLEM">查看未恢复报警列表</a>
+            <h4 class="panel-title">{{_('alerting cases')}}
+                <a class="pull-right small" href="/portal/alarm-dash/case?status=PROBLEM">{{_('not recovered cases')}}</a>
             </h4>
         </div>
         <div class="panel-body">
@@ -31,7 +31,7 @@
                     <span class="cut-line">¦</span>
                     <a href="javascript:alarm_case_rm('{{case.id}}');">delete</a>
                     <span class="cut-line">¦</span>
-                    <a href="/portal/alarm-dash/case/event?case_id={{case.id}}">展开事件列表</a>
+                    <a href="/portal/alarm-dash/case/event?case_id={{case.id}}">{{_('event list')}}</a>
                     <span class="gray">]</span>
                     </br>
 
@@ -47,9 +47,9 @@
                 </div>
                 <hr>
                 {%endfor%}
-                <a href="javascript:alarm_case_all_select();">全选</a>/
-                <a href="javascript:alarm_case_reverse_select();">反选</a>
-                <button class="btn btn-warning btn-sm" onclick="alarm_case_batch_rm();">批量删除</button>
+                <a href="javascript:alarm_case_all_select();">{{_('select all')}}</a>/
+                <a href="javascript:alarm_case_reverse_select();">{{_('reverse select')}}</a>
+                <button class="btn btn-warning btn-sm" onclick="alarm_case_batch_rm();">{{_('batch delete')}}</button>
             </div>
         </div>
 

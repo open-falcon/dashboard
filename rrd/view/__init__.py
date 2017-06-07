@@ -3,7 +3,7 @@ import datetime
 import time
 from flask import g, session, request, redirect
 
-from rrd import app
+from rrd import app, config
 from rrd.view.utils import get_usertoken_from_session, get_current_user_profile
 
 @app.template_filter('fmt_time')
@@ -41,6 +41,7 @@ def app_teardown(exception):
 def app_before():
     g.user_token = get_usertoken_from_session(session)
     g.user = get_current_user_profile(g.user_token)
+    g.locale = request.accept_languages.best_match(config.LANGUAGES.keys())
 
     path = request.path
     if not g.user and not path.startswith("/auth/login") and \

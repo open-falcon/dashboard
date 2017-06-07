@@ -1,17 +1,29 @@
 #-*- coding:utf-8 -*-
 import os
 import traceback
-from flask import Flask
+from flask import Flask, request
+from flask.ext.babel import Babel, gettext
+from rrd import config
 
 #-- create app --
 app = Flask(__name__)
 app.config.from_object("rrd.config")
+babel = Babel(app)
 
 @app.errorhandler(Exception)
 def all_exception_handler(error):
     tb = traceback.format_exc()
-    err_msg = '<pre>暂时无法访问,请联系管理员.\n\nerror: %s\n\ntraceback日志如下:\n%s</pre>' %(error, tb)
-    return err_msg, 500
+    err_tip = gettext('Temporary error, please contact your administrator.')
+    err_msg = err_tip + '\n\nError: %s\n\nTraceback:\n%s' %(error, tb)
+    return '<pre>' + err_msg + '</pre>', 500
+
+@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(config.LANGUAGES.keys())
+
+@babel.timezoneselector
+def get_timezone():
+    return app.config.get("BABEL_DEFAULT_TIMEZONE")
 
 from view import index
 from view.auth import auth

@@ -40,6 +40,15 @@ LDAP_TLS_KEYFILE = ""
 LDAP_TLS_REQUIRE_CERT = True
 LDAP_TLS_CIPHER_SUITE = ""
 
+# i18n
+BABEL_DEFAULT_LOCALE   = 'zh_CN'
+BABEL_DEFAULT_TIMEZONE = 'Asia/Shanghai'
+# aviliable translations
+LANGUAGES   = {
+    'en':  'English',
+    'zh_CN':  'Chinese-Simplified',
+}
+
 # portal site config
 MAINTAINERS = ['root']
 CONTACT = 'root@open-falcon.org'
