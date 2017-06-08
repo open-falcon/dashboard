@@ -1,5 +1,6 @@
 #-*- coding:utf-8 -*-
 from flask import request, g, abort, render_template, redirect
+from flask.ext.babel import refresh
 import requests
 import json
 from rrd import app

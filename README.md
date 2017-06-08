@@ -14,6 +14,12 @@ Open-Falcon homepage：[http://open-falcon.org](http://open-falcon.org)
 ## Demo site
 - TODO
 
+## i18n
+Open-Falcon natively support zh_CN and currently partially support English. Any translation will be appreciated.
+
+[How to participate in the translation](./i18n.md)
+
+
 ## Run in docker
 ```
 # make the image，run commands under dir of dashboard:
