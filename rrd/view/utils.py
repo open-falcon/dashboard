@@ -108,6 +108,7 @@ def ldap_login_user(name, password):
         raise Exception("ldap not enabled")
 
     bind_dn = config.LDAP_BINDDN_FMT
+    base_dn = config.LDAP_BASE_DN
     try:
         bind_dn = config.LDAP_BINDDN_FMT %name
     except TypeError: pass
