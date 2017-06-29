@@ -108,6 +108,7 @@ def ldap_login_user(name, password):
         raise Exception("ldap not enabled")
 
     bind_dn = config.LDAP_BINDDN_FMT
+    base_dn = config.LDAP_BASE_DN
     try:
         bind_dn = config.LDAP_BINDDN_FMT %name
     except TypeError: pass
@@ -135,7 +136,7 @@ def ldap_login_user(name, password):
             if config.LDAP_TLS_CIPHER_SUITE:
                 cli.set_option(ldap.OPT_X_TLS_CIPHER_SUITE, config.LDAP_TLS_CIPHER_SUITE)
         cli.simple_bind_s(bind_dn, password)
-        result = cli.search_s(bind_dn, ldap.SCOPE_SUBTREE, search_filter, config.LDAP_ATTRS)
+        result = cli.search_s(base_dn, ldap.SCOPE_SUBTREE, search_filter, config.LDAP_ATTRS)
         log.debug("ldap result: %s" % result)
         d = result[0][1]
         email = d['mail'][0]
