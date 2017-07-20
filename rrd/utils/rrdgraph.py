@@ -15,7 +15,7 @@ def graph_history(endpoints, counters, cf, start, end):
     h = {"Content-type": "application/json"}
     r = corelib.auth_requests("POST", "%s/graph/history" %API_ADDR, headers=h, data=json.dumps(params))
     if r.status_code != 200:
-        raise Exception("{} : {}".format(r.status_code, r.text))
+        raise Exception("%s : %s" %(r.status_code, r.text))
 
     return r.json()
 

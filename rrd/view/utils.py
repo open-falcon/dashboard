@@ -94,7 +94,7 @@ def login_user(name, password):
     }
     r = requests.post("%s/user/login" %config.API_ADDR, data=params)
     if r.status_code != 200:
-        raise Exception("{} : {}".format(r.status_code, r.text))
+        raise Exception("%s : %s" %(r.status_code, r.text))
 
     j = r.json()
     ut = UserToken(j["name"], j["sig"])
