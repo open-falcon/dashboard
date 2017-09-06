@@ -12,9 +12,14 @@ def alarm_dash_case_get():
     endpoint_q = request.args.get("endpoint_q") or ""
     metric_q = request.args.get("metric_q") or ""
     status = request.args.get("status") or ""
+    from_data = request.args.get("from_data") or ""
+    to_data = request.args.get("to_data") or ""
 
-    cases, total = EventCase.query(page, limit, endpoint_q, metric_q, status)
-    return render_template("portal/alarm/case.html", **locals())
+    cases, total = EventCase.query(page, limit, endpoint_q, metric_q, status, from_data, to_data)
+    if status == 'PROBLEM':
+        return render_template("portal/alarm/case_problem.html", **locals())
+    else:
+        return render_template("portal/alarm/case.html", **locals())
 
 @app.route("/portal/alarm-dash/case/event")
 def alarm_dash_event_get():
