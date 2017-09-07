@@ -58,7 +58,7 @@
     </div>
 
     {% import "portal/blocks.html" as blocks %}
-    {{ blocks.pager('/portal/expressions?q='+data.query+'&mine='+data.mine, data.total, data.limit, data.page) }}
+    {{ blocks.pager('/portal/expression?q='+data.query+'&mine='+data.mine, data.total, data.limit, data.page) }}
 
     <br/>
     <br/>
