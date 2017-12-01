@@ -7,7 +7,7 @@
 {{super()}}
 
 <script src="/static/js/jquery.shiftcheckbox.js" type= "text/javascript" ></script>
-<script src="/static/js/xperf.js?_v=0.1.0"></script>
+<script src="/static/js/dashboard.js?_v=0.1.0"></script>
 <script>
 
         $(function(){
@@ -52,26 +52,7 @@
 
 
 {%block navbar%}
-<nav class="navbar navbar-default" role="navigation" style="background-color: #fff;">
-<div class="container-fluid">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-        </button>
-        <a class="navbar-brand" href="/">Falcon-Dashboard</a>
-    </div>
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/screen">Screen</a></li>
-          <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">链接<span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu" style="font-size:12px;">
-                  <li><a href="https://github.com/open-falcon">fork me on Github</a></li>
-              </ul>
-          </li>
-        </ul>
-    </div>
-</div>
-</nav>
+  {%include "navbar.html"%}
 {%endblock%}
 
 {% block container %}
@@ -84,7 +65,7 @@
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <img class="loading pull-right" src="/static/img/loading.gif" style="display:none;"></img>
-                            搜索Endpoints
+                            {{_('search endpoints')}}
                         </div>
 
                         <div class="panel-body">
@@ -92,39 +73,66 @@
                                 <div class="form-group">
                                     <label>Endpoint</label>
                                     <input id="endpoint-search" name="endpoint_search" type="text" class="form-control input-sm">
-                                    <p class="help-block"><span class="text-warning">可以用空格分割多个搜索关键字</span></p>
+                                    <p class="help-block"><span class="text-warning">{{_('using SPACE to separate keywords')}}</span></p>
                                 </div>
                                 <div class="form-group">
-                                    <label>标签( eg: job=appstore-web)</label>
+                                    <label>{{_('labels')}}( eg: job=appstore-web)</label>
                                     <input id="tag-search" name="tag_search" type="text" class="form-control input-sm">
                                 </div>
                             </form>
                             <form class="form-inline" role="form">
                                 <div class="form-group">
-                                    <button type="button" id="btn-search-endpoints" class="btn btn-default btn-sm btn-success" onclick="fn_list_endpoints();return false;">全局搜索</button>
+                                    <button type="button" id="btn-search-endpoints" class="btn btn-default btn-sm btn-success" onclick="fn_list_endpoints();return false;">{{_('global search')}}</button>
                                     <select class="form-control input-sm" id="endpoint-limit" onchange="fn_list_endpoints();return false;">
                                         <option value="50"> Limit 50</option>
                                         <option value="100">Limit 100</option>
                                         <option value="500">Limit 500</option>
                                     </select>
+                                    <select class="form-control input-sm" id="endpoint-page" onchange="fn_list_endpoints();return false;">
+                                        {%for p in range(1, 21)%}
+                                        <option value="{{p}}"> page {{p}}</option>
+                                        {%endfor%}
+                                    </select>
+                                    <span class="cut-line">¦</span>
+                                    <button class="btn btn-default btn-sm" onclick="fn_delete_endpoints();return false;">{{_('delete endpoints')}}</button>
                                 </div>
                             </form>
                             <hr/>
                             <form class="form-inline" role="form">
                                 <div class="form-group">
                                     <input id="endpoint-filter" type="text" class="form-control input-sm">
-                                    <button class="btn btn-default btn-sm btn-info" onclick="filter_endpoint();return false;">快速过滤</button>
+                                    <button class="btn btn-default btn-sm btn-info" onclick="filter_endpoint();return false;">{{_('quick filter')}}</button>
                                 </div>
                             </form>
 
                         </div>
 
                         <table class="table table-striped">
-                            <thead> <tr> <p class="help-block"><span class="text-warning">支持shift多选</span></p>
-                                <th width="30px" colspan=2><input type="checkbox" id="check_all_endpoints"></th>
-                                <th><button class="btn btn-link btn-xs pull-right" onclick="fn_list_counters();return false;">刷新counter列表</button></th>
+                            <thead> <tr> 
+                                <th>
+                                <span style="display: inline-block;vertical-align:middle;">
+                                    <input type="checkbox" id="check_all_endpoints" style="height:13px;">
+                                    <span class="text-warning">{{_('using SHIFT to continue select')}}</span>
+                                </span>
+                                <span class="pull-right">
+                                    <button class="btn btn-default btn-xs" onclick="fn_list_counters();return false;">{{_('list counters')}}</button>
+                                </span>
+                                </th>
                             </tr></thead>
-                            <tbody id="tbody-endpoints"> </tbody>
+                        </table>
+                        <table class="table table-striped">
+                            <thead>
+                                <th width="15"></th> <th></th>
+                            </thead>
+                            <tbody id="tbody-endpoints">
+                                {%for obj in endpoint_objs%}
+                                <tr>
+                                <td><input type="checkbox" class="input shiftCheckbox"
+                                    data-eid="{{obj['id']}}"  data-fullname="{{obj['endpoint']}}"></input></td>
+                                <td>{{obj['endpoint']}}</td>
+                                </tr>
+                                {%endfor%}
+                            </tbody>
                         </table>
 
                     </div>
@@ -142,7 +150,7 @@
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <img class="loading pull-right" src="/static/img/loading.gif" style="display:none;"></img>
-                            搜索Counters
+                            {{_('search counters')}}
                         </div>
 
                         <div class="panel-body">
@@ -150,30 +158,36 @@
                                 <div class="form-group">
                                     <label>Counter</label>
                                     <input id="counter-search" type="text" class="form-control input-sm">
-                                    <p class="help-block"><span class="text-warning">可以用空格分割多个搜索关键字</span></p>
+                                    <p class="help-block"><span class="text-warning">{{_('using SPACE to separate keywords')}}</span></p>
                                 </div>
                             </form>
 
                             <form class="form-inline" role="form">
-                                <button class="btn btn-default btn-sm btn-success" onclick="fn_list_counters();return false;">搜索</button>
+                                <button class="btn btn-default btn-sm btn-success" onclick="fn_list_counters();return false;">{{_('search')}}</button>
                                 <div class="form-group">
                                     <select class="form-control input-sm" id="counter-limit" onchange="fn_list_counters();return false;">
                                         <option value="50"> Limit 50</option>
                                         <option value="100">Limit 100</option>
                                         <option value="500">Limit 500</option>
                                     </select>
+                                    <select class="form-control input-sm" id="counter-page" onchange="fn_list_counters();return false;">
+                                        {%for p in range(1, 21)%}
+                                        <option value="{{p}}"> page {{p}}</option>
+                                        {%endfor%}
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <input id="counter-filter" type="text" class="form-control input-sm">
-                                    <button class="btn btn-default btn-sm btn-info" onclick="filter_counter();return false;">快速过滤</button>
+                                    <button class="btn btn-default btn-sm btn-info" onclick="filter_counter();return false;">{{_('quick filter')}}</button>
+                                    <button class="btn btn-default btn-sm" onclick="fn_delete_counters();return false;">{{_('delete counters')}}</button>
                                 </div>
 
                                 <div class="dropdown form-group pull-right">
-                                    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#"> 看图 <span class="caret"></span></a>
+                                    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#"> {{_('show')}}<span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
-                                      <li><a href="#" class="btn btn-link btn-xs" onclick="fn_show_all('h');return false;">Endpoint视角</a></li>
-                                      <li><a href="#" class="btn btn-link btn-xs" onclick="fn_show_all('k');return false;">Counter视角</a></li>
-                                      <li><a href="#" class="btn btn-link btn-xs" onclick="fn_show_all('a');return false;">组合视角</a></li>
+                                      <li><a href="#" class="btn btn-link btn-xs" onclick="fn_show_all('h');return false;">{{_('endpoint view')}}</a></li>
+                                      <li><a href="#" class="btn btn-link btn-xs" onclick="fn_show_all('k');return false;">{{_('counter view')}}</a></li>
+                                      <li><a href="#" class="btn btn-link btn-xs" onclick="fn_show_all('a');return false;">{{_('multi view')}}</a></li>
                                     </ul>
                                 </div>
 
@@ -185,8 +199,8 @@
                             <thead> <tr>
                                 <th width="30px"><input type="checkbox" id="check_all_counters"></th>
                                 <th >Counters</th>
-                                <th width="60px">类型</th>
-                                <th width="60px">频率</th>
+                                <th width="60px">{{_('type')}}</th>
+                                <th width="60px">{{_('step')}}</th>
                             </tr></thead>
 
                             <tbody id="tbody-counters"> </tbody>

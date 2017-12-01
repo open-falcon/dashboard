@@ -1,0 +1,53 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+
+    <div class="section thin-border">
+        <div class="question-title mt20">
+            1. 设计出发点
+        </div>
+        <hr>
+        <p class="question-content mb20">
+            Template就是报警策略的一个集合。比如我们可以把cpu.idle/disk.io.util/load.1min等等机器基础信息的策略做成一个Template，统一设置报警接收人，统一管理。我们写的rpc组件通常都会开一个rpc端口提供服务，还会开一个http端看来暴露内存中的信息，方便debug，两个端口都要做监控，此时我们可以把这两个端口的监控策略做成一个模板，绑定到这个服务部署的HostGroup上。
+        </p>
+
+        <div class="question-title mt30">
+            2. 模板继承
+        </div>
+        <hr>
+        <p class="question-content mb20">
+            在监控系统中HostGroup是扁平的，策略继承用Template实现。子模板中的策略可以覆盖父模板中的策略，比如我们通常会做阈值覆盖。报警策略的identity是metric+sorted(tags)。
+        </p>
+
+        <div class="question-title mt30">
+            3. 最佳实践
+        </div>
+        <hr>
+        <p class="question-content mb20">
+            通常，我们需要把机器负载监控和服务监控（端口监控或者进程监控）分开处理。
+            比如创建一个common模板涵盖cpu.idle/load.1min等机器监控策略，创建一个涵盖所有机器的HostGroup：all.hosts，
+            将common模板与all.hosts绑定。
+            这样所有机器就都有了基础监控了。
+        </p>
+        <p class="question-content mb20">
+            对于服务相关的监控我们要创建独立模板，比如falcon-graph这个模块，部署在sa.dev.falcon.graph这个HostGroup下面的20台机器上，
+            我们可以为其配置端口监控，做一个模板绑定到sa.dev.falcon.graph，配置一下net.port.listen即可。
+        </p>
+        <p class="question-content mb20">
+            普通机器的disk.io.util一般大于20就报警，但是falcon-graph的io特别狠，我们可以为其调大阈值，比如80才报警。
+            此时需要做一个模板继承自common模板，修改其中的disk.io.util的阈值，这样就可以覆盖common模板中配置的disk.io.util了，最后绑定到sa.dev.falcon.graph即可。
+        </p>
+    </div>
+
+    <div class="mt20 mb20">
+        <div class="pull-right">
+            <a href="mailto:{{ contact }}" style="text-decoration: none;">
+                <span class="glyphicon glyphicon-envelope"></span>
+                Contact Us
+            </a>
+        </div>
+        <button class="btn btn-default" onclick="history.go(-1);">
+            <span class="glyphicon glyphicon-arrow-left"></span>
+            <span>了解了，回去继续操作</span>
+        </button>
+    </div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "user/base.html" %}
+
+{% block container_outer %}
+<div id="container" class="container-fluid">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div style="margin: 0 auto; max-width: 400px;">
+
+				<ol class="breadcrumb">
+					<li><a href="/">首页</a></li>
+					<li><a href="/user/list">通讯录</a></li>
+					<li class="active">创建用户</li>
+				</ol>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Create User</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label for="name">* 账号（a-zA-Z0-9_-.）：</label> <input type="text"
+							id="name" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="password">* 密码：</label> <input
+							type="password" name="password" id="password" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="name">中文名（可以附带上部门、工位号之类的做详细区分）：</label> <input
+							type="text" name="cnname" id="cnname" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="email">邮箱：</label> <input type="email" name="email"
+							id="email" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="phone">手机：</label> <input type="text" name="phone"
+							id="phone" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="name">IM（内部通讯工具账号，比如微信、百度hi、米聊）：</label> <input
+							type="text" name="im" id="im" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="name">QQ：</label> <input type="text" name="qq" id="qq"
+							class="form-control" />
+						</div>
+						<button type="button" class="btn btn-default" onclick="create_user();">
+							<span class="glyphicon glyphicon-floppy-disk"></span>
+							创建
+						</button>
+						<a href="/user/list" class="btn btn-default">
+							<span class="glyphicon glyphicon-arrow-left"></span>
+							返回
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+{%endblock%}

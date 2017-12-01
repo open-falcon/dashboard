@@ -19,3 +19,4 @@ run.pid
 var/
 *.tar.gz
 gitversion
+.DS_Store

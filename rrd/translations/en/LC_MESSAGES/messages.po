@@ -1,0 +1,230 @@
+# English translations for PROJECT.
+# Copyright (C) 2017 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2017-06-07 23:01+0800\n"
+"PO-Revision-Date: 2017-06-07 19:28+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.4.0\n"
+
+#: rrd/__init__.py:16
+msgid "Temporary error, please contact your administrator."
+msgstr ""
+
+#: rrd/templates/base.html:114
+msgid "batch edit"
+msgstr ""
+
+#: rrd/templates/base.html:122
+msgid "Close"
+msgstr ""
+
+#: rrd/templates/base.html:123
+msgid "OK"
+msgstr ""
+
+#: rrd/templates/index.html:68
+msgid "search endpoints"
+msgstr ""
+
+#: rrd/templates/index.html:76 rrd/templates/index.html:161
+msgid "using SPACE to separate keywords"
+msgstr ""
+
+#: rrd/templates/index.html:79
+msgid "labels"
+msgstr ""
+
+#: rrd/templates/index.html:85
+msgid "global search"
+msgstr ""
+
+#: rrd/templates/index.html:97
+msgid "delete endpoints"
+msgstr ""
+
+#: rrd/templates/index.html:104 rrd/templates/index.html:181
+msgid "quick filter"
+msgstr ""
+
+#: rrd/templates/index.html:115
+msgid "using SHIFT to continue select"
+msgstr ""
+
+#: rrd/templates/index.html:118
+msgid "list counters"
+msgstr ""
+
+#: rrd/templates/index.html:153
+msgid "search counters"
+msgstr ""
+
+#: rrd/templates/index.html:166
+msgid "search"
+msgstr ""
+
+#: rrd/templates/index.html:182
+msgid "delete counters"
+msgstr ""
+
+#: rrd/templates/chart/multi_ng.html:96 rrd/templates/chart/multi_pic.html:44
+#: rrd/templates/index.html:186
+msgid "show"
+msgstr ""
+
+#: rrd/templates/chart/multi_ng.html:82 rrd/templates/chart/multi_pic.html:31
+#: rrd/templates/index.html:188
+msgid "endpoint view"
+msgstr ""
+
+#: rrd/templates/chart/multi_ng.html:83 rrd/templates/chart/multi_pic.html:32
+#: rrd/templates/index.html:189
+msgid "counter view"
+msgstr ""
+
+#: rrd/templates/chart/multi_ng.html:84 rrd/templates/index.html:190
+msgid "multi view"
+msgstr ""
+
+#: rrd/templates/index.html:202
+msgid "type"
+msgstr ""
+
+#: rrd/templates/index.html:203
+msgid "step"
+msgstr ""
+
+#: rrd/templates/auth/register.html:21
+msgid "UserName"
+msgstr ""
+
+#: rrd/templates/chart/big_ng.html:56 rrd/templates/chart/embed.html:55
+msgid "date range"
+msgstr ""
+
+#: rrd/templates/chart/big_ng.html:67 rrd/templates/chart/embed.html:66
+#: rrd/templates/chart/multi_ng.html:72 rrd/templates/chart/multi_pic.html:21
+msgid "sampling method"
+msgstr ""
+
+#: rrd/templates/chart/big_ng.html:69 rrd/templates/chart/embed.html:68
+msgid "max"
+msgstr ""
+
+#: rrd/templates/chart/big_ng.html:70 rrd/templates/chart/embed.html:69
+msgid "min"
+msgstr ""
+
+#: rrd/templates/chart/big_ng.html:71 rrd/templates/chart/embed.html:70
+msgid "average"
+msgstr ""
+
+#: rrd/templates/chart/big_ng.html:74 rrd/templates/chart/embed.html:73
+msgid "other"
+msgstr ""
+
+#: rrd/templates/chart/big_ng.html:76 rrd/templates/chart/embed.html:75
+#: rrd/templates/chart/multi_ng.html:91 rrd/templates/chart/multi_pic.html:39
+msgid "sum"
+msgstr ""
+
+#: rrd/templates/chart/big_ng.html:77 rrd/templates/chart/embed.html:76
+msgid "sum only"
+msgstr ""
+
+#: rrd/templates/chart/big_ng.html:78 rrd/templates/chart/embed.html:77
+msgid "cancel sum"
+msgstr ""
+
+#: rrd/templates/chart/big_ng.html:79 rrd/templates/chart/embed.html:78
+#: rrd/templates/chart/multi_ng.html:99 rrd/templates/chart/multi_pic.html:47
+msgid "reset"
+msgstr ""
+
+#: rrd/templates/chart/big_ng.html:106 rrd/templates/portal/alarm/case.html:50
+#: rrd/templates/portal/alarm/case_events.html:34
+msgid "select all"
+msgstr ""
+
+#: rrd/templates/chart/big_ng.html:111 rrd/templates/portal/alarm/case.html:51
+#: rrd/templates/portal/alarm/case_events.html:35
+msgid "reverse select"
+msgstr ""
+
+#: rrd/templates/chart/big_ng.html:114
+msgid "refresh"
+msgstr ""
+
+#: rrd/templates/chart/big_ng.html:119
+msgid "type to fiter, enter to refresh..."
+msgstr ""
+
+#: rrd/templates/chart/multi_ng.html:46 rrd/templates/chart/multi_pic.html:11
+msgid "begin"
+msgstr ""
+
+#: rrd/templates/chart/multi_ng.html:59 rrd/templates/chart/multi_pic.html:16
+msgid "end"
+msgstr ""
+
+#: rrd/templates/chart/multi_ng.html:80 rrd/templates/chart/multi_pic.html:29
+msgid "view"
+msgstr ""
+
+#: rrd/templates/portal/alarm/case.html:6
+msgid "alerting cases"
+msgstr ""
+
+#: rrd/templates/portal/alarm/case.html:7
+msgid "not recovered cases"
+msgstr ""
+
+#: rrd/templates/portal/alarm/case.html:34
+#: rrd/templates/portal/alarm/case_events.html:6
+msgid "event list"
+msgstr ""
+
+#: rrd/templates/portal/alarm/case.html:52
+#: rrd/templates/portal/alarm/case_events.html:36
+msgid "batch delete"
+msgstr ""
+
+#: rrd/templates/portal/alarm/case_events.html:7
+msgid "back"
+msgstr ""
+
+#: rrd/templates/portal/cluster/creator.html:8
+msgid "create cluster monitor metric"
+msgstr ""
+
+#: rrd/templates/portal/cluster/creator.html:9
+msgid "configure help"
+msgstr ""
+
+#: rrd/view/dashboard/screen.py:58
+msgid "screen create fail"
+msgstr ""
+
+#: rrd/view/dashboard/screen.py:224
+msgid "edit successful"
+msgstr ""
+
+#: rrd/view/portal/cluster.py:85
+msgid "edit"
+msgstr ""
+
+#: rrd/view/portal/cluster.py:95
+msgid "clone"
+msgstr ""
+

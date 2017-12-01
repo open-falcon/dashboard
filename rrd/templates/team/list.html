@@ -1,0 +1,79 @@
+{% extends "team/base.html" %}
+
+{%block head_js%}
+    {{super()}}
+
+    <script>
+    $(function() {
+        $("#query").keypress(function(e) {
+            var key = e.which;
+            if (key == 13) {
+                query_team();
+            }
+        });
+    });
+    </script>
+
+{%endblock%}
+
+{% block container_outer %}
+<div id="container" class="container-fluid">
+
+	<div class="row">
+		<div class="col-md-12">
+
+			<div style="margin: 0 auto; max-width: 500px;">
+
+				<ol class="breadcrumb">
+					<li class="active">用户组管理</li>
+				</ol>
+
+				<div class="form-inline mb20" role="form">
+					<div class="form-group">
+						<input type="text" value="{{query_term}}" class="form-control" id="query"
+						placeholder="query name">
+					</div>
+					<button type="button" onclick="query_team();" class="btn btn-default">
+						<span class="glyphicon glyphicon-search"></span>
+						Search
+					</button>
+					
+					<a href="/team/create" class="btn btn-default pull-right">
+						<span class="glyphicon glyphicon-plus"></span>
+						Add
+					</a>
+				</div>
+
+				<div class="ts">
+                    {%for team in teams%}
+					<div class="t">
+						<div>
+							<span class="glyphicon glyphicon-align-justify" style="font-size:9px;"></span>
+							{{team.name}}
+							<span class="gray" style="margin-right:10px;">{{team.resume}}</span>
+                            <a href="/team/{{team.id}}/edit" class="orange" style="text-decoration:none;">
+								<span class="glyphicon glyphicon-edit"></span>
+							</a>
+							<span class="cut-line">¦</span>
+							<a href="javascript:delete_team('{{team.id}}');" class="orange" style="text-decoration:none;">
+								<span class="glyphicon glyphicon-trash"></span>
+							</a>
+						</div>
+						<div class="mt10">
+                            {%for u in team.users%}
+								<code class="users">{{u.name}}</code>
+							{%endfor%}
+						</div>
+						<hr>
+					</div>
+					{%endfor%}
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+
+</div>
+{%endblock%}

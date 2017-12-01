@@ -1,13 +1,25 @@
 #-*- coding:utf-8 -*-
-import requests
+# Copyright 2017 Xiaomi, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
 import json
 import copy
 import re
 from rrd import config
-from rrd.consts import ENDPOINT_DELIMITER
-from rrd.model.graph import TmpGraph
-from rrd.model.endpoint import Endpoint
-from rrd.model.endpoint_counter import EndpointCounter
+from rrd.model.tmpgraph import TmpGraph
+from rrd.model.endpoint import Endpoint, EndpointCounter
 
 def generate_graph_urls(graph, start, end):
     counters = graph.counters or []
@@ -35,7 +47,7 @@ def generate_graph_urls(graph, start, end):
             for q in c.split():
                 q = q.strip()
                 if q.startswith("metric="):
-                    metric = q.replace("metric=", "", 1)
+                    metric = q.replace("metric=", "^", 1)
                     qs.append(metric)
                 else:
                     qs.append(q)
@@ -57,7 +69,6 @@ def generate_graph_urls(graph, start, end):
                     continue
 
                 counters.append(co.counter)
-
     if not counters:
         return []
     counters = sorted(list(set(counters)))
@@ -69,7 +80,7 @@ def _generate_graph_urls(graph, counters, endpoint_list, start, end):
 
     if graph.graph_type == 'h':
         for c in counters:
-            tmp_graph_id = create_tmp_graph(endpoint_list, [c,])
+            tmp_graph_id = TmpGraph.add(endpoint_list, [c,])
             if not tmp_graph_id:
                 break
 
@@ -87,7 +98,7 @@ def _generate_graph_urls(graph, counters, endpoint_list, start, end):
             ret_graphs.append(new_g)
     elif graph.graph_type=='k':
         for e in endpoint_list:
-            tmp_graph_id = create_tmp_graph([e,], counters)
+            tmp_graph_id = TmpGraph.add([e,], counters)
             if not tmp_graph_id:
                 break
 
@@ -105,7 +116,7 @@ def _generate_graph_urls(graph, counters, endpoint_list, start, end):
             ret_graphs.append(new_g)
     else:
         #组合视角
-        tmp_graph_id = create_tmp_graph(endpoint_list, counters)
+        tmp_graph_id = TmpGraph.add(endpoint_list, counters)
         if not tmp_graph_id:
             return []
         new_g = copy.deepcopy(graph)
@@ -121,8 +132,4 @@ def _generate_graph_urls(graph, counters, endpoint_list, start, end):
         ret_graphs.append(new_g)
 
     return ret_graphs
-
-def create_tmp_graph(endpoints, counters):
-    id_ = TmpGraph.add(endpoints, counters)
-    return id_
 

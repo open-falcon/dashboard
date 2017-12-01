@@ -1,0 +1,73 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <input type="text" value="{{ data.query }}" class="form-control" id="query"
+                   placeholder="search name" onkeydown="if(event.keyCode==13)query_user()">
+        </div>
+        <button type="button" onclick="query_user();" class="btn btn-default">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+        <input type="checkbox" name="mine" id="mine" {% if data.mine == '1' %}checked="checked"{% endif %}>
+        <span>mine</span>
+        <!-- anyone could create a hostgroup
+        {% if data.is_root %}{% endif %}
+        -->
+        <div class="pull-right">
+            <input type="text" placeholder="input name to create" class="form-control" id="grp_name" onkeydown="if(event.keyCode==13)create_hostgroup()">
+            <button type="button" onclick="create_hostgroup();" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+        </div>
+    </div>
+
+    <table class="table table-hover table-bordered table-striped" style="margin-bottom: 0px; margin-top: 10px;">
+        <thead>
+        <tr>
+            <th>name</th>
+            <th>creator</th>
+            <th>operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for v in data.vs %}
+            <tr>
+                <td>{{ v.grp_name }}</td>
+                <td>{{ v.create_user }}</td>
+                <td>
+                    <a href="{{ url_for('group_templates_get', grp_id=v.id) }}">templates</a>
+                    <span class="cut-line">¦</span>
+                    <a href="{{ url_for('group_hosts_list', group_id=v.id) }}">hosts</a>
+                    <span class="cut-line">¦</span>
+                    <a href="{{ url_for('plugin_list_get', group_id=v.id) }}">plugins</a>
+                    <span class="cut-line">¦</span>
+                    <a href="{{ url_for('cluster_list_get', group_id=v.id) }}">aggregator</a>
+                    {% if v.writable(g.user) %}
+                        <span class="cut-line">¦</span>
+                        <a href="javascript:edit_hostgroup('{{ v.id }}', '{{ v.grp_name }}');" style="text-decoration: none;">
+                            <span class="glyphicon glyphicon-edit orange"></span>
+                        </a>
+                        <span class="cut-line">¦</span>
+                        <a href="javascript:delete_hostgroup('{{ v.id }}');" style="text-decoration: none;">
+                            <span class="glyphicon glyphicon-trash orange"></span>
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="3">no records</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% import "portal/blocks.html" as blocks %}
+    {{ blocks.pager('/portal/hostgroup?q='+data.query+'&mine='+data.mine, data.total, data.limit, data.page) }}
+
+    <script>
+        $(function () {
+            $("#query").focus();
+            $("#mine").click(query_user);
+        });
+    </script>
+
+{% endblock %}

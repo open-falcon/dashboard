@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block more_head %}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='img/logo.png') }}"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/portal.js') }}"></script>
+{% endblock %}
+
+{%block navbar%}
+  {%include "navbar.html"%}
+{%endblock%}
+
+{%block container%}
+<div id="container" class="container-fluid">
+	<div class="row">
+    {%block content%} {%endblock%}
+    </div>
+</div>
+{%endblock%}
