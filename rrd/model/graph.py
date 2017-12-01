@@ -151,7 +151,7 @@ class TmpGraph(object):
         es = endpoints and ENDPOINT_DELIMITER.join(sorted(endpoints)) or ""
         cs = counters and COUNTER_DELIMITER.join(sorted(counters)) or ""
         ck = hashlib.md5("%s:%s" %(es.encode("utf8"), cs.encode("utf8"))).hexdigest()
-        cursor = db_conn.execute('''insert ignore into tmp_graph (endpoints, counters, ck) values(%s, %s, %s) ON DUPLICATE KEY UPDATE time_=%s''',
+        cursor = db_conn.execute('''insert ignore into tmp_graph (endpoints, counters, ck) values(%s, %s, %s) ON DUPLICATE KEY UPDATE id=LAST_INSERT_ID(id),time_=%s''',
                 (es, cs, ck, datetime.datetime.now()))
         id_ = cursor.lastrowid
         db_conn.commit()
