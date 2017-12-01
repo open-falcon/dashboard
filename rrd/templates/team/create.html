@@ -1,0 +1,80 @@
+{% extends "team/base.html" %}
+
+{% block container_outer %}
+<div id="container" class="container-fluid">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div style="margin: 0 auto; max-width: 400px;">
+
+				<ol class="breadcrumb">
+					<li><a href="/team/list">用户组列表</a></li>
+					<li class="active">创建用户组</li>
+				</ol>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Create Team</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label for="name">名称（a-zA-Z0-9_-.）：</label> <input type="text"
+							id="name" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="resume">简介（方便以后能想起这个组的作用，选填）：</label> <input
+							type="text" id="resume" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label for="users">成员：</label> <input
+							type="text" id="users" class="form-control" />
+						</div>
+						<button type="button" class="btn btn-default" onclick="create_team();">
+							<span class="glyphicon glyphicon-floppy-disk"></span>
+							创建
+						</button>
+						<a href="/team/list" class="btn btn-default">
+							<span class="glyphicon glyphicon-arrow-left"></span>
+							返回
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+{%endblock%}
+
+{% block more_js%}
+
+{{super()}}
+<script type="text/javascript">
+$(function() {
+	$("#users").select2({
+        placeholder: "输入要添加组员的name",
+        allowClear: true,
+        multiple: true,
+        quietMillis: 100,
+        minimumInputLength: 1,
+        id: function(obj){return obj.id;},
+        ajax: {
+            url: "/user/query",
+            dataType: 'json',
+            data: function(term, page) {
+                return {
+                    query: term,
+                    limit: 20
+                };
+            },
+            results: function(json, page) {
+                return {results: json.users};
+            }
+        },
+        formatResult: function(obj) {return obj.name + "["+obj.cnname+"]" + "["+obj.email+"]"},
+        formatSelection: function(obj) {return obj.name},
+    });
+});
+</script>
+{%endblock%}

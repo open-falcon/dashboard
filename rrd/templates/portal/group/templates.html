@@ -1,0 +1,74 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='select2/select2.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select2-bootstrap.css') }}"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='select2/select2.min.js') }}"></script>
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading" style="padding-left: 8px;">templates</div>
+        <div class="panel-body" style="padding-left: 8px;">
+            <span class="green">{{ group.grp_name }}</span>
+            binding
+            <span class="glyphicon glyphicon-pushpin"></span>
+        </div>
+
+        <!-- Table -->
+        <table class="table table-hover table-bordered table-striped" style="margin-bottom: 0px; margin-top: 0px;">
+            <thead>
+            <tr>
+                <th>template</th>
+                <th>creator</th>
+                <th>operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for v in ts %}
+                <tr>
+                    <td>
+                        <a href="/portal/template/view/{{ v.id }}">{{ v.tpl_name }}</a>
+                    </td>
+                    <td>
+                        <a href="/user/about/{{ v.create_user }}">{{ v.create_user }}</a>
+                    </td>
+                    <td>
+                        <a href="javascript:tpl_unbind_group('{{ v.id }}', '{{ group.id }}');"
+                           style="text-decoration: none;">
+                            <span class="glyphicon glyphicon-trash orange"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="form-inline mb20" role="form">
+        <div class="form-group">
+            <input type="text" style="width: 400px;" placeholder="input template name" class="form-control" id="tpl_id">
+        </div>
+        <div class="form-group">
+            <button type="button" onclick="bind_template('{{ group.id }}');" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span>
+                Bind
+            </button>
+            <button type="button" onclick="history.go(-1);" class="btn btn-default">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+                Back
+            </button>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            make_select2_for_template("#tpl_id");
+        });
+    </script>
+
+{% endblock %}

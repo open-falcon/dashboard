@@ -1,0 +1,62 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h4 class="panel-title">{{_('alerting cases')}}
+                <a class="pull-right small" href="/portal/alarm-dash/case?status=PROBLEM">{{_('not recovered cases')}}</a>
+            </h4>
+        </div>
+        <div class="panel-body">
+            <div class="alarms">
+                {%for case in cases%}
+                <div class="alarm">
+                    <input type="checkbox" alarm="{{case.id}}">
+                    {{case.status}} P{{case.priority}}
+                    [第<span class="orange">#{{case.current_step}}</span>次/最大{{case.max_step}}次]
+                    <span class="orange">{{case.timestamp|time_duration}}</span>
+                    <span class="gray">[</span>
+                    <a href="/portal/template/view/{{case.template_id}}" target="_blank">template</a>
+
+                    {%if case.strategy_id>0%}
+                    <span class="cut-line">¦</span>
+                    <a href="/portal/strategy/{{case.strategy_id}}" target="_blank">strategy</a>
+                    {%endif%}
+
+                    {%if case.expression_id>0%}
+                    <span class="cut-line">¦</span>
+                    <a href="/portal/expression/view/{{case.expression_id}}" target="_blank">expression</a>
+                    {%endif%}
+
+                    <span class="cut-line">¦</span>
+                    <a href="javascript:alarm_case_rm('{{case.id}}');">delete</a>
+                    <span class="cut-line">¦</span>
+                    <a href="/portal/alarm-dash/case/event?case_id={{case.id}}">{{_('event list')}}</a>
+                    <span class="gray">]</span>
+                    </br>
+
+                    <span style="padding-left:17px;"> {{case.endpoint}} 
+                        <span class="cut-line">¦</span> 
+                        {{case.metric}}
+                        <span class="cut-line">¦</span> 
+                        {{case.func}} 
+                        <span class="cut-line">¦</span> 
+                        {{case.cond}}</span>
+                        <span class="cut-line">¦</span> 
+                        <span class="gray">note: {{case.note}}</span>
+                </div>
+                <hr>
+                {%endfor%}
+                <a href="javascript:alarm_case_all_select();">{{_('select all')}}</a>/
+                <a href="javascript:alarm_case_reverse_select();">{{_('reverse select')}}</a>
+                <button class="btn btn-warning btn-sm" onclick="alarm_case_batch_rm();">{{_('batch delete')}}</button>
+            </div>
+        </div>
+
+        {% import "portal/blocks.html" as blocks %}
+        <div class="pull-left">
+            {{ blocks.pager('/portal/alarm-dash/case?status='+status, total, limit, page) }}
+        </div>
+
+    </div>
+{%endblock%}

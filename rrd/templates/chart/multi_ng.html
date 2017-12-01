@@ -43,7 +43,7 @@
                     <div class="col-md-12">
                         <form class="form-inline" role="form">
                             <div class="form-group">
-                                <label class="control-label">起始</label>
+                                <label class="control-label">{{_('begin')}}</label>
                                 <a class="dropdown-toggle form-control input-sm date-area" id="dropdown1" role="button" data-toggle="dropdown" href="javascript:;">
                                     <div class="input-group">
                                         <span class="form-control-static">[[ vm.globalParam.start | date: 'yyyy-MM-dd HH:mm' ]]</span>
@@ -56,7 +56,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label">结束</label>
+                                <label class="control-label">{{_('end')}}</label>
                                 <a class="dropdown-toggle form-control input-sm date-area" id="dropdown2" role="button" data-toggle="dropdown" href="javascript:;">
                                     <div class="input-group">
                                         <span class="form-control-static">[[ vm.globalParam.end | date: 'yyyy-MM-dd HH:mm' ]]</span>
@@ -69,7 +69,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label">采样方法</label>
+                                <label class="control-label">{{_('sampling method')}}</label>
                                 <select class="form-control input-sm" name="cf" ng-model="vm.globalParam.cf">
                                     <option value="AVERAGE" selected="">AVERAGE</option>
                                     <option value="MAX">MAX</option>
@@ -77,26 +77,26 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">视角</label>
+                                <label class="control-label">{{_('view')}}</label>
                                 <select class="form-control input-sm" name="graph_type"  ng-model="vm.globalParam.graph_type">
-                                    <option value="h" selected="">Endpoint视角</option>
-                                    <option value="k">Counter视角</option>
-                                    <option value="a">组合视角</option>
+                                    <option value="h" selected="">{{_('endpoint view')}}</option>
+                                    <option value="k">{{_('counter view')}}</option>
+                                    <option value="a">{{_('multi view')}}</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" id="sum" name="sum" value="on"  ng-model="vm.globalParam.sum" ng-true-value="on" ng-false-value="off"> 求和
+                                        <input type="checkbox" id="sum" name="sum" value="on"  ng-model="vm.globalParam.sum" ng-true-value="on" ng-false-value="off">{{_('sum')}}
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button id="go" class="btn btn-default btn-sm" ng-click="vm.show()">看图</button>
+                                <button id="go" class="btn btn-default btn-sm" ng-click="vm.show()">{{_('show')}}</button>
                             </div>
                             <div class="form-group">
-                                <button id="reset" class="btn btn-default btn-sm" ng-click="vm.reset()">重置条件</button>
+                                <button id="reset" class="btn btn-default btn-sm" ng-click="vm.reset()">{{_('reset')}}</button>
                             </div>
 
                         </form>

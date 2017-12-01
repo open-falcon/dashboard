@@ -234,6 +234,28 @@ $(function() {
             series: {
                 shadowSize: 0   // Drawing is faster without shadows
             },
+            // 使用深色色彩可选值, 避免因为绘图线条颜色太浅看不清楚
+            colors:  [
+                "#FF6A6A", "#00BFFF", "#A52A2A",
+                "#CDCD00", "#008878", "#FF0000",
+                "#00FF00", "#7B68EE", "#FF00FF",
+                "#EEAEEE", "#00AEEE", "#AEEEEE",
+
+                "#FFB90F", "#00B90F", "#00FFFF",
+                "#DC143C", "#BFEFFF", "#AA7500",
+                "#F0E68C", "#00E68C", "#AAE68C",
+                "#EE9A49", "#009A49", "#AA9A49",
+
+                "#FFA54F", "#00A54F", "#AAA54F",
+                "#8B4789", "#004789", "#AA4789",
+                "#00CDCD", "#00CDCD", "#AACDCD",
+                "#EE8262", "#008262", "#AA8262",
+
+                "#FF8C00", "#008C00", "#AA8C00",
+                "#8B3626", "#003626", "#AA3626",
+                "#00BFFF", "#00E8AA", "#AAE8AA",
+                "#EE7621", "#007621", "#AA7621",
+                ],
             yaxis: {
                 // min: -1
                 // max: 100

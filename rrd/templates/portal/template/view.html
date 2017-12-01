@@ -1,0 +1,132 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='select2/select2.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select2-bootstrap.css') }}"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='select2/select2.min.js') }}"></script>
+
+    <input type="hidden" id="tpl_id" value="{{ data.tpl.id }}">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">模板基本信息</div>
+        <div class="panel-body">
+            name: {{ data.tpl.tpl_name }}
+            {% if data.tpl.parent %}
+                <span class="cut-line">¦</span>
+                parent: <a target="_blank"
+                           href="{{ url_for('template_view_get', tpl_id=data.tpl.parent.id) }}">{{ data.tpl.parent.tpl_name }}</a>
+            {% endif %}
+            <div class="pull-right">
+                {% if data.tpl.writable(g.user) %}
+                    <a href="{{ url_for('template_update_get', tpl_id=data.tpl.id) }}"
+                       style="text-decoration: none;">
+                        <span class="glyphicon glyphicon-edit orange"></span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">该模板中的策略列表</div>
+        <div class="panel-body">
+            <div style="line-height: 35px;">
+                max: 最大报警次数 P：报警级别（&lt;3: 既发短信也发邮件 &gt;=3: 只发邮件） run：生效时间，不指定就是全天生效
+            </div>
+        </div>
+        <table class="table table-hover table-bordered table-striped" style="margin-bottom: 0px;">
+            <thead>
+            <tr>
+                <th>metric/<span class="text-success">tags</span><span class="gray"> [note]</span></th>
+                <th>condition</th>
+                <th>max</th>
+                <th>P</th>
+                <th>run</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for s in data.ss %}
+                <tr>
+                    <td>
+                        {{ s.metric }}{% if s.tags %}<span class="gray">/</span><span class="text-success">{{ s.tags }}</span>{% endif %}
+                        <span class="gray">{% if s.note %}[{{ s.note }}]{% endif %}</span>
+                    </td>
+                    <td>
+                        {{ s.func }}{{ s.op }}{{ s.right_value }}
+                    </td>
+                    <td>{{ s.max_step }}</td>
+                    <td>{{ s.priority }}</td>
+                    <td>{% if s.run_begin and s.run_end %}{{ s.run_begin }}-{{ s.run_end }}{% endif %}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">no records</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel panel-warning">
+        <div class="panel-heading">模板报警配置，对模板中的所有策略生效</div>
+        <div class="panel-body">
+
+            <div class="pull-right">
+                <a target="_blank" href="/team/list">修改报警组内成员</a>
+            </div>
+
+            {% if data.tpl.action %}
+                告警接收组: {{ data.tpl.action.uic_href() | safe }}<br>
+            {% else %}
+                没有配置报警接收人哦<br>
+            {% endif %}
+            <hr/>
+
+            {% if data.tpl.action.url %}
+
+                <div class="mt10">
+                    Callback: {{ data.tpl.action.url }}
+                </div>
+                <pre><code>#callback request payload:
+
+{
+  "endpoint": event.Endpoint,
+  "metric": event.Metric(),
+  "status": event.Status,
+  "step": event.CurrentStep,
+  "priority": event.Priority(),
+  "time": event.FormattedTime(),
+  "tpl_id": event.TplId(),
+  "exp_id": event.ExpressionId(),
+  "stra_id": event.StrategyId(),
+  "tags": "srv=falcon,mount=sda"
+}
+
+# for more infomation, look the code https://github.com/open-falcon/falcon-plus/blob/master/common/model/event.go
+</code></pre>
+
+                <div class="mt10">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="before_callback_sms"
+                               {% if data.tpl.action.before_callback_sms == 1 %}checked="checked"{% endif %}> 回调之前发提醒短信
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="before_callback_mail"
+                               {% if data.tpl.action.before_callback_mail == 1 %}checked="checked"{% endif %}> 回调之前发提醒邮件
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="after_callback_sms"
+                               {% if data.tpl.action.after_callback_sms == 1 %}checked="checked"{% endif %}> 回调之后发结果短信
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" id="after_callback_mail"
+                               {% if data.tpl.action.after_callback_mail == 1 %}checked="checked"{% endif %}> 回调之后发结果邮件
+                    </label>
+                </div>
+            {% endif %}
+
+
+        </div>
+    </div>
+
+{% endblock %}

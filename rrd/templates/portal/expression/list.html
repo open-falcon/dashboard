@@ -1,0 +1,73 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <input type="text" value="{{ data.query }}" class="form-control" id="query"
+                   placeholder="search..." onkeydown="if(event.keyCode==13)query_expression()">
+        </div>
+        <button type="button" onclick="query_expression();" class="btn btn-default">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+        <input type="checkbox" name="mine" id="mine" {% if data.mine == '1' %}checked="checked"{% endif %}>
+        <span>mine</span>
+
+        <div class="pull-right">
+            <a href="{{ url_for('expression_add_get') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+    </div>
+
+    <div>
+        {% set left = '{' %}
+        {% set right = '}' %}
+        {% for v in data.vs %}
+
+            <hr>
+
+            <div class="">{{ v.expression }}</div>
+            <div class="mt10">
+                <span class="gray">if {{ v.func }}{{ v.op }}{{ v.right_value }}
+                    {{ left }}{{ v.action.html()|safe }}{{ right }}</span>
+
+                {% if v.writable(g.user) %}
+                    <div class="pull-right">
+                        <button onclick="pause_expression('{{v.id}}')" class="btn btn-default">
+                            <span id="i-{{v.id}}" class="glyphicon glyphicon-{% if v.pause %}play{% else %}pause{% endif %} orange"></span>
+                        </button>
+                        <a href="{{ url_for('expression_add_get', id=v.id) }}" class="btn btn-default"
+                           style="text-decoration: none;">
+                            <span class="glyphicon glyphicon-edit orange"></span>
+                        </a>
+                        <button onclick="delete_expression('{{ v.id }}');" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash orange"></span>
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="mt10 gray">
+                note: {{ v.note }} (Max:{{ v.max_step }}, P{{ v.priority }})
+                by {{ v.create_user }}
+            </div>
+
+        {% else %}
+            <hr>
+            no records
+        {% endfor %}
+    </div>
+
+    {% import "portal/blocks.html" as blocks %}
+    {{ blocks.pager('/portal/expression?q='+data.query+'&mine='+data.mine, data.total, data.limit, data.page) }}
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <script>
+        $(function () {
+            $("#mine").click(query_expression);
+        });
+    </script>
+{% endblock %}

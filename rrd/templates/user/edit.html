@@ -1,0 +1,77 @@
+{% extends "user/base.html" %}
+
+{% block container_outer %}
+<div id="container" class="container-fluid">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div style="margin: 0 auto; max-width: 400px;">
+				<ol class="breadcrumb">
+					<li><a href="/user/list">通讯录</a></li>
+					<li class="active">编辑用户</li>
+				</ol>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Profile of {{user.name}}</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label for="name">中文名（可以附带上部门、工位号之类的做详细区分）：</label> <input
+							type="text" name="cnname" id="cnname" class="form-control"
+							value="{{user.cnname}}" />
+						</div>
+						<div class="form-group">
+							<label for="email">邮箱：</label> <input type="email" name="email"
+							id="email" class="form-control" value="{{user.email}}" />
+						</div>
+						<div class="form-group">
+							<label for="phone">手机：</label> <input type="text" name="phone"
+							id="phone" class="form-control" value="{{user.phone}}" />
+						</div>
+						<div class="form-group">
+							<label for="name">IM（内部通讯工具账号，比如微信、百度hi、米聊）：</label> <input
+							type="text" name="im" id="im" class="form-control"
+							value="{{user.im}}" />
+						</div>
+						<div class="form-group">
+							<label for="name">QQ：</label> <input type="text" name="qq" id="qq"
+							class="form-control" value="{{user.qq}}" />
+						</div>
+                        <button type="button" class="btn btn-default" id="update_profile" onclick="edit_user('{{user.id}}');">
+							<span class="glyphicon glyphicon-floppy-disk"></span>
+							更新
+						</button>
+						<a href="/user/list" class="btn btn-default">
+							<span class="glyphicon glyphicon-arrow-left"></span>
+							返回
+						</a>
+					</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Reset Password</h3>
+					</div>
+					<div class="panel-body">
+						<div class="form-group">
+							<label for="password">输入密码：</label> <input type="password"
+							name="password" id="password" class="form-control" />
+						</div>
+						<button type="submit" class="btn btn-default" onclick="reset_password('{{user.id}}');">
+							<span class="glyphicon glyphicon-floppy-disk"></span>
+							更新
+						</button>
+						<a href="/user/list" class="btn btn-default">
+							<span class="glyphicon glyphicon-arrow-left"></span>
+							返回
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+{%endblock%}

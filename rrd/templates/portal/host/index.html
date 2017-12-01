@@ -1,0 +1,130 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-datetimepicker.css') }}"/>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='js/bootstrap-datetimepicker.js') }}"></script>
+
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <input type="text" value="{{ data.query }}" class="form-control" id="query"
+                   placeholder="search hostname" onkeydown="if(event.keyCode==13)query_host()">
+        </div>
+        <button type="button" onclick="query_host();" class="btn btn-default">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+        <input type="checkbox" name="maintaining" id="maintaining"
+               {% if data.maintaining == '1' %}checked="checked"{% endif %}>
+        <span>maintaining</span>
+
+        <div class="pull-right">
+            <span class="green">
+                <span class="glyphicon glyphicon-tag"></span>
+                {{ data.group.grp_name }}
+            </span>
+            <a {% if g.xbox %}target="_blank"{% endif %} href="{{ url_for('host_add_get', group_id = data.group.id) }}"
+               class="btn btn-default" style="margin-left: 10px;">
+                <span class="glyphicon glyphicon-plus"></span>
+                Add Host
+            </a>
+        </div>
+    </div>
+
+    <table class="table table-hover table-bordered table-striped" style="margin-bottom: 0px; margin-top: 10px;">
+        <thead>
+        <tr>
+            <th><input type="checkbox" onclick="select_all();" id="chk"/></th>
+            <th>hostname</th>
+            <th>maintain begin</th>
+            <th>maintain end</th>
+            <th>relation</th>
+        </tr>
+        </thead>
+        <tbody id="hosts">
+        {% for v in data.vs %}
+            <tr>
+                <td><input type="checkbox" hid="{{ v.id }}"/></td>
+                <td><a href="http://{{ v.hostname }}:1988/" target="_blank">{{ v.hostname }}</a></td>
+                <td>{{ v.maintain_begin | fmt_time }}</td>
+                <td>{{ v.maintain_end | fmt_time }}</td>
+                <td>
+                    <a href="{{ url_for('host_groups_get', host_id=v.id) }}">groups</a>
+                    <span class="cut-line">¦</span>
+                    <a href="{{ url_for('host_templates_get', host_id=v.id) }}">templates</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td>
+                <a href="javascript:remove_hosts();" style="text-decoration: none;">
+                    <span class="glyphicon glyphicon-trash orange"></span>
+                </a>
+            </td>
+            <td colspan="4">
+                <div class="form-inline" role="form">
+                    <div class='input-group date'>
+                        <input type='text' class="form-control" size="16" placeholder="begin" id='begin'/>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    </div>
+                    <div class='input-group date'>
+                        <input type='text' class="form-control" size="16" placeholder="end" id='end'/>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                    </div>
+                    <div class='input-group'>
+                        <button class="btn btn-default" onclick="maintain()">Maintain</button>
+                    </div>
+                    <div class='input-group'>
+                        <button class="btn btn-default" onclick="no_maintain()">Unset</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <input type="hidden" id="group_id" value="{{ data.group.id }}">
+    <input type="hidden" id="xbox" value="{{ g.xbox or '' }}">
+    {% import "portal/blocks.html" as blocks %}
+    <div class="pull-left">
+        {{ blocks.pager('/portal/group/'+data.group.id.__str__()+'/hosts?q='+data.query+'&maintaining='+data.maintaining+'&xbox='+g.xbox, data.total, data.limit, data.page) }}
+    </div>
+    <div class="pull-left" style="margin-left: 10px; margin-top: 20px;">
+        <div class="pull-left" style="line-height: 30px;">total: {{ data.total }}, page size:</div>
+        <select style="width: 80px;" onchange="query_host();" id="limit" class="form-control pull-left">
+            <option {% if data.limit == 10 %}selected{% endif %}>10</option>
+            <option {% if data.limit == 50 %}selected{% endif %}>50</option>
+            <option {% if data.limit == 100 %}selected{% endif %}>100</option>
+            <option {% if data.limit == 200 %}selected{% endif %}>200</option>
+            <option {% if data.limit == 500 %}selected{% endif %}>500</option>
+        </select>
+    </div>
+
+    <div class="pull-right mt20">
+        <a target="_blank" class="btn btn-default" href="{{ url_for('group_hosts_export', group_id=data.group.id) }}">
+            <span class="glyphicon glyphicon-save"></span>
+        </a>
+    </div>
+
+    <script>
+        $(function () {
+            $("#maintaining").click(query_host);
+            $('.date').datetimepicker({
+                format: "YYYY-MM-DD HH:mm"
+            });
+        });
+    </script>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+{% endblock %}

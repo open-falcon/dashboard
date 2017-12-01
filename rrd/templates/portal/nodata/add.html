@@ -1,0 +1,124 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='select2/select2.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select2-bootstrap.css') }}"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='select2/select2.min.js') }}"></script>
+
+    <script>
+        function query_nodata() {
+            var query = $.trim($("#query").val());
+            var mine = document.getElementById('mine').checked ? 1 : 0;
+            window.location.href = '/portal/nodata?q=' + query + '&mine=' + mine;
+        }
+        function update_nodata() {
+            $.post(
+                '/portal/nodata/update',
+                {
+                    'name': $.trim($("#name").val()),
+                    'obj_type': $.trim($("#obj_type").val()),
+                    'obj': $.trim($("#obj").val()),
+                    'metric': $.trim($("#metric").val()),
+                    'tags': $.trim($("#tags").val()),
+                    'dstype': $.trim($("#dstype").val()),
+                    'step': $.trim($("#step").val()),
+                    'mock': $.trim($("#mock").val()),
+                    'nodata_id': $.trim($("#nodata_id").val())
+                },
+                function (json) {
+                    handle_quietly(json);
+                }
+            );
+        }
+        function on_endpoint_changed(){
+            var d = $("#obj_type").val()
+            if (d == "group"){
+                $("#obj").attr('placeholder', "cop.xiaomi_owt.inf_pdl.falcon")
+            } else if(d == "host") {
+                $("#obj").attr('placeholder', "c3-op-mon-nodata01.bj\nc3-op-mon-nodata02.bj")
+            } else {
+                $("#obj").attr('placeholder', "11.11.0.11:9900\n11.11.0.12:9900")
+            }
+        }
+    </script>
+
+
+    <input type="hidden" id="nodata_id" value="{{ data.nodata.id }}">
+
+    <div style="padding: 20px;">
+        <div class="panel panel-default">
+            <div class="panel-heading">{% if data.nodata.id %}modify{% else %}add{% endif %} nodata</div>
+            <div class="panel-body">
+                <div role="form">
+
+                <div class="form-group">
+                    <label for="name">name:</label>
+                    <input type="text" placeholder="nodata.inf.falcon" value="{{ data.nodata.name }}" class="form-control" id="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="obj_type">
+                        endpoint选择:
+                    </label>
+                    <a target="_blank" href="http://book.open-falcon.org/zh/usage/nodata.html" title="endpoint配置说明">
+                        <span class="glyphicon glyphicon-question-sign" style="float:right;"></span>
+                    </a>
+                    <select class="form-control" id="obj_type" style="vertical-align:top" onchange="on_endpoint_changed()">
+                        <option value="group" {% if data.nodata.obj_type == 'group' %}selected{% endif %}>机器分组</option>
+                        <option value="host"  {% if data.nodata.obj_type == 'host'  %}selected{% endif %}>机器名</option>
+                        <option value="other" {% if data.nodata.obj_type == 'other' %}selected{% endif %}>其他</option>
+                    </select>
+                    <textarea class="form-control" rows="3" id="obj" placeholder="cop.xiaomi_owt.inf_pdl.falcon" style="margin-top: 5px;">{{ data.nodata.obj }}</textarea>
+                </div> 
+
+                <div class="form-group">
+                    <label for="metric">metric:</label>
+                    <input type="text" placeholder="agent.alive" value="{{ data.nodata.metric }}" class="form-control" id="metric">
+                    <span class="help-block"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="tags">tags:</label>
+                    <input type="text" {% if not data.nodata.id %}placeholder="pdl=falcon,module=nodata"{% endif %} value="{{ data.nodata.tags }}" class="form-control" id="tags">
+                </div>
+
+                <div class="form-group">
+                    <label for="dstype">type:</label>
+                    <select class="form-control" id="dstype">
+                        <option value="GAUGE"   {% if data.nodata.dstype == 'GAUGE' %}selected{% endif %}>GAUGE</option>
+                    </select>
+                </div> 
+
+                <div class="form-group">
+                    <label for="step">周期(秒):</label>
+                    <input type="text" placeholder="60" value="{{ data.nodata.step }}" class="form-control" id="step">            
+                </div>
+
+                <div style="border-left: 10px solid green; padding-left: 5px;margin-bottom: 10px;">
+                    <span>数据上报中断时, 补发如下值:</span>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="-1" value="{{ data.nodata.mock}}" class="form-control" id="mock">
+                </div>
+
+                <div class="mb20">
+                    <button class="btn btn-primary" onclick="update_nodata();">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                        Submit
+                    </button>
+                    <a href="{{ url_for('nodatas_get') }}" class="btn btn-default">
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        Back
+                    </a>
+                </div>
+
+            </div>
+            </div>
+        </div>    
+
+        <a class="orange" target="_blank" href="http://book.open-falcon.org/zh/usage/nodata.html">
+            <span class="glyphicon glyphicon-question-sign"></span>
+            Nodata监控用户手册
+        </a>
+    </div>    
+
+{% endblock %}

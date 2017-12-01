@@ -94,7 +94,7 @@ angular.module('ui.bootstrap.datetimepicker', [])
         "           <td colspan='7' >" +
         "              <span    class='{{ data.currentView }}' " +
         "                       data-ng-repeat='dateValue in data.dates'  " +
-        "                       data-ng-class='{active: dateValue.active, past: dateValue.past, future: dateValue.future}' " +
+        "                       data-ng-class='{today: dateValue.isToday, active: dateValue.active, past: dateValue.past, future: dateValue.future}' " +
         "                       data-ng-click=\"changeView(data.nextView, dateValue.date, $event)\">{{ dateValue.display }}</span> " +
         "           </td>" +
         "       </tr>" +
@@ -102,7 +102,7 @@ angular.module('ui.bootstrap.datetimepicker', [])
         "           <td data-ng-repeat='dateValue in week.dates' " +
         "               data-ng-click='changeView(data.nextView, dateValue.date, $event)'" +
         "               class='day' " +
-        "               data-ng-class='{active: dateValue.active, past: dateValue.past, future: dateValue.future}' >{{ dateValue.display }}</td>" +
+        "               data-ng-class='{today: dateValue.isToday, active: dateValue.active, past: dateValue.past, future: dateValue.future}' >{{ dateValue.display }}</td>" +
         "       </tr>" +
         "   </tbody>" +
         "</table></div>",
@@ -151,6 +151,7 @@ angular.module('ui.bootstrap.datetimepicker', [])
                 'display': yearMoment.format('YYYY'),
                 'past': yearMoment.year() < startDecade,
                 'future': yearMoment.year() > startDecade + 9,
+                'isToday': yearMoment.format('YYYY') === moment().local().format('YYYY'),
                 'active': yearMoment.year() === activeYear
               };
 
@@ -182,6 +183,7 @@ angular.module('ui.bootstrap.datetimepicker', [])
               var dateValue = {
                 'date': monthMoment.valueOf(),
                 'display': monthMoment.format('MMM'),
+                'isToday': monthMoment.format('MMM') === moment().local().format('MMM'),
                 'active': monthMoment.format('YYYY-MMM') === activeDate
               };
 
@@ -225,6 +227,7 @@ angular.module('ui.bootstrap.datetimepicker', [])
                 var dateValue = {
                   'date': monthMoment.valueOf(),
                   'display': monthMoment.format('D'),
+                  'isToday': monthMoment.format('DD') === moment().local().format('DD'),
                   'active': monthMoment.format('YYYY-MMM-DD') === activeDate,
                   'past': monthMoment.isBefore(startOfMonth),
                   'future': monthMoment.isAfter(endOfMonth)
@@ -258,6 +261,7 @@ angular.module('ui.bootstrap.datetimepicker', [])
               var dateValue = {
                 'date': hourMoment.valueOf(),
                 'display': hourMoment.format('H:00'),
+                'isToday': hourMoment.format('H') === moment().local().format('H'),
                 'active': hourMoment.format('YYYY-MM-DD H') === activeFormat
               };
 
@@ -290,6 +294,7 @@ angular.module('ui.bootstrap.datetimepicker', [])
               var dateValue = {
                 'date': hourMoment.valueOf(),
                 'display': hourMoment.format('H:mm'),
+                'isToday': Math.abs(parseInt(hourMoment.format('mm')) - parseInt(moment().local().format('mm'))) <3,
                 'active': hourMoment.format('YYYY-MM-DD H:mm') === activeFormat
               };
 

@@ -1,0 +1,97 @@
+{% extends "user/base.html" %}
+
+{%block head_js%}
+    {{super()}}
+
+    <script>
+    $(function() {
+        $("#query").keypress(function(e) {
+            var key = e.which;
+            if (key == 13) {
+                query_user();
+            }
+        });
+    });
+    </script>
+
+{%endblock%}
+
+{% block container_outer %}
+<div id="container" class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+
+			<div style="margin: 0 auto; max-width: 400px;">
+
+				<ol class="breadcrumb">
+					<li class="active">通讯录</li>
+				</ol>
+
+				<div class="form-inline mb20" role="form">
+					<div class="form-group">
+						<input type="text" value="{{query_term}}" class="form-control" id="query"
+						placeholder="name or email">
+					</div>
+					<button type="button" onclick="query_user();" class="btn btn-default">
+						<span class="glyphicon glyphicon-search"></span>
+						Search
+					</button>
+
+                    {%if g.user.is_admin() or g.user.is_root()%}
+                    <a href="/user/create" class="btn btn-default pull-right">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            Add
+                    </a>
+                    {%endif%}
+
+				</div>
+
+				<div class="us">
+                    {%for user in users%}
+					<div class="u">
+                        {%if g.user.is_root() %}
+						<div class="pull-right">
+                            {%if user.is_root()%}
+                            root
+                            {%elif user.is_admin()%}
+							<input type="checkbox" checked="checked" onclick="set_role('{{user.id}}', this);">
+							管理员
+							{%else%}
+							<input type="checkbox" onclick="set_role('{{user.id}}', this);">
+							管理员
+							{%endif%}
+						</div>
+						{%endif%}
+
+                        登录账号：{{user.name}}， 中文名：{{user.cnname}}
+						<a href="/user/about/{{user.id}}" style="text-decoration:none;">
+							<span class="glyphicon glyphicon-qrcode"></span>
+						</a>
+						<br>
+						邮箱: {{user.email}}<br>
+						手机: {{user.phone}}<br>
+						IM：{{user.im}}， QQ：{{user.qq}}
+
+                        {%if g.user.is_root() or g.user.is_admin() %}
+						<div class="pull-right">
+                            <a href="/admin/user/{{user.id}}/edit" class="orange" style="text-decoration:none;">
+								<span class="glyphicon glyphicon-edit"></span>
+							</a>
+							<span class="cut-line">¦</span>
+							<a href="javascript:delete_user('{{user.id}}');" class="orange" style="text-decoration:none;">
+								<span class="glyphicon glyphicon-trash"></span>
+							</a>
+						</div>
+						{%endif%}
+
+						<hr>
+					</div>
+					{%endfor%}
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+{%endblock%}

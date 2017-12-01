@@ -1,0 +1,80 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+    <script>
+        function query_nodata() {
+            var query = $.trim($("#query").val());
+            var mine = document.getElementById('mine').checked ? 1 : 0;
+            window.location.href = '/portal/nodata?q=' + query + '&mine=' + mine;
+        }
+        function delete_nodata(id) {
+            my_confirm('确定要删除？？？', ['确定', '取消'], function () {
+                $.getJSON('/portal/nodata/delete/' + id, {}, function (json) {
+                    handle_quietly(json, function () {
+                        location.reload();
+                    });
+                })
+            }, function () {
+                return false;
+            });
+        }
+    </script>
+
+    <div class="form-inline" role="form">
+        <div class="form-group">
+            <input type="text" value="{{ data.query }}" class="form-control" id="query"
+                   placeholder="search..." onkeydown="if(event.keyCode==13)query_nodata()">
+        </div>
+        <button type="button" onclick="query_nodata();" class="btn btn-default">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+        <input type="checkbox" name="mine" id="mine" {% if data.mine == '1' %}checked="checked"{% endif %}>
+        <span>mine</span>
+
+        <div class="pull-right">
+            <a href="{{ url_for('nodata_add_get') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </div>
+
+    </div>
+    <div>
+        {% for v in data.vs %}
+            <hr/>
+            <div>{{ v.name }}; {{ v.obj_type }} [{{ v.obj }}]/{{ v.metric }}/{{ v.tags }};&nbsptype={{ v.dstype }},step={{ v.step }}</div>
+            <div class="mt10 gray">
+                <span class="gray">默认值: {{ v.mock }}</span> 
+                {% if v.writable(g.user) %}
+                    <div class="pull-right">
+                        <a href="{{ url_for('nodata_add_get', id=v.id) }}" class="btn btn-default"
+                           style="text-decoration: none;">
+                            <span class="glyphicon glyphicon-edit orange"></span>
+                        </a>
+                        <button onclick="delete_nodata('{{ v.id }}');" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash orange"></span>
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="mt10 gray">
+                <p> 创建人: {{ v.creator }}, 最后更改时间: {{ v.t_modify }}</p>
+            </div>
+        {% else %}
+            <hr/>
+            no records
+        {% endfor %}
+    </div>
+
+    {% import "portal/blocks.html" as blocks %}
+    {{ blocks.pager('/portal/nodata?q='+data.query+'&mine='+data.mine, data.total, data.limit, data.page) }}
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+    <script>
+        $(function () {
+            $("#mine").click(query_nodata);
+        });
+    </script>
+{% endblock %}

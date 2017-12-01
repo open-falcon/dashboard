@@ -1,0 +1,61 @@
+{% extends "portal/layout.html" %}
+{% block content %}
+
+    <div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {{_('create cluster monitor metric')}}
+                <a target="_blank" href="https://book.open-falcon.org/zh/usage/aggregator.html" title="aggregator{{_('configure help')}}">
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                </a>
+            </div>
+
+            <div class="panel-body">
+
+                <div role="form">
+                    <div class="form-group">
+                        <label for="numerator">分子：</label>
+                        <textarea rows="4" id="numerator" class="form-control"></textarea>
+                        <span class="help-block">
+                            比如：整个集群的请求失败率 = 所有机器的request_fail数量 ÷ 所有机器的request_total数量 <br/>
+                            分子就是：$(request_fail/module=graph,project=falcon) <br/>
+                            分母就是：$(request_total/module=graph,project=falcon)<br/>
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="denominator">分母：</label>
+                        <textarea rows="4" id="denominator" class="form-control"></textarea>
+                    </div>
+                    <div style="border-left: 10px solid green; padding-left: 5px;margin-bottom: 10px;">
+                        <span>计算得出的监控值要重新push回Falcon，需填写以下信息：</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="endpoint">endpoint:</label>
+                        <input type="text" class="form-control" id="endpoint">
+                    </div>
+                    <div class="form-group">
+                        <label for="metric">metric:</label>
+                        <input type="text" class="form-control" id="metric">
+                    </div>
+                    <div class="form-group">
+                        <label for="tags">tags:</label>
+                        <input type="text" class="form-control" id="tags" value="{{ falcon_tags }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="step">汇报周期（秒为单位）:</label>
+                        <input type="text" class="form-control" id="step" value="60">
+                    </div>
+                    <button class="btn btn-success" onclick="create_cluster_monitor_metric('{{ group.id }}');">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                        创建
+                    </button>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

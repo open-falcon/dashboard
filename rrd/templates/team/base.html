@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{%block head_js%}
+    {{super()}}
+    <script src="{{url_for('static', filename='js/uic.js')}}"></script>
+{%endblock%}
+
+{%block navbar%}
+  {%include "navbar.html"%}
+{%endblock%}

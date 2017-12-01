@@ -1,5 +1,5 @@
 
-angular.module('app', ['app.util'])
+angular.module('app', ['app.util','angular-multi-check'])
 .config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
