@@ -122,11 +122,9 @@ def ldap_login_user(name, password):
     if not config.LDAP_ENABLED:
         raise Exception("ldap not enabled")
 
-    bind_dn = config.LDAP_BINDDN_FMT
+    bind_dn = config.LDAP_BINDDN
+    bind_pass = config.LDAP_BIND_PASS
     base_dn = config.LDAP_BASE_DN
-    try:
-        bind_dn = config.LDAP_BINDDN_FMT %name
-    except TypeError: pass
 
     search_filter = config.LDAP_SEARCH_FMT
     try:
@@ -150,9 +148,11 @@ def ldap_login_user(name, password):
                 cli.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, config.LDAP_TLS_REQUIRE_CERT)
             if config.LDAP_TLS_CIPHER_SUITE:
                 cli.set_option(ldap.OPT_X_TLS_CIPHER_SUITE, config.LDAP_TLS_CIPHER_SUITE)
-        cli.simple_bind_s(bind_dn, password)
+        cli.bind_s(bind_dn, bind_pass, ldap.AUTH_SIMPLE)
         result = cli.search_s(base_dn, ldap.SCOPE_SUBTREE, search_filter, config.LDAP_ATTRS)
         log.debug("ldap result: %s" % result)
+        user_dn = result[0][0]
+        cli.bind_s(user_dn, password, ldap.AUTH_SIMPLE)
         d = result[0][1]
         email = d['mail'][0]
         cnname = d['cn'][0]
@@ -173,9 +173,15 @@ def ldap_login_user(name, password):
                 "phone": phone,
         }
     except ldap.LDAPError as e:
+        if e[0]['desc'] == 'Invalid credentials':
+            raise NameError('ldap login failed, check your username or password')
+            # password is not correct
         cli and cli.unbind_s()
         raise e
     except (IndexError, KeyError) as e:
+        if str(e) == "list index out of range":
+            raise IndexError("ldap login failed, check your username or password")
+            # cannot found this user
         raise e
     finally:
         cli and cli.unbind_s()
