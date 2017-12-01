@@ -173,15 +173,14 @@ def ldap_login_user(name, password):
                 "phone": phone,
         }
     except ldap.LDAPError as e:
-        if e[0]['desc'] == 'Invalid credentials':
-            raise NameError('ldap login failed, check your username or password')
-            # password is not correct
+        if "desc" in e[0]:
+            raise NameError(e[0]["desc"])
         cli and cli.unbind_s()
         raise e
     except (IndexError, KeyError) as e:
         if str(e) == "list index out of range":
-            raise IndexError("ldap login failed, check your username or password")
-            # cannot found this user
+            raise IndexError("no such user")
+            # result = [], so result out of range
         raise e
     finally:
         cli and cli.unbind_s()
