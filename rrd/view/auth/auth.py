@@ -49,8 +49,7 @@ def auth_login():
             try:
                 ldap_info = view_utils.ldap_login_user(name, password)
 
-                h = {"Content-type":"application/json"}
-                d = {
+                user_info = {
                     "name": name,
                     "password": password,
                     "cnname": ldap_info['cnname'],
@@ -58,11 +57,17 @@ def auth_login():
                     "phone": ldap_info['phone'],
                 }
 
-                r = requests.post("%s/user/create" %(config.API_ADDR,), \
-                        data=json.dumps(d), headers=h)
-                log.debug("%s:%s" %(r.status_code, r.text))
+                Apitoken = view_utils.get_Apitoken(config.API_USER, config.API_PASS)
 
-                #TODO: update password in db if ldap password changed
+                user_id = view_utils.get_user_id(name, Apitoken)
+				
+                if user_id > 0:
+                    view_utils.update_password(user_id, password, Apitoken)
+					# if user exist, update password
+                else:
+                    view_utils.create_user(user_info)
+					# create user , signup must be enabled
+					
             except Exception as e:
                 ret["msg"] = str(e)
                 return json.dumps(ret)

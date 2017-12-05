@@ -184,3 +184,61 @@ def ldap_login_user(name, password):
         raise e
     finally:
         cli and cli.unbind_s()
+
+def get_Apitoken(name, password):
+    d = {
+        "name": name, "password": password,
+    }
+	
+    h = {"Content-type":"application/json"}
+	
+    r = requests.post("%s/user/login" %(config.API_ADDR,), \
+            data=json.dumps(d), headers=h)
+    log.debug("%s:%s" %(r.status_code, r.text))
+	
+    if r.status_code != 200:
+        raise Exception("%s %s" %(r.status_code, r.text))
+
+    sig = json.loads(r.text)["sig"]
+    return json.dumps({"name":name,"sig":sig})
+
+def get_user_id(name, Apitoken):
+    h = {"Content-type":"application/json","Apitoken":Apitoken}
+	
+    r = requests.get("%s/user/name/%s" %(config.API_ADDR,name), headers=h)
+    log.debug("%s:%s" %(r.status_code, r.text))
+	
+    if r.status_code != 200:
+        user_id = -1
+        return user_id
+
+    user_id = json.loads(r.text)["id"]
+    return user_id
+
+def update_password(user_id, password, Apitoken):
+    d = {
+        "user_id": user_id, "password": password,
+    }
+	
+    h = {"Content-type":"application/json","Apitoken":Apitoken}
+	
+    r = requests.put("%s/admin/change_user_passwd" %(config.API_ADDR,), \
+           data=json.dumps(d), headers=h)
+    log.debug("%s:%s" %(r.status_code, r.text))
+	
+    if r.status_code != 200:
+        raise Exception("%s %s" %(r.status_code, r.text))
+		
+    return
+
+def create_user(user_info):
+    h = {"Content-type":"application/json"}
+	
+    r = requests.post("%s/user/create" %(config.API_ADDR,), \
+           data=json.dumps(user_info), headers=h)
+    log.debug("%s:%s" %(r.status_code, r.text))
+	
+    if r.status_code != 200:
+        raise Exception("%s %s" %(r.status_code, r.text))
+		
+    return
