@@ -116,6 +116,25 @@ def login_user(name, password):
     set_user_cookie(ut, session)
     return ut
 
+def admin_login_user(name, Apitoken):
+    params = {
+        "name": name,
+    }
+    h = {
+        "Apitoken": Apitoken
+    }
+    r = requests.post("%s/admin/login" %config.API_ADDR, data=params, headers=h)
+    log.debug("%s:%s" %(r.status_code, r.text))
+    if r.status_code != 200:
+        if json.loads(r.text)["error"] == "no such user":
+            return None
+        else:
+            raise Exception("%s : %s" %(r.status_code, r.text))
+
+    j = r.json()
+    ut = UserToken(j["name"], j["sig"])
+    set_user_cookie(ut, session)
+    return ut
 
 def ldap_login_user(name, password):
     import ldap
@@ -201,35 +220,6 @@ def get_Apitoken(name, password):
 
     sig = json.loads(r.text)["sig"]
     return json.dumps({"name":name,"sig":sig})
-
-def get_user_id(name, Apitoken):
-    h = {"Content-type":"application/json","Apitoken":Apitoken}
-	
-    r = requests.get("%s/user/name/%s" %(config.API_ADDR,name), headers=h)
-    log.debug("%s:%s" %(r.status_code, r.text))
-	
-    if r.status_code != 200:
-        user_id = -1
-        return user_id
-
-    user_id = json.loads(r.text)["id"]
-    return user_id
-
-def update_password(user_id, password, Apitoken):
-    d = {
-        "user_id": user_id, "password": password,
-    }
-	
-    h = {"Content-type":"application/json","Apitoken":Apitoken}
-	
-    r = requests.put("%s/admin/change_user_passwd" %(config.API_ADDR,), \
-           data=json.dumps(d), headers=h)
-    log.debug("%s:%s" %(r.status_code, r.text))
-	
-    if r.status_code != 200:
-        raise Exception("%s %s" %(r.status_code, r.text))
-		
-    return
 
 def create_user(user_info):
     h = {"Content-type":"application/json"}

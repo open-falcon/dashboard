@@ -18,6 +18,8 @@ from flask import request, g, abort, render_template, redirect
 from flask.ext.babel import refresh
 import requests
 import json
+import string
+import random
 from rrd import app
 from rrd import config
 from rrd.model.user import User
@@ -25,6 +27,9 @@ from rrd.view import utils as view_utils
 
 from rrd.utils.logger import logging
 log = logging.getLogger(__file__)
+
+def id_generator(size=16, chars=string.ascii_uppercase + string.digits):
+   return ''.join(random.choice(chars) for _ in range(size)) 
 
 @app.route("/auth/login", methods=["GET", "POST"])
 def auth_login():
@@ -48,7 +53,7 @@ def auth_login():
         if ldap == "1":
             try:
                 ldap_info = view_utils.ldap_login_user(name, password)
-
+                password = id_generator()
                 user_info = {
                     "name": name,
                     "password": password,
@@ -56,17 +61,18 @@ def auth_login():
                     "email": ldap_info['email'],
                     "phone": ldap_info['phone'],
                 }
-
                 Apitoken = view_utils.get_Apitoken(config.API_USER, config.API_PASS)
 
-                user_id = view_utils.get_user_id(name, Apitoken)
-				
-                if user_id > 0:
-                    view_utils.update_password(user_id, password, Apitoken)
-					# if user exist, update password
-                else:
+                ut = view_utils.admin_login_user(name, Apitoken)
+                if not ut:
                     view_utils.create_user(user_info)
-					# create user , signup must be enabled
+                    ut = view_utils.admin_login_user(name, Apitoken)
+                    #if user not exist, create user , signup must be enabled
+                ret["data"] = {
+                        "name": ut.name,
+                        "sig": ut.sig,
+                }
+                return json.dumps(ret)
 					
             except Exception as e:
                 ret["msg"] = str(e)
