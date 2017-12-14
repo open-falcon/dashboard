@@ -24,7 +24,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							Sign in
+							{{_('Sign in')}}
 						</h3>
 					</div>
 					<div class="panel-body">
@@ -39,14 +39,14 @@
 							</div>
 							<div class="checkbox">
 								<label>
-									<input type="checkbox" id="ldap"> ldap account
+									<input type="checkbox" id="ldap"> {{_('LDAP account')}}
 								</label>
 							</div>
 							<button class="btn btn-default btn-block" type="button" id="sign"
-							onclick="login();">Sign in</button>
+							onclick="login();">{{_('Sign in')}}</button>
 
 							<div style="margin-top: 10px">
-								no account? <a href="/auth/register">sign up</a>
+								{{_('No account')}}? <a href="/auth/register">{{_('Sign up')}}</a>
 							</div>
 
 						</div>

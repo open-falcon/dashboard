@@ -3,8 +3,8 @@
 
     <div class="panel panel-danger">
         <div class="panel-heading">
-            <h4 class="panel-title">{{_('alerting cases')}}
-                <a class="pull-right small" href="/portal/alarm-dash/case?status=PROBLEM">{{_('not recovered cases')}}</a>
+            <h4 class="panel-title">{{_('Alerting cases')}}
+                <a class="pull-right small" href="/portal/alarm-dash/case?status=PROBLEM">{{_('Not recovered cases')}}</a>
             </h4>
         </div>
         <div class="panel-body">
@@ -16,22 +16,22 @@
                     [第<span class="orange">#{{case.current_step}}</span>次/最大{{case.max_step}}次]
                     <span class="orange">{{case.timestamp|time_duration}}</span>
                     <span class="gray">[</span>
-                    <a href="/portal/template/view/{{case.template_id}}" target="_blank">template</a>
+                    <a href="/portal/template/view/{{case.template_id}}" target="_blank">{{_('Template')}}</a>
 
                     {%if case.strategy_id>0%}
                     <span class="cut-line">¦</span>
-                    <a href="/portal/strategy/{{case.strategy_id}}" target="_blank">strategy</a>
+                    <a href="/portal/strategy/{{case.strategy_id}}" target="_blank">{{_('Strategy')}}</a>
                     {%endif%}
 
                     {%if case.expression_id>0%}
                     <span class="cut-line">¦</span>
-                    <a href="/portal/expression/view/{{case.expression_id}}" target="_blank">expression</a>
+                    <a href="/portal/expression/view/{{case.expression_id}}" target="_blank">{{_('Expression')}}</a>
                     {%endif%}
 
                     <span class="cut-line">¦</span>
-                    <a href="javascript:alarm_case_rm('{{case.id}}');">delete</a>
+                    <a href="javascript:alarm_case_rm('{{case.id}}');">{{_('Delete')}}</a>
                     <span class="cut-line">¦</span>
-                    <a href="/portal/alarm-dash/case/event?case_id={{case.id}}">{{_('event list')}}</a>
+                    <a href="/portal/alarm-dash/case/event?case_id={{case.id}}">{{_('Event list')}}</a>
                     <span class="gray">]</span>
                     </br>
 
@@ -47,9 +47,9 @@
                 </div>
                 <hr>
                 {%endfor%}
-                <a href="javascript:alarm_case_all_select();">{{_('select all')}}</a>/
-                <a href="javascript:alarm_case_reverse_select();">{{_('reverse select')}}</a>
-                <button class="btn btn-warning btn-sm" onclick="alarm_case_batch_rm();">{{_('batch delete')}}</button>
+                <a href="javascript:alarm_case_all_select();">{{_('Select all')}}</a>/
+                <a href="javascript:alarm_case_reverse_select();">{{_('Reverse select')}}</a>
+                <button class="btn btn-warning btn-sm" onclick="alarm_case_batch_rm();">{{_('Batch delete')}}</button>
             </div>
         </div>
 

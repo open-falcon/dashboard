@@ -21,7 +21,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="panel-title">
-                    更新graph: <b>{{graph.title}}</b>
+                    更新{{_('Graph')}}: <b>{{graph.title}}</b>
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
 
             <form class="form-horizontal" role="form" method="post" action="/graph/{{graph.id}}/edit">
                  <div class="form-group">
-                    <label class="control-label col-md-2" for="screen_id">选择screen</label>
+                    <label class="control-label col-md-2" for="screen_id">选择{{_('Screen')}}</label>
                     <div class="col-md-8">
                         <select required name="screen_id" class="form-control">
                             {%set i = 0%}
@@ -45,25 +45,25 @@
                  </div>
 
                  <div class="form-group">
-                    <label class="control-label col-md-2" for="title">Graph标题</label>
+                    <label class="control-label col-md-2" for="title">{{_('Graph')}}标题</label>
                     <div class="col-md-8">
                         <input class="form-control" required type="text" name="title" value="{{graph.title}}">
                     </div>
                  </div>
 
                  <div class="form-group">
-                     <label class="control-label col-md-2" for="hosts">Endpoints列表</label>
+                     <label class="control-label col-md-2" for="hosts">{{_('Endpoints')}}列表</label>
                      <div class="col-md-8">
                          <textarea class="form-control" name="hosts" rows="5">{{"\n".join(graph.hosts)}}</textarea>
                      </div>
                  </div>
 
                  <div class="form-group">
-                    <label class="control-label col-md-2" for="counters">Counters列表</label>
+                    <label class="control-label col-md-2" for="counters">{{_('Counters')}}列表</label>
                     <div class="col-md-8">
                         <textarea class="form-control" required rows="5" name="counters">{{"\n".join(graph.counters)}}</textarea>
-                        <span class="help-block">一行一个完整的counter，比如: cpu.idle 或者<br/>
-                        使用tag来筛选，比如metric=net.if.in.bytes iface=eth0 (其中metric项必须得有; metric和tag之间，tag与tag之间用空格分割)</span>
+                        <span class="help-block">一行一个完整的{{_('Counter')}}，比如: cpu.idle 或者<br/>
+                        使用{{_('Tag')}}来筛选，比如metric=net.if.in.bytes iface=eth0 (其中{{_('Metric')}}项必须得有; {{_('Metric')}}和{{_('Tags')}}之间，{{_('Tag')}}与{{_('Tag')}}之间用空格分割)</span>
                     </div>
                  </div>
 

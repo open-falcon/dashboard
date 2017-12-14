@@ -4,16 +4,16 @@
     <div class="form-inline" role="form">
         <div class="form-group">
             <input type="text" value="{{ data.query }}" class="form-control" id="query"
-                   placeholder="search name" onkeydown="if(event.keyCode==13)query_template()">
+                   placeholder="{{_('Search name')}}" onkeydown="if(event.keyCode==13)query_template()">
         </div>
         <button type="button" onclick="query_template();" class="btn btn-default">
             <span class="glyphicon glyphicon-search"></span>
         </button>
         <input type="checkbox" name="mine" id="mine" {% if data.mine == '1' %}checked="checked"{% endif %}>
-        <span>mine</span>
+        <span>{{_('Mine')}}</span>
 
         <div class="pull-right">
-            <input type="text" placeholder="input name to create" class="form-control" id="tpl_name"
+            <input type="text" placeholder="{{_('Input name to create')}}" class="form-control" id="tpl_name"
                    onkeydown="if(event.keyCode==13)create_template()">
             <button onclick="create_template()" class="btn btn-default">
                 <span class="glyphicon glyphicon-plus"></span>
@@ -24,10 +24,10 @@
     <table class="table table-hover table-bordered table-striped" style="margin-bottom: 0px; margin-top: 10px;">
         <thead>
         <tr>
-            <th>name</th>
-            <th>parent</th>
-            <th>creator</th>
-            <th>operation</th>
+            <th>{{_('Name')}}</th>
+            <th>{{_('Parent')}}</th>
+            <th>{{_('Creator')}}</th>
+            <th>{{_('Operation')}}</th>
         </tr>
         </thead>
         <tbody>
@@ -63,7 +63,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records</td>
+                <td colspan="4">{{_('No records')}}</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -33,14 +33,14 @@ msgstr "关闭"
 
 #: rrd/templates/base.html:114
 msgid "Batch edit"
-msgstr ""
+msgstr "批量编辑"
 
 #: rrd/templates/base.html:114 rrd/templates/screen/graph_add.html:19
 #: rrd/templates/screen/graph_add.html:26
 #: rrd/templates/screen/graph_edit.html:24
 #: rrd/templates/screen/graph_edit.html:48
 msgid "Graph"
-msgstr ""
+msgstr "监控图"
 
 #: rrd/templates/base.html:123
 msgid "OK"
@@ -49,111 +49,111 @@ msgstr "确认"
 #: rrd/templates/base.html:134 rrd/templates/screen/graph_add.html:32
 #: rrd/templates/screen/graph_edit.html:55
 msgid "Endpoints"
-msgstr ""
+msgstr "终端集"
 
 #: rrd/templates/base.html:140 rrd/templates/index.html:201
 #: rrd/templates/screen/graph_add.html:39
 #: rrd/templates/screen/graph_edit.html:62
 msgid "Counters"
-msgstr ""
+msgstr "指标集"
 
 #: rrd/templates/index.html:4
 msgid "Falcon-Dashboard"
-msgstr ""
+msgstr "Falcon-仪表盘"
 
 #: rrd/templates/index.html:68
 msgid "Search endpoints"
-msgstr ""
+msgstr "搜索终端"
 
 #: rrd/templates/index.html:74 rrd/templates/portal/cluster/creator.html:34
 #: rrd/templates/portal/cluster/edit.html:26
 #: rrd/templates/portal/cluster/list.html:23
 #: rrd/templates/portal/nodata/add.html:60
 msgid "Endpoint"
-msgstr ""
+msgstr "终端"
 
 #: rrd/templates/index.html:76 rrd/templates/index.html:161
 msgid "Using SPACE to separate keywords"
-msgstr ""
+msgstr "可使用空格分割多个关键字"
 
 #: rrd/templates/index.html:79
 msgid "Labels"
-msgstr ""
+msgstr "描述"
 
 #: rrd/templates/index.html:85
 msgid "Global search"
-msgstr ""
+msgstr "全局搜索"
 
 #: rrd/templates/index.html:87 rrd/templates/index.html:88
 #: rrd/templates/index.html:89 rrd/templates/index.html:169
 #: rrd/templates/index.html:170 rrd/templates/index.html:171
 msgid "Limit"
-msgstr ""
+msgstr "显示前"
 
 #: rrd/templates/index.html:93 rrd/templates/index.html:175
 msgid "Page"
-msgstr ""
+msgstr "分页"
 
 #: rrd/templates/index.html:97
 msgid "Delete endpoints"
-msgstr ""
+msgstr "删除终端"
 
 #: rrd/templates/index.html:104 rrd/templates/index.html:181
 msgid "Quick filter"
-msgstr ""
+msgstr "快速过滤"
 
 #: rrd/templates/index.html:115
 msgid "Using SHIFT to continue select"
-msgstr ""
+msgstr "支持shift范围选择"
 
 #: rrd/templates/index.html:118
 msgid "List counters"
-msgstr ""
+msgstr "显示指标集"
 
 #: rrd/templates/index.html:153
 msgid "Search counters"
-msgstr ""
+msgstr "搜索指标"
 
 #: rrd/templates/index.html:159 rrd/templates/screen/graph_add.html:42
 #: rrd/templates/screen/graph_edit.html:65
 msgid "Counter"
-msgstr ""
+msgstr "指标"
 
 #: rrd/templates/index.html:166 rrd/templates/team/list.html:38
 #: rrd/templates/user/list.html:37
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 #: rrd/templates/index.html:182
 msgid "Delete counters"
-msgstr ""
+msgstr "删除指标"
 
 #: rrd/templates/chart/multi_ng.html:96 rrd/templates/chart/multi_pic.html:44
 #: rrd/templates/index.html:186
 msgid "Show"
-msgstr ""
+msgstr "显示"
 
 #: rrd/templates/chart/multi_ng.html:82 rrd/templates/chart/multi_pic.html:31
 #: rrd/templates/index.html:188
 msgid "Endpoint view"
-msgstr ""
+msgstr "终端视角"
 
 #: rrd/templates/chart/multi_ng.html:83 rrd/templates/chart/multi_pic.html:32
 #: rrd/templates/index.html:189
 msgid "Counter view"
-msgstr ""
+msgstr "指标视角"
 
 #: rrd/templates/chart/multi_ng.html:84 rrd/templates/index.html:190
 msgid "Multi view"
-msgstr ""
+msgstr "组合视角"
 
 #: rrd/templates/index.html:202 rrd/templates/portal/nodata/add.html:85
 msgid "Type"
-msgstr ""
+msgstr "类型"
 
 #: rrd/templates/index.html:203
 msgid "Step"
-msgstr ""
+msgstr "频率"
 
 #: rrd/templates/navbar.html:10
 msgid "Dashboard"
@@ -170,11 +170,11 @@ msgstr "面板"
 
 #: rrd/templates/navbar.html:14
 msgid "Screens"
-msgstr ""
+msgstr "面板集"
 
 #: rrd/templates/navbar.html:15
 msgid "+Screen"
-msgstr ""
+msgstr "创建面板"
 
 #: rrd/templates/navbar.html:18
 msgid "HostGroups"
@@ -192,11 +192,11 @@ msgstr "表达式"
 
 #: rrd/templates/navbar.html:21 rrd/templates/portal/nodata/add.html:120
 msgid "Nodata"
-msgstr "空数据"
+msgstr "修正数据"
 
 #: rrd/templates/navbar.html:22
 msgid "Alarm-Dashboard"
-msgstr "报警"
+msgstr "告警-仪表盘"
 
 #: rrd/templates/navbar.html:25
 msgid "Welcome"
@@ -217,7 +217,7 @@ msgstr "用户"
 
 #: rrd/templates/navbar.html:30
 msgid "Teams"
-msgstr "团队"
+msgstr "用户组"
 
 #: rrd/templates/navbar.html:31
 msgid "Logout"
@@ -230,23 +230,23 @@ msgstr "登录"
 #: rrd/templates/auth/login.html:49 rrd/templates/auth/register.html:11
 #: rrd/templates/auth/register.html:38 rrd/templates/navbar.html:34
 msgid "Sign up"
-msgstr ""
+msgstr "注册"
 
 #: rrd/templates/navbar.html:36
 msgid "Fork me on Github"
-msgstr ""
+msgstr "在Github上关注我们"
 
 #: rrd/templates/auth/login.html:42
 msgid "LDAP account"
-msgstr ""
+msgstr "LDAP用户"
 
 #: rrd/templates/auth/login.html:49
 msgid "No account"
-msgstr ""
+msgstr "没有用户"
 
 #: rrd/templates/auth/register.html:17
 msgid "Login Name"
-msgstr ""
+msgstr "登录用户名"
 
 #: rrd/templates/auth/register.html:21
 msgid "UserName"
@@ -254,116 +254,116 @@ msgstr "中文名"
 
 #: rrd/templates/auth/register.html:29
 msgid "Password"
-msgstr ""
+msgstr "密码"
 
 #: rrd/templates/auth/register.html:33
 msgid "Repeat Password"
-msgstr ""
+msgstr "重复密码"
 
 #: rrd/templates/auth/register.html:41
 msgid "Has account already"
-msgstr ""
+msgstr "用户名已存在"
 
 #: rrd/templates/chart/big_ng.html:56 rrd/templates/chart/embed.html:55
 msgid "Date range"
-msgstr ""
+msgstr "日期范围"
 
 #: rrd/templates/chart/big_ng.html:67 rrd/templates/chart/embed.html:66
 #: rrd/templates/chart/multi_ng.html:72 rrd/templates/chart/multi_pic.html:21
 msgid "Sampling method"
-msgstr ""
+msgstr "采样方法"
 
 #: rrd/templates/chart/big_ng.html:69 rrd/templates/chart/embed.html:68
 msgid "Max"
-msgstr ""
+msgstr "最大值"
 
 #: rrd/templates/chart/big_ng.html:70 rrd/templates/chart/embed.html:69
 msgid "Min"
-msgstr ""
+msgstr "最小值"
 
 #: rrd/templates/chart/big_ng.html:71 rrd/templates/chart/embed.html:70
 msgid "Average"
-msgstr ""
+msgstr "平均值"
 
 #: rrd/templates/chart/big_ng.html:74 rrd/templates/chart/embed.html:73
 msgid "Other"
-msgstr ""
+msgstr "其他"
 
 #: rrd/templates/chart/big_ng.html:76 rrd/templates/chart/embed.html:75
 #: rrd/templates/chart/multi_ng.html:91 rrd/templates/chart/multi_pic.html:39
 msgid "Sum"
-msgstr ""
+msgstr "汇总"
 
 #: rrd/templates/chart/big_ng.html:77 rrd/templates/chart/embed.html:76
 msgid "Sum only"
-msgstr ""
+msgstr "仅汇总"
 
 #: rrd/templates/chart/big_ng.html:78 rrd/templates/chart/embed.html:77
 msgid "Cancel sum"
-msgstr ""
+msgstr "取消汇总"
 
 #: rrd/templates/chart/big_ng.html:79 rrd/templates/chart/embed.html:78
 #: rrd/templates/chart/multi_ng.html:99 rrd/templates/chart/multi_pic.html:47
 msgid "Reset"
-msgstr ""
+msgstr "重置"
 
 #: rrd/templates/chart/big_ng.html:106 rrd/templates/portal/alarm/case.html:50
 #: rrd/templates/portal/alarm/case_events.html:34
 msgid "Select all"
-msgstr ""
+msgstr "全选"
 
 #: rrd/templates/chart/big_ng.html:111 rrd/templates/portal/alarm/case.html:51
 #: rrd/templates/portal/alarm/case_events.html:35
 msgid "Reverse select"
-msgstr ""
+msgstr "反选"
 
 #: rrd/templates/chart/big_ng.html:114
 msgid "Refresh"
-msgstr ""
+msgstr "刷新"
 
 #: rrd/templates/chart/big_ng.html:119
 msgid "Type to fiter, enter to refresh..."
-msgstr ""
+msgstr "输入字符过滤, 回车刷新..."
 
 #: rrd/templates/chart/embed.html:57 rrd/templates/screen/screen.html:45
 msgid "1h"
-msgstr ""
+msgstr "1小时"
 
 #: rrd/templates/chart/embed.html:58 rrd/templates/screen/screen.html:47
 msgid "6h"
-msgstr ""
+msgstr "6小时"
 
 #: rrd/templates/chart/embed.html:59 rrd/templates/screen/screen.html:48
 msgid "12h"
-msgstr ""
+msgstr "12小时"
 
 #: rrd/templates/chart/embed.html:60
 msgid "24h"
-msgstr ""
+msgstr "24小时"
 
 #: rrd/templates/chart/embed.html:61 rrd/templates/screen/screen.html:50
 msgid "3d"
-msgstr ""
+msgstr "3天"
 
 #: rrd/templates/chart/embed.html:62 rrd/templates/screen/screen.html:51
 msgid "7d"
-msgstr ""
+msgstr "7天"
 
 #: rrd/templates/chart/embed.html:63 rrd/templates/screen/screen.html:52
 msgid "1m"
-msgstr ""
+msgstr "1个月"
 
 #: rrd/templates/chart/multi_ng.html:46 rrd/templates/chart/multi_pic.html:11
 msgid "Begin"
-msgstr ""
+msgstr "开始"
 
 #: rrd/templates/chart/multi_ng.html:59 rrd/templates/chart/multi_pic.html:16
 msgid "End"
-msgstr ""
+msgstr "结束"
 
 #: rrd/templates/chart/multi_ng.html:80 rrd/templates/chart/multi_pic.html:29
 msgid "View"
-msgstr ""
+msgstr "视角"
 
 #: rrd/templates/portal/blank.html:7
 msgid "Falcon"
@@ -371,39 +371,39 @@ msgstr ""
 
 #: rrd/templates/portal/alarm/case.html:6
 msgid "Alerting cases"
-msgstr ""
+msgstr "告警事件列表列表"
 
 #: rrd/templates/portal/alarm/case.html:7
 msgid "Not recovered cases"
-msgstr ""
+msgstr "未恢复告警列表"
 
 #: rrd/templates/portal/alarm/case.html:19
 #: rrd/templates/portal/group/templates.html:21
 msgid "Template"
-msgstr ""
+msgstr "模板"
 
 #: rrd/templates/portal/alarm/case.html:23
 msgid "Strategy"
-msgstr ""
+msgstr "策略"
 
 #: rrd/templates/portal/alarm/case.html:28
 msgid "Expression"
-msgstr ""
+msgstr "表达式"
 
 #: rrd/templates/portal/alarm/case.html:32
 #: rrd/templates/portal/alarm/case_events.html:18
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: rrd/templates/portal/alarm/case.html:34
 #: rrd/templates/portal/alarm/case_events.html:6
 msgid "Event list"
-msgstr ""
+msgstr "事件清单"
 
 #: rrd/templates/portal/alarm/case.html:52
 #: rrd/templates/portal/alarm/case_events.html:36
 msgid "Batch delete"
-msgstr ""
+msgstr "批量删除"
 
 #: rrd/templates/portal/alarm/case_events.html:7
 #: rrd/templates/portal/expression/add.html:92
@@ -413,24 +413,24 @@ msgstr ""
 #: rrd/templates/portal/nodata/add.html:110
 #: rrd/templates/portal/plugin/list.html:58
 msgid "Back"
-msgstr ""
+msgstr "返回"
 
 #: rrd/templates/portal/alert_link/index.html:7
 msgid "Alerts"
-msgstr ""
+msgstr "告警"
 
 #: rrd/templates/portal/cluster/creator.html:8
 msgid "Create cluster monitor metric"
-msgstr ""
+msgstr "创建集群监控项"
 
 #: rrd/templates/portal/cluster/creator.html:9
 #: rrd/templates/portal/group/index.html:45
 msgid "Aggregator"
-msgstr ""
+msgstr "汇聚"
 
 #: rrd/templates/portal/cluster/creator.html:9
 msgid "Configure help"
-msgstr ""
+msgstr "配置说明"
 
 #: rrd/templates/portal/cluster/creator.html:38
 #: rrd/templates/portal/cluster/edit.html:30
@@ -439,7 +439,7 @@ msgstr ""
 #: rrd/templates/screen/graph_add.html:43
 #: rrd/templates/screen/graph_edit.html:66
 msgid "Metric"
-msgstr ""
+msgstr "度量"
 
 #: rrd/templates/portal/cluster/creator.html:42
 #: rrd/templates/portal/cluster/edit.html:34
@@ -448,17 +448,17 @@ msgstr ""
 #: rrd/templates/screen/graph_add.html:43
 #: rrd/templates/screen/graph_edit.html:66
 msgid "Tags"
-msgstr ""
+msgstr "标签"
 
 #: rrd/templates/portal/cluster/creator.html:51
 #: rrd/templates/portal/cluster/list.html:11
 msgid "Create"
-msgstr ""
+msgstr "创建"
 
 #: rrd/templates/portal/cluster/list.html:16
 #: rrd/templates/portal/group/advanced.html:6
 msgid "HostGroup"
-msgstr ""
+msgstr "主机组"
 
 #: rrd/templates/portal/cluster/list.html:26
 #: rrd/templates/portal/group/index.html:29
@@ -468,7 +468,7 @@ msgstr ""
 #: rrd/templates/portal/plugin/list.html:18
 #: rrd/templates/portal/template/list.html:29
 msgid "Creator"
-msgstr ""
+msgstr "创建者"
 
 #: rrd/templates/portal/cluster/list.html:27
 #: rrd/templates/portal/group/index.html:30
@@ -477,7 +477,7 @@ msgstr ""
 #: rrd/templates/portal/plugin/list.html:19
 #: rrd/templates/portal/template/list.html:30
 msgid "Operation"
-msgstr ""
+msgstr "操作"
 
 #: rrd/templates/portal/cluster/list.html:59
 #: rrd/templates/portal/expression/list.html:56
@@ -490,764 +490,203 @@ msgstr ""
 #: rrd/templates/portal/plugin/list.html:41
 #: rrd/templates/portal/template/list.html:66
 msgid "No records"
-msgstr ""
+msgstr "没有记录"
 
 #: rrd/templates/portal/expression/add.html:89
 #: rrd/templates/portal/group/advanced.html:18
 msgid "Submit"
-msgstr ""
+msgstr "提交"
 
 #: rrd/templates/portal/expression/list.html:7
 #: rrd/templates/portal/nodata/list.html:25
 msgid "Search..."
-msgstr ""
+msgstr "搜索..."
 
 #: rrd/templates/portal/expression/view.html:7
 msgid "Expression detail"
-msgstr ""
+msgstr "表达式详情"
 
 #: rrd/templates/portal/group/advanced.html:11
 msgid "Old"
-msgstr ""
+msgstr "原"
 
 #: rrd/templates/portal/group/advanced.html:15
 msgid "New"
-msgstr ""
+msgstr "新"
 
 #: rrd/templates/portal/group/advanced.html:19
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: rrd/templates/portal/group/index.html:7
 #: rrd/templates/portal/template/list.html:7
 msgid "Search name"
-msgstr ""
+msgstr "搜索名称"
 
 #: rrd/templates/portal/group/index.html:13
 #: rrd/templates/portal/nodata/list.html:31
 #: rrd/templates/portal/template/list.html:13
 msgid "Mine"
-msgstr ""
+msgstr "仅看我创建的"
 
 #: rrd/templates/portal/group/index.html:18
 #: rrd/templates/portal/template/list.html:16
 msgid "Input name to create"
-msgstr ""
+msgstr "输入名称进行创建"
 
 #: rrd/templates/portal/group/index.html:28
 #: rrd/templates/portal/host/templates.html:15
 #: rrd/templates/portal/template/list.html:27
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 #: rrd/templates/portal/group/index.html:41
 msgid "Hosts"
-msgstr ""
+msgstr "主机"
 
 #: rrd/templates/portal/group/index.html:43
 #: rrd/templates/portal/plugin/list.html:6
 msgid "Plugins"
-msgstr ""
+msgstr "插件"
 
 #: rrd/templates/portal/group/templates.html:13
 #: rrd/templates/portal/plugin/list.html:9
 msgid "Binding"
-msgstr ""
+msgstr "已绑定"
 
 #: rrd/templates/portal/group/templates.html:59
 #: rrd/templates/portal/plugin/list.html:54
 msgid "Bind"
-msgstr ""
+msgstr "绑定"
 
 #: rrd/templates/portal/host/add.html:24
 #: rrd/templates/portal/host/index.html:28
 msgid "Add Host"
-msgstr ""
+msgstr "添加主机"
 
 #: rrd/templates/portal/host/groups.html:6
 msgid "Binding groups"
-msgstr ""
+msgstr "绑定主机组"
 
 #: rrd/templates/portal/host/groups.html:15
 msgid "Group"
-msgstr ""
+msgstr "主机组"
 
 #: rrd/templates/portal/host/groups.html:29
 msgid "Unbind"
-msgstr ""
+msgstr "解绑"
 
 #: rrd/templates/portal/host/index.html:37
 msgid "Hostname"
-msgstr ""
+msgstr "主机名"
 
 #: rrd/templates/portal/host/index.html:38
 msgid "Maintain begin"
-msgstr ""
+msgstr "开始维护时间"
 
 #: rrd/templates/portal/host/index.html:39
 msgid "Maintain end"
-msgstr ""
+msgstr "结束维护时间"
 
 #: rrd/templates/portal/host/index.html:40
 msgid "Relation"
-msgstr ""
+msgstr "关系"
 
 #: rrd/templates/portal/host/index.html:51
 msgid "Groups"
-msgstr ""
+msgstr "主机组"
 
 #: rrd/templates/portal/host/index.html:80
 msgid "Maintain"
-msgstr ""
+msgstr "维护"
 
 #: rrd/templates/portal/host/index.html:83
 msgid "Unset"
-msgstr ""
+msgstr "解除维护"
 
 #: rrd/templates/portal/host/templates.html:6
 msgid "Binding templates"
-msgstr ""
+msgstr "绑定模板"
 
 #: rrd/templates/portal/host/templates.html:16
 #: rrd/templates/portal/template/list.html:28
 msgid "Parent"
-msgstr ""
+msgstr "父级"
 
 #: rrd/templates/portal/plugin/list.html:17
 msgid "Plugin dir"
-msgstr ""
+msgstr "插件目录"
 
 #: rrd/templates/screen/graph_add.html:43
 #: rrd/templates/screen/graph_edit.html:66
 msgid "Tag"
-msgstr ""
+msgstr "标签"
 
 #: rrd/templates/screen/screen.html:18
 msgid "+Graph"
-msgstr ""
+msgstr "创建监控图"
 
 #: rrd/templates/screen/screen.html:20
 msgid "Hide legend"
-msgstr ""
+msgstr "隐藏图例"
 
 #: rrd/templates/screen/screen.html:22
 msgid "Show legend"
-msgstr ""
+msgstr "显示图例"
 
 #: rrd/templates/screen/screen.html:46
 msgid "3h"
-msgstr ""
+msgstr "3小时"
 
 #: rrd/templates/screen/screen.html:49
 msgid "1d"
-msgstr ""
+msgstr "1天"
 
 #: rrd/templates/screen/screen.html:53
 msgid "1y"
-msgstr ""
+msgstr "1年"
 
 #: rrd/templates/screen/screen_layout.html:66
 msgid "Legend"
-msgstr ""
+msgstr "图例"
 
 #: rrd/templates/team/create.html:17
 msgid "Create Team"
-msgstr ""
+msgstr "创建用户组"
 
 #: rrd/templates/team/edit.html:17
 msgid "Edit Team"
-msgstr ""
+msgstr "编辑用户组"
 
 #: rrd/templates/team/list.html:43 rrd/templates/user/list.html:43
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 #: rrd/templates/user/create.html:18
 msgid "Create User"
-msgstr ""
+msgstr "创建用户"
 
 #: rrd/templates/user/edit.html:16 rrd/templates/user/profile.html:18
 msgid "Profile of"
-msgstr ""
+msgstr "用户信息"
 
 #: rrd/templates/user/profile.html:56
 msgid "Change Password"
-msgstr ""
+msgstr "修改密码"
 
 #: rrd/view/dashboard/screen.py:73
 msgid "Screen create fail"
-msgstr ""
+msgstr "面板创建失败"
 
 #: rrd/view/dashboard/screen.py:239
 msgid "Edit successful"
-msgstr ""
+msgstr "编辑成功"
 
 #: rrd/view/portal/cluster.py:100
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
 #: rrd/view/portal/cluster.py:110
 msgid "Clone"
-msgstr ""
-
-#~ msgid "batch edit"
-#~ msgstr ""
-
-#~ msgid "search endpoints"
-#~ msgstr ""
-
-#~ msgid "labels"
-#~ msgstr ""
-
-#~ msgid "global search"
-#~ msgstr ""
-
-#~ msgid "Limit 50"
-#~ msgstr ""
-
-#~ msgid "Limit 100"
-#~ msgstr ""
-
-#~ msgid "Limit 500"
-#~ msgstr ""
-
-#~ msgid "page"
-#~ msgstr ""
-
-#~ msgid "delete endpoints"
-#~ msgstr ""
-
-#~ msgid "quick filter"
-#~ msgstr ""
-
-#~ msgid "using SHIFT to continue select"
-#~ msgstr ""
-
-#~ msgid "list counters"
-#~ msgstr ""
-
-#~ msgid "search counters"
-#~ msgstr ""
-
-#~ msgid "search"
-#~ msgstr ""
-
-#~ msgid "delete counters"
-#~ msgstr ""
-
-#~ msgid "show"
-#~ msgstr ""
-
-#~ msgid "endpoint view"
-#~ msgstr ""
-
-#~ msgid "counter view"
-#~ msgstr ""
-
-#~ msgid "multi view"
-#~ msgstr ""
-
-#~ msgid "type"
-#~ msgstr ""
-
-#~ msgid "step"
-#~ msgstr ""
-
-#~ msgid "screens"
-#~ msgstr ""
-
-#~ msgid "+screen"
-#~ msgstr ""
-
-#~ msgid "Sign Up"
-#~ msgstr ""
-
-#~ msgid "fork me on Github"
-#~ msgstr ""
-
-#~ msgid "ldap account"
-#~ msgstr ""
-
-#~ msgid "no account"
-#~ msgstr ""
-
-#~ msgid "sign up"
-#~ msgstr ""
-
-#~ msgid "has account already"
-#~ msgstr ""
-
-#~ msgid "sign in"
-#~ msgstr ""
-
-#~ msgid "date range"
-#~ msgstr ""
-
-#~ msgid "sampling method"
-#~ msgstr ""
-
-#~ msgid "max"
-#~ msgstr ""
-
-#~ msgid "min"
-#~ msgstr ""
-
-#~ msgid "average"
-#~ msgstr ""
-
-#~ msgid "other"
-#~ msgstr ""
-
-#~ msgid "sum"
-#~ msgstr ""
-
-#~ msgid "sum only"
-#~ msgstr ""
-
-#~ msgid "cancel sum"
-#~ msgstr ""
-
-#~ msgid "reset"
-#~ msgstr ""
-
-#~ msgid "select all"
-#~ msgstr ""
-
-#~ msgid "reverse select"
-#~ msgstr ""
-
-#~ msgid "refresh"
-#~ msgstr ""
-
-#~ msgid "type to fiter, enter to refresh..."
-#~ msgstr ""
-
-#~ msgid "begin"
-#~ msgstr ""
-
-#~ msgid "end"
-#~ msgstr ""
-
-#~ msgid "view"
-#~ msgstr ""
-
-#~ msgid "alerting cases"
-#~ msgstr ""
-
-#~ msgid "not recovered cases"
-#~ msgstr ""
-
-#~ msgid "template"
-#~ msgstr ""
-
-#~ msgid "strategy"
-#~ msgstr ""
-
-#~ msgid "expression"
-#~ msgstr ""
-
-#~ msgid "delete"
-#~ msgstr ""
-
-#~ msgid "event list"
-#~ msgstr ""
-
-#~ msgid "batch delete"
-#~ msgstr ""
-
-#~ msgid "back"
-#~ msgstr ""
-
-#~ msgid "alerts"
-#~ msgstr ""
-
-#~ msgid "create cluster monitor metric"
-#~ msgstr ""
-
-#~ msgid "configure help"
-#~ msgstr ""
-
-#~ msgid "endpoint"
-#~ msgstr ""
-
-#~ msgid "metric"
-#~ msgstr ""
-
-#~ msgid "tags"
-#~ msgstr ""
-
-#~ msgid "expression detail"
-#~ msgstr ""
-
-#~ msgid "old"
-#~ msgstr ""
-
-#~ msgid "new"
-#~ msgstr ""
-
-#~ msgid "templates"
-#~ msgstr ""
-
-#~ msgid "hosts"
-#~ msgstr ""
-
-#~ msgid "plugins"
-#~ msgstr ""
-
-#~ msgid "aggregator"
-#~ msgstr ""
-
-#~ msgid "binding groups"
-#~ msgstr ""
-
-#~ msgid "group"
-#~ msgstr ""
-
-#~ msgid "hostname"
-#~ msgstr ""
-
-#~ msgid "maintain begin"
-#~ msgstr ""
-
-#~ msgid "maintain end"
-#~ msgstr ""
-
-#~ msgid "relation"
-#~ msgstr ""
-
-#~ msgid "groups"
-#~ msgstr ""
-
-#~ msgid "binding templates"
-#~ msgstr ""
-
-#~ msgid "plugin dir"
-#~ msgstr ""
-
-#~ msgid "screen"
-#~ msgstr ""
-
-#~ msgid "graph"
-#~ msgstr ""
-
-#~ msgid "counter"
-#~ msgstr ""
-
-#~ msgid "tag"
-#~ msgstr ""
-
-#~ msgid "+graph"
-#~ msgstr ""
-
-#~ msgid "hide legend"
-#~ msgstr ""
-
-#~ msgid "show legend"
-#~ msgstr ""
-
-#~ msgid "legend"
-#~ msgstr ""
-
-#~ msgid "screen create fail"
-#~ msgstr "创建screen失败"
-
-#~ msgid "edit successful"
-#~ msgstr "更新成功"
-
-#~ msgid "edit"
-#~ msgstr "编辑"
-
-#~ msgid "clone"
-#~ msgstr "克隆"
-
-#~ msgid "Batch edit"
-#~ msgstr ""
-
-#~ msgid "Search endpoints"
-#~ msgstr ""
-
-#~ msgid "Using SPACE to separate keywords"
-#~ msgstr ""
-
-#~ msgid "Labels"
-#~ msgstr ""
-
-#~ msgid "Global search"
-#~ msgstr ""
-
-#~ msgid "Limit"
-#~ msgstr ""
-
-#~ msgid "Page"
-#~ msgstr ""
-
-#~ msgid "Delete endpoints"
-#~ msgstr ""
-
-#~ msgid "Quick filter"
-#~ msgstr ""
-
-#~ msgid "Using SHIFT to continue select"
-#~ msgstr ""
-
-#~ msgid "List counters"
-#~ msgstr ""
-
-#~ msgid "Search counters"
-#~ msgstr ""
-
-#~ msgid "Delete counters"
-#~ msgstr ""
-
-#~ msgid "Show"
-#~ msgstr ""
-
-#~ msgid "Endpoint view"
-#~ msgstr ""
-
-#~ msgid "Counter view"
-#~ msgstr ""
-
-#~ msgid "Multi view"
-#~ msgstr ""
-
-#~ msgid "Type"
-#~ msgstr ""
-
-#~ msgid "Step"
-#~ msgstr ""
-
-#~ msgid "Screens"
-#~ msgstr ""
-
-#~ msgid "+Screen"
-#~ msgstr ""
-
-#~ msgid "Fork me on Github"
-#~ msgstr ""
-
-#~ msgid "LDAP account"
-#~ msgstr ""
-
-#~ msgid "No account"
-#~ msgstr ""
-
-#~ msgid "Has account already"
-#~ msgstr ""
-
-#~ msgid "Date range"
-#~ msgstr ""
-
-#~ msgid "Sampling method"
-#~ msgstr ""
-
-#~ msgid "Max"
-#~ msgstr ""
-
-#~ msgid "Min"
-#~ msgstr ""
-
-#~ msgid "Average"
-#~ msgstr ""
-
-#~ msgid "Other"
-#~ msgstr ""
-
-#~ msgid "Sum"
-#~ msgstr ""
-
-#~ msgid "Sum only"
-#~ msgstr ""
-
-#~ msgid "Sancel sum"
-#~ msgstr ""
-
-#~ msgid "Reset"
-#~ msgstr ""
-
-#~ msgid "Select all"
-#~ msgstr ""
-
-#~ msgid "Reverse select"
-#~ msgstr ""
-
-#~ msgid "Refresh"
-#~ msgstr ""
-
-#~ msgid "Type to fiter, enter to refresh..."
-#~ msgstr ""
-
-#~ msgid "Cancel sum"
-#~ msgstr ""
-
-#~ msgid "Begin"
-#~ msgstr ""
-
-#~ msgid "End"
-#~ msgstr ""
-
-#~ msgid "View"
-#~ msgstr ""
-
-#~ msgid "Alerting cases"
-#~ msgstr ""
-
-#~ msgid "Not recovered cases"
-#~ msgstr ""
-
-#~ msgid "Template"
-#~ msgstr ""
-
-#~ msgid "Strategy"
-#~ msgstr ""
-
-#~ msgid "Expression"
-#~ msgstr ""
-
-#~ msgid "Delete"
-#~ msgstr ""
-
-#~ msgid "Event list"
-#~ msgstr ""
-
-#~ msgid "Batch delete"
-#~ msgstr ""
-
-#~ msgid "Alerts"
-#~ msgstr ""
-
-#~ msgid "Create cluster monitor metric"
-#~ msgstr ""
-
-#~ msgid "Aggregator"
-#~ msgstr ""
-
-#~ msgid "Configure help"
-#~ msgstr ""
-
-#~ msgid "Metric"
-#~ msgstr ""
-
-#~ msgid "Tags"
-#~ msgstr ""
-
-#~ msgid "Creator"
-#~ msgstr ""
-
-#~ msgid "Operation"
-#~ msgstr ""
-
-#~ msgid "No records"
-#~ msgstr ""
-
-#~ msgid "Search..."
-#~ msgstr ""
-
-#~ msgid "Expression detail"
-#~ msgstr ""
-
-#~ msgid "Old"
-#~ msgstr ""
-
-#~ msgid "New"
-#~ msgstr ""
-
-#~ msgid "Mine"
-#~ msgstr ""
-
-#~ msgid "Input name to create"
-#~ msgstr ""
-
-#~ msgid "Name"
-#~ msgstr ""
-
-#~ msgid "Hosts"
-#~ msgstr ""
-
-#~ msgid "Plugins"
-#~ msgstr ""
-
-#~ msgid "Binding groups"
-#~ msgstr ""
-
-#~ msgid "Group"
-#~ msgstr ""
-
-#~ msgid "Hostname"
-#~ msgstr ""
-
-#~ msgid "Maintain begin"
-#~ msgstr ""
-
-#~ msgid "Maintain end"
-#~ msgstr ""
-
-#~ msgid "Relation"
-#~ msgstr ""
-
-#~ msgid "Groups"
-#~ msgstr ""
-
-#~ msgid "Binding templates"
-#~ msgstr ""
-
-#~ msgid "Parent"
-#~ msgstr ""
-
-#~ msgid "Binding"
-#~ msgstr ""
-
-#~ msgid "Plugin dir"
-#~ msgstr ""
-
-#~ msgid "Sreen"
-#~ msgstr ""
-
-#~ msgid "Tag"
-#~ msgstr ""
-
-#~ msgid "+Graph"
-#~ msgstr ""
-
-#~ msgid "Hide legend"
-#~ msgstr ""
-
-#~ msgid "Show legend"
-#~ msgstr ""
-
-#~ msgid "Legend"
-#~ msgstr ""
-
-#~ msgid "using SPACE to separate keywords"
-#~ msgstr "空格分割多个关键字"
-
-#~ msgid "creator"
-#~ msgstr ""
-
-#~ msgid "operation"
-#~ msgstr ""
-
-#~ msgid "no records"
-#~ msgstr ""
-
-#~ msgid "search..."
-#~ msgstr ""
-
-#~ msgid "search name"
-#~ msgstr ""
-
-#~ msgid "mine"
-#~ msgstr ""
-
-#~ msgid "input name to create"
-#~ msgstr ""
-
-#~ msgid "name"
-#~ msgstr ""
-
-#~ msgid "parent"
-#~ msgstr ""
-
-#~ msgid "binding"
-#~ msgstr ""
+msgstr "克隆"
 

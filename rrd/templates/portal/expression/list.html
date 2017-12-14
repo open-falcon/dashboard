@@ -4,7 +4,7 @@
     <div class="form-inline" role="form">
         <div class="form-group">
             <input type="text" value="{{ data.query }}" class="form-control" id="query"
-                   placeholder="search..." onkeydown="if(event.keyCode==13)query_expression()">
+                   placeholder="{{_('Search...')}}" onkeydown="if(event.keyCode==13)query_expression()">
         </div>
         <button type="button" onclick="query_expression();" class="btn btn-default">
             <span class="glyphicon glyphicon-search"></span>
@@ -53,7 +53,7 @@
 
         {% else %}
             <hr>
-            no records
+        {{_('No records')}}
         {% endfor %}
     </div>
 

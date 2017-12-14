@@ -34,13 +34,13 @@
 					</div>
 					<button type="button" onclick="query_user();" class="btn btn-default">
 						<span class="glyphicon glyphicon-search"></span>
-						Search
+						{{_('Search')}}
 					</button>
 
                     {%if g.user.is_admin() or g.user.is_root()%}
                     <a href="/user/create" class="btn btn-default pull-right">
                             <span class="glyphicon glyphicon-plus"></span>
-                            Add
+						{{_('Add')}}
                     </a>
                     {%endif%}
 

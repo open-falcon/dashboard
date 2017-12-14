@@ -61,6 +61,7 @@ BABEL_DEFAULT_TIMEZONE = 'Asia/Shanghai'
 # aviliable translations
 LANGUAGES   = {
     'en':  'English',
+	'zh':  'Chinese-Simplified',
     'zh_CN':  'Chinese-Simplified',
 }
 

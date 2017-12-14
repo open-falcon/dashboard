@@ -70,7 +70,7 @@ def dash_screen_clone(sid):
 
         new_s = DashboardScreen.add(screen.pid, screen_name)
         if not new_s:
-            abort(404, gettext("screen create fail"))
+            abort(404, gettext("Screen create fail"))
 
         if with_graph:
             old_graphs = DashboardGraph.gets_by_screen_id(sid)
@@ -236,7 +236,7 @@ def dash_graph_edit(gid):
         graph = graph.update(title, hosts, counters, screen_id,
                 timespan, graph_type, method, position)
 
-        error = gettext("edit successful")
+        error = gettext("Edit successful")
         if not ajax:
             return render_template("screen/graph_edit.html", config=config, **locals())
         else:

@@ -97,7 +97,7 @@ def cluster_node_post(group_id):
 def cluster_edit_get(cluster_id):
     cluster_id = int(cluster_id)
     cluster = Cluster.get(cluster_id)
-    op = gettext('edit')
+    op = gettext('Edit')
     return render_template('portal/cluster/edit.html', **locals())
 
 
@@ -107,7 +107,7 @@ def cluster_clone_get(cluster_id):
     cluster = Cluster.get(cluster_id)
     # for clone
     cluster_id = 0
-    op = gettext('clone')
+    op = gettext('Clone')
     return render_template('portal/cluster/edit.html', **locals())
 
 

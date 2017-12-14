@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-06-07 23:01+0800\n"
+"POT-Creation-Date: 2017-12-14 20:51+0800\n"
 "PO-Revision-Date: 2017-06-07 19:28+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -16,215 +16,1238 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.4.0\n"
+"Generated-By: Babel 2.5.1\n"
 
-#: rrd/__init__.py:16
+#: rrd/__init__.py:31
 msgid "Temporary error, please contact your administrator."
 msgstr ""
 
-#: rrd/templates/base.html:114
-msgid "batch edit"
+#: rrd/templates/base.html:11 rrd/templates/base_ng.html:11
+#: rrd/templates/navbar.html:6
+msgid "Falcon+"
 msgstr ""
 
-#: rrd/templates/base.html:122
+#: rrd/templates/base.html:113 rrd/templates/base.html:122
 msgid "Close"
+msgstr ""
+
+#: rrd/templates/base.html:114
+msgid "Batch edit"
+msgstr ""
+
+#: rrd/templates/base.html:114 rrd/templates/screen/graph_add.html:19
+#: rrd/templates/screen/graph_add.html:26
+#: rrd/templates/screen/graph_edit.html:24
+#: rrd/templates/screen/graph_edit.html:48
+msgid "Graph"
 msgstr ""
 
 #: rrd/templates/base.html:123
 msgid "OK"
 msgstr ""
 
+#: rrd/templates/base.html:134 rrd/templates/screen/graph_add.html:32
+#: rrd/templates/screen/graph_edit.html:55
+msgid "Endpoints"
+msgstr ""
+
+#: rrd/templates/base.html:140 rrd/templates/index.html:201
+#: rrd/templates/screen/graph_add.html:39
+#: rrd/templates/screen/graph_edit.html:62
+msgid "Counters"
+msgstr ""
+
+#: rrd/templates/index.html:4
+msgid "Falcon-Dashboard"
+msgstr ""
+
 #: rrd/templates/index.html:68
-msgid "search endpoints"
+msgid "Search endpoints"
+msgstr ""
+
+#: rrd/templates/index.html:74 rrd/templates/portal/cluster/creator.html:34
+#: rrd/templates/portal/cluster/edit.html:26
+#: rrd/templates/portal/cluster/list.html:23
+#: rrd/templates/portal/nodata/add.html:60
+msgid "Endpoint"
 msgstr ""
 
 #: rrd/templates/index.html:76 rrd/templates/index.html:161
-msgid "using SPACE to separate keywords"
+msgid "Using SPACE to separate keywords"
 msgstr ""
 
 #: rrd/templates/index.html:79
-msgid "labels"
+msgid "Labels"
 msgstr ""
 
 #: rrd/templates/index.html:85
-msgid "global search"
+msgid "Global search"
+msgstr ""
+
+#: rrd/templates/index.html:87 rrd/templates/index.html:88
+#: rrd/templates/index.html:89 rrd/templates/index.html:169
+#: rrd/templates/index.html:170 rrd/templates/index.html:171
+msgid "Limit"
+msgstr ""
+
+#: rrd/templates/index.html:93 rrd/templates/index.html:175
+msgid "Page"
 msgstr ""
 
 #: rrd/templates/index.html:97
-msgid "delete endpoints"
+msgid "Delete endpoints"
 msgstr ""
 
 #: rrd/templates/index.html:104 rrd/templates/index.html:181
-msgid "quick filter"
+msgid "Quick filter"
 msgstr ""
 
 #: rrd/templates/index.html:115
-msgid "using SHIFT to continue select"
+msgid "Using SHIFT to continue select"
 msgstr ""
 
 #: rrd/templates/index.html:118
-msgid "list counters"
+msgid "List counters"
 msgstr ""
 
 #: rrd/templates/index.html:153
-msgid "search counters"
+msgid "Search counters"
 msgstr ""
 
-#: rrd/templates/index.html:166
-msgid "search"
+#: rrd/templates/index.html:159 rrd/templates/screen/graph_add.html:42
+#: rrd/templates/screen/graph_edit.html:65
+msgid "Counter"
+msgstr ""
+
+#: rrd/templates/index.html:166 rrd/templates/team/list.html:38
+#: rrd/templates/user/list.html:37
+msgid "Search"
 msgstr ""
 
 #: rrd/templates/index.html:182
-msgid "delete counters"
+msgid "Delete counters"
 msgstr ""
 
 #: rrd/templates/chart/multi_ng.html:96 rrd/templates/chart/multi_pic.html:44
 #: rrd/templates/index.html:186
-msgid "show"
+msgid "Show"
 msgstr ""
 
 #: rrd/templates/chart/multi_ng.html:82 rrd/templates/chart/multi_pic.html:31
 #: rrd/templates/index.html:188
-msgid "endpoint view"
+msgid "Endpoint view"
 msgstr ""
 
 #: rrd/templates/chart/multi_ng.html:83 rrd/templates/chart/multi_pic.html:32
 #: rrd/templates/index.html:189
-msgid "counter view"
+msgid "Counter view"
 msgstr ""
 
 #: rrd/templates/chart/multi_ng.html:84 rrd/templates/index.html:190
-msgid "multi view"
+msgid "Multi view"
 msgstr ""
 
-#: rrd/templates/index.html:202
-msgid "type"
+#: rrd/templates/index.html:202 rrd/templates/portal/nodata/add.html:85
+msgid "Type"
 msgstr ""
 
 #: rrd/templates/index.html:203
-msgid "step"
+msgid "Step"
+msgstr ""
+
+#: rrd/templates/navbar.html:10
+msgid "Dashboard"
+msgstr ""
+
+#: rrd/templates/navbar.html:12 rrd/templates/screen/add.html:10
+#: rrd/templates/screen/add.html:18 rrd/templates/screen/clone.html:10
+#: rrd/templates/screen/clone.html:17 rrd/templates/screen/clone.html:18
+#: rrd/templates/screen/clone.html:22 rrd/templates/screen/edit.html:10
+#: rrd/templates/screen/edit.html:17 rrd/templates/screen/graph_add.html:19
+#: rrd/templates/screen/graph_edit.html:32
+msgid "Screen"
+msgstr ""
+
+#: rrd/templates/navbar.html:14
+msgid "Screens"
+msgstr ""
+
+#: rrd/templates/navbar.html:15
+msgid "+Screen"
+msgstr ""
+
+#: rrd/templates/navbar.html:18
+msgid "HostGroups"
+msgstr ""
+
+#: rrd/templates/navbar.html:19 rrd/templates/portal/group/index.html:39
+#: rrd/templates/portal/group/templates.html:10
+#: rrd/templates/portal/host/index.html:53
+msgid "Templates"
+msgstr ""
+
+#: rrd/templates/navbar.html:20
+msgid "Expressions"
+msgstr ""
+
+#: rrd/templates/navbar.html:21 rrd/templates/portal/nodata/add.html:120
+msgid "Nodata"
+msgstr ""
+
+#: rrd/templates/navbar.html:22
+msgid "Alarm-Dashboard"
+msgstr ""
+
+#: rrd/templates/navbar.html:25
+msgid "Welcome"
+msgstr ""
+
+#: rrd/templates/auth/login.html:27 rrd/templates/auth/login.html:46
+#: rrd/templates/auth/register.html:41 rrd/templates/navbar.html:25
+msgid "Sign in"
+msgstr ""
+
+#: rrd/templates/navbar.html:28
+msgid "Profile"
+msgstr ""
+
+#: rrd/templates/navbar.html:29
+msgid "Users"
+msgstr ""
+
+#: rrd/templates/navbar.html:30
+msgid "Teams"
+msgstr ""
+
+#: rrd/templates/navbar.html:31
+msgid "Logout"
+msgstr ""
+
+#: rrd/templates/navbar.html:33
+msgid "Login"
+msgstr ""
+
+#: rrd/templates/auth/login.html:49 rrd/templates/auth/register.html:11
+#: rrd/templates/auth/register.html:38 rrd/templates/navbar.html:34
+msgid "Sign up"
+msgstr ""
+
+#: rrd/templates/navbar.html:36
+msgid "Fork me on Github"
+msgstr ""
+
+#: rrd/templates/auth/login.html:42
+msgid "LDAP account"
+msgstr ""
+
+#: rrd/templates/auth/login.html:49
+msgid "No account"
+msgstr ""
+
+#: rrd/templates/auth/register.html:17
+msgid "Login Name"
 msgstr ""
 
 #: rrd/templates/auth/register.html:21
 msgid "UserName"
 msgstr ""
 
+#: rrd/templates/auth/register.html:29
+msgid "Password"
+msgstr ""
+
+#: rrd/templates/auth/register.html:33
+msgid "Repeat Password"
+msgstr ""
+
+#: rrd/templates/auth/register.html:41
+msgid "Has account already"
+msgstr ""
+
 #: rrd/templates/chart/big_ng.html:56 rrd/templates/chart/embed.html:55
-msgid "date range"
+msgid "Date range"
 msgstr ""
 
 #: rrd/templates/chart/big_ng.html:67 rrd/templates/chart/embed.html:66
 #: rrd/templates/chart/multi_ng.html:72 rrd/templates/chart/multi_pic.html:21
-msgid "sampling method"
+msgid "Sampling method"
 msgstr ""
 
 #: rrd/templates/chart/big_ng.html:69 rrd/templates/chart/embed.html:68
-msgid "max"
+msgid "Max"
 msgstr ""
 
 #: rrd/templates/chart/big_ng.html:70 rrd/templates/chart/embed.html:69
-msgid "min"
+msgid "Min"
 msgstr ""
 
 #: rrd/templates/chart/big_ng.html:71 rrd/templates/chart/embed.html:70
-msgid "average"
+msgid "Average"
 msgstr ""
 
 #: rrd/templates/chart/big_ng.html:74 rrd/templates/chart/embed.html:73
-msgid "other"
+msgid "Other"
 msgstr ""
 
 #: rrd/templates/chart/big_ng.html:76 rrd/templates/chart/embed.html:75
 #: rrd/templates/chart/multi_ng.html:91 rrd/templates/chart/multi_pic.html:39
-msgid "sum"
+msgid "Sum"
 msgstr ""
 
 #: rrd/templates/chart/big_ng.html:77 rrd/templates/chart/embed.html:76
-msgid "sum only"
+msgid "Sum only"
 msgstr ""
 
 #: rrd/templates/chart/big_ng.html:78 rrd/templates/chart/embed.html:77
-msgid "cancel sum"
+msgid "Cancel sum"
 msgstr ""
 
 #: rrd/templates/chart/big_ng.html:79 rrd/templates/chart/embed.html:78
 #: rrd/templates/chart/multi_ng.html:99 rrd/templates/chart/multi_pic.html:47
-msgid "reset"
+msgid "Reset"
 msgstr ""
 
 #: rrd/templates/chart/big_ng.html:106 rrd/templates/portal/alarm/case.html:50
 #: rrd/templates/portal/alarm/case_events.html:34
-msgid "select all"
+msgid "Select all"
 msgstr ""
 
 #: rrd/templates/chart/big_ng.html:111 rrd/templates/portal/alarm/case.html:51
 #: rrd/templates/portal/alarm/case_events.html:35
-msgid "reverse select"
+msgid "Reverse select"
 msgstr ""
 
 #: rrd/templates/chart/big_ng.html:114
-msgid "refresh"
+msgid "Refresh"
 msgstr ""
 
 #: rrd/templates/chart/big_ng.html:119
-msgid "type to fiter, enter to refresh..."
+msgid "Type to fiter, enter to refresh..."
+msgstr ""
+
+#: rrd/templates/chart/embed.html:57 rrd/templates/screen/screen.html:45
+msgid "1h"
+msgstr ""
+
+#: rrd/templates/chart/embed.html:58 rrd/templates/screen/screen.html:47
+msgid "6h"
+msgstr ""
+
+#: rrd/templates/chart/embed.html:59 rrd/templates/screen/screen.html:48
+msgid "12h"
+msgstr ""
+
+#: rrd/templates/chart/embed.html:60
+msgid "24h"
+msgstr ""
+
+#: rrd/templates/chart/embed.html:61 rrd/templates/screen/screen.html:50
+msgid "3d"
+msgstr ""
+
+#: rrd/templates/chart/embed.html:62 rrd/templates/screen/screen.html:51
+msgid "7d"
+msgstr ""
+
+#: rrd/templates/chart/embed.html:63 rrd/templates/screen/screen.html:52
+msgid "1m"
 msgstr ""
 
 #: rrd/templates/chart/multi_ng.html:46 rrd/templates/chart/multi_pic.html:11
-msgid "begin"
+msgid "Begin"
 msgstr ""
 
 #: rrd/templates/chart/multi_ng.html:59 rrd/templates/chart/multi_pic.html:16
-msgid "end"
+msgid "End"
 msgstr ""
 
 #: rrd/templates/chart/multi_ng.html:80 rrd/templates/chart/multi_pic.html:29
-msgid "view"
+msgid "View"
+msgstr ""
+
+#: rrd/templates/portal/blank.html:7
+msgid "Falcon"
 msgstr ""
 
 #: rrd/templates/portal/alarm/case.html:6
-msgid "alerting cases"
+msgid "Alerting cases"
 msgstr ""
 
 #: rrd/templates/portal/alarm/case.html:7
-msgid "not recovered cases"
+msgid "Not recovered cases"
+msgstr ""
+
+#: rrd/templates/portal/alarm/case.html:19
+#: rrd/templates/portal/group/templates.html:21
+msgid "Template"
+msgstr ""
+
+#: rrd/templates/portal/alarm/case.html:23
+msgid "Strategy"
+msgstr ""
+
+#: rrd/templates/portal/alarm/case.html:28
+msgid "Expression"
+msgstr ""
+
+#: rrd/templates/portal/alarm/case.html:32
+#: rrd/templates/portal/alarm/case_events.html:18
+msgid "Delete"
 msgstr ""
 
 #: rrd/templates/portal/alarm/case.html:34
 #: rrd/templates/portal/alarm/case_events.html:6
-msgid "event list"
+msgid "Event list"
 msgstr ""
 
 #: rrd/templates/portal/alarm/case.html:52
 #: rrd/templates/portal/alarm/case_events.html:36
-msgid "batch delete"
+msgid "Batch delete"
 msgstr ""
 
 #: rrd/templates/portal/alarm/case_events.html:7
-msgid "back"
+#: rrd/templates/portal/expression/add.html:92
+#: rrd/templates/portal/group/templates.html:63
+#: rrd/templates/portal/host/add.html:28
+#: rrd/templates/portal/host/templates.html:47
+#: rrd/templates/portal/nodata/add.html:110
+#: rrd/templates/portal/plugin/list.html:58
+msgid "Back"
+msgstr ""
+
+#: rrd/templates/portal/alert_link/index.html:7
+msgid "Alerts"
 msgstr ""
 
 #: rrd/templates/portal/cluster/creator.html:8
-msgid "create cluster monitor metric"
+msgid "Create cluster monitor metric"
 msgstr ""
 
 #: rrd/templates/portal/cluster/creator.html:9
-msgid "configure help"
+#: rrd/templates/portal/group/index.html:45
+msgid "Aggregator"
 msgstr ""
 
-#: rrd/view/dashboard/screen.py:58
-msgid "screen create fail"
+#: rrd/templates/portal/cluster/creator.html:9
+msgid "Configure help"
 msgstr ""
 
-#: rrd/view/dashboard/screen.py:224
-msgid "edit successful"
+#: rrd/templates/portal/cluster/creator.html:38
+#: rrd/templates/portal/cluster/edit.html:30
+#: rrd/templates/portal/cluster/list.html:24
+#: rrd/templates/portal/nodata/add.html:74
+#: rrd/templates/screen/graph_add.html:43
+#: rrd/templates/screen/graph_edit.html:66
+msgid "Metric"
 msgstr ""
 
-#: rrd/view/portal/cluster.py:85
-msgid "edit"
+#: rrd/templates/portal/cluster/creator.html:42
+#: rrd/templates/portal/cluster/edit.html:34
+#: rrd/templates/portal/cluster/list.html:25
+#: rrd/templates/portal/nodata/add.html:80
+#: rrd/templates/screen/graph_add.html:43
+#: rrd/templates/screen/graph_edit.html:66
+msgid "Tags"
 msgstr ""
 
-#: rrd/view/portal/cluster.py:95
-msgid "clone"
+#: rrd/templates/portal/cluster/creator.html:51
+#: rrd/templates/portal/cluster/list.html:11
+msgid "Create"
 msgstr ""
+
+#: rrd/templates/portal/cluster/list.html:16
+#: rrd/templates/portal/group/advanced.html:6
+msgid "HostGroup"
+msgstr ""
+
+#: rrd/templates/portal/cluster/list.html:26
+#: rrd/templates/portal/group/index.html:29
+#: rrd/templates/portal/group/templates.html:22
+#: rrd/templates/portal/host/groups.html:16
+#: rrd/templates/portal/host/templates.html:17
+#: rrd/templates/portal/plugin/list.html:18
+#: rrd/templates/portal/template/list.html:29
+msgid "Creator"
+msgstr ""
+
+#: rrd/templates/portal/cluster/list.html:27
+#: rrd/templates/portal/group/index.html:30
+#: rrd/templates/portal/group/templates.html:23
+#: rrd/templates/portal/host/groups.html:17
+#: rrd/templates/portal/plugin/list.html:19
+#: rrd/templates/portal/template/list.html:30
+msgid "Operation"
+msgstr ""
+
+#: rrd/templates/portal/cluster/list.html:59
+#: rrd/templates/portal/expression/list.html:56
+#: rrd/templates/portal/group/index.html:59
+#: rrd/templates/portal/group/templates.html:44
+#: rrd/templates/portal/host/groups.html:35
+#: rrd/templates/portal/host/index.html:58
+#: rrd/templates/portal/host/templates.html:37
+#: rrd/templates/portal/nodata/list.html:63
+#: rrd/templates/portal/plugin/list.html:41
+#: rrd/templates/portal/template/list.html:66
+msgid "No records"
+msgstr ""
+
+#: rrd/templates/portal/expression/add.html:89
+#: rrd/templates/portal/group/advanced.html:18
+msgid "Submit"
+msgstr ""
+
+#: rrd/templates/portal/expression/list.html:7
+#: rrd/templates/portal/nodata/list.html:25
+msgid "Search..."
+msgstr ""
+
+#: rrd/templates/portal/expression/view.html:7
+msgid "Expression detail"
+msgstr ""
+
+#: rrd/templates/portal/group/advanced.html:11
+msgid "Old"
+msgstr ""
+
+#: rrd/templates/portal/group/advanced.html:15
+msgid "New"
+msgstr ""
+
+#: rrd/templates/portal/group/advanced.html:19
+msgid "Cancel"
+msgstr ""
+
+#: rrd/templates/portal/group/index.html:7
+#: rrd/templates/portal/template/list.html:7
+msgid "Search name"
+msgstr ""
+
+#: rrd/templates/portal/group/index.html:13
+#: rrd/templates/portal/nodata/list.html:31
+#: rrd/templates/portal/template/list.html:13
+msgid "Mine"
+msgstr ""
+
+#: rrd/templates/portal/group/index.html:18
+#: rrd/templates/portal/template/list.html:16
+msgid "Input name to create"
+msgstr ""
+
+#: rrd/templates/portal/group/index.html:28
+#: rrd/templates/portal/host/templates.html:15
+#: rrd/templates/portal/template/list.html:27
+msgid "Name"
+msgstr ""
+
+#: rrd/templates/portal/group/index.html:41
+msgid "Hosts"
+msgstr ""
+
+#: rrd/templates/portal/group/index.html:43
+#: rrd/templates/portal/plugin/list.html:6
+msgid "Plugins"
+msgstr ""
+
+#: rrd/templates/portal/group/templates.html:13
+#: rrd/templates/portal/plugin/list.html:9
+msgid "Binding"
+msgstr ""
+
+#: rrd/templates/portal/group/templates.html:59
+#: rrd/templates/portal/plugin/list.html:54
+msgid "Bind"
+msgstr ""
+
+#: rrd/templates/portal/host/add.html:24
+#: rrd/templates/portal/host/index.html:28
+msgid "Add Host"
+msgstr ""
+
+#: rrd/templates/portal/host/groups.html:6
+msgid "Binding groups"
+msgstr ""
+
+#: rrd/templates/portal/host/groups.html:15
+msgid "Group"
+msgstr ""
+
+#: rrd/templates/portal/host/groups.html:29
+msgid "Unbind"
+msgstr ""
+
+#: rrd/templates/portal/host/index.html:37
+msgid "Hostname"
+msgstr ""
+
+#: rrd/templates/portal/host/index.html:38
+msgid "Maintain begin"
+msgstr ""
+
+#: rrd/templates/portal/host/index.html:39
+msgid "Maintain end"
+msgstr ""
+
+#: rrd/templates/portal/host/index.html:40
+msgid "Relation"
+msgstr ""
+
+#: rrd/templates/portal/host/index.html:51
+msgid "Groups"
+msgstr ""
+
+#: rrd/templates/portal/host/index.html:80
+msgid "Maintain"
+msgstr ""
+
+#: rrd/templates/portal/host/index.html:83
+msgid "Unset"
+msgstr ""
+
+#: rrd/templates/portal/host/templates.html:6
+msgid "Binding templates"
+msgstr ""
+
+#: rrd/templates/portal/host/templates.html:16
+#: rrd/templates/portal/template/list.html:28
+msgid "Parent"
+msgstr ""
+
+#: rrd/templates/portal/plugin/list.html:17
+msgid "Plugin dir"
+msgstr ""
+
+#: rrd/templates/screen/graph_add.html:43
+#: rrd/templates/screen/graph_edit.html:66
+msgid "Tag"
+msgstr ""
+
+#: rrd/templates/screen/screen.html:18
+msgid "+Graph"
+msgstr ""
+
+#: rrd/templates/screen/screen.html:20
+msgid "Hide legend"
+msgstr ""
+
+#: rrd/templates/screen/screen.html:22
+msgid "Show legend"
+msgstr ""
+
+#: rrd/templates/screen/screen.html:46
+msgid "3h"
+msgstr ""
+
+#: rrd/templates/screen/screen.html:49
+msgid "1d"
+msgstr ""
+
+#: rrd/templates/screen/screen.html:53
+msgid "1y"
+msgstr ""
+
+#: rrd/templates/screen/screen_layout.html:66
+msgid "Legend"
+msgstr ""
+
+#: rrd/templates/team/create.html:17
+msgid "Create Team"
+msgstr ""
+
+#: rrd/templates/team/edit.html:17
+msgid "Edit Team"
+msgstr ""
+
+#: rrd/templates/team/list.html:43 rrd/templates/user/list.html:43
+msgid "Add"
+msgstr ""
+
+#: rrd/templates/user/create.html:18
+msgid "Create User"
+msgstr ""
+
+#: rrd/templates/user/edit.html:16 rrd/templates/user/profile.html:18
+msgid "Profile of"
+msgstr ""
+
+#: rrd/templates/user/profile.html:56
+msgid "Change Password"
+msgstr ""
+
+#: rrd/view/dashboard/screen.py:73
+msgid "Screen create fail"
+msgstr ""
+
+#: rrd/view/dashboard/screen.py:239
+msgid "Edit successful"
+msgstr ""
+
+#: rrd/view/portal/cluster.py:100
+msgid "Edit"
+msgstr ""
+
+#: rrd/view/portal/cluster.py:110
+msgid "Clone"
+msgstr ""
+
+#~ msgid "batch edit"
+#~ msgstr ""
+
+#~ msgid "search endpoints"
+#~ msgstr ""
+
+#~ msgid "labels"
+#~ msgstr ""
+
+#~ msgid "global search"
+#~ msgstr ""
+
+#~ msgid "Limit 50"
+#~ msgstr ""
+
+#~ msgid "Limit 100"
+#~ msgstr ""
+
+#~ msgid "Limit 500"
+#~ msgstr ""
+
+#~ msgid "page"
+#~ msgstr ""
+
+#~ msgid "delete endpoints"
+#~ msgstr ""
+
+#~ msgid "quick filter"
+#~ msgstr ""
+
+#~ msgid "using SHIFT to continue select"
+#~ msgstr ""
+
+#~ msgid "list counters"
+#~ msgstr ""
+
+#~ msgid "search counters"
+#~ msgstr ""
+
+#~ msgid "search"
+#~ msgstr ""
+
+#~ msgid "delete counters"
+#~ msgstr ""
+
+#~ msgid "show"
+#~ msgstr ""
+
+#~ msgid "endpoint view"
+#~ msgstr ""
+
+#~ msgid "counter view"
+#~ msgstr ""
+
+#~ msgid "multi view"
+#~ msgstr ""
+
+#~ msgid "type"
+#~ msgstr ""
+
+#~ msgid "step"
+#~ msgstr ""
+
+#~ msgid "screens"
+#~ msgstr ""
+
+#~ msgid "+screen"
+#~ msgstr ""
+
+#~ msgid "Sign Up"
+#~ msgstr ""
+
+#~ msgid "fork me on Github"
+#~ msgstr ""
+
+#~ msgid "ldap account"
+#~ msgstr ""
+
+#~ msgid "no account"
+#~ msgstr ""
+
+#~ msgid "sign up"
+#~ msgstr ""
+
+#~ msgid "has account already"
+#~ msgstr ""
+
+#~ msgid "sign in"
+#~ msgstr ""
+
+#~ msgid "date range"
+#~ msgstr ""
+
+#~ msgid "sampling method"
+#~ msgstr ""
+
+#~ msgid "max"
+#~ msgstr ""
+
+#~ msgid "min"
+#~ msgstr ""
+
+#~ msgid "average"
+#~ msgstr ""
+
+#~ msgid "other"
+#~ msgstr ""
+
+#~ msgid "sum"
+#~ msgstr ""
+
+#~ msgid "sum only"
+#~ msgstr ""
+
+#~ msgid "cancel sum"
+#~ msgstr ""
+
+#~ msgid "reset"
+#~ msgstr ""
+
+#~ msgid "select all"
+#~ msgstr ""
+
+#~ msgid "reverse select"
+#~ msgstr ""
+
+#~ msgid "refresh"
+#~ msgstr ""
+
+#~ msgid "type to fiter, enter to refresh..."
+#~ msgstr ""
+
+#~ msgid "begin"
+#~ msgstr ""
+
+#~ msgid "end"
+#~ msgstr ""
+
+#~ msgid "view"
+#~ msgstr ""
+
+#~ msgid "alerting cases"
+#~ msgstr ""
+
+#~ msgid "not recovered cases"
+#~ msgstr ""
+
+#~ msgid "template"
+#~ msgstr ""
+
+#~ msgid "strategy"
+#~ msgstr ""
+
+#~ msgid "expression"
+#~ msgstr ""
+
+#~ msgid "delete"
+#~ msgstr ""
+
+#~ msgid "event list"
+#~ msgstr ""
+
+#~ msgid "batch delete"
+#~ msgstr ""
+
+#~ msgid "back"
+#~ msgstr ""
+
+#~ msgid "alerts"
+#~ msgstr ""
+
+#~ msgid "create cluster monitor metric"
+#~ msgstr ""
+
+#~ msgid "configure help"
+#~ msgstr ""
+
+#~ msgid "endpoint"
+#~ msgstr ""
+
+#~ msgid "metric"
+#~ msgstr ""
+
+#~ msgid "tags"
+#~ msgstr ""
+
+#~ msgid "expression detail"
+#~ msgstr ""
+
+#~ msgid "old"
+#~ msgstr ""
+
+#~ msgid "new"
+#~ msgstr ""
+
+#~ msgid "templates"
+#~ msgstr ""
+
+#~ msgid "hosts"
+#~ msgstr ""
+
+#~ msgid "plugins"
+#~ msgstr ""
+
+#~ msgid "aggregator"
+#~ msgstr ""
+
+#~ msgid "binding groups"
+#~ msgstr ""
+
+#~ msgid "group"
+#~ msgstr ""
+
+#~ msgid "hostname"
+#~ msgstr ""
+
+#~ msgid "maintain begin"
+#~ msgstr ""
+
+#~ msgid "maintain end"
+#~ msgstr ""
+
+#~ msgid "relation"
+#~ msgstr ""
+
+#~ msgid "groups"
+#~ msgstr ""
+
+#~ msgid "binding templates"
+#~ msgstr ""
+
+#~ msgid "plugin dir"
+#~ msgstr ""
+
+#~ msgid "screen"
+#~ msgstr ""
+
+#~ msgid "graph"
+#~ msgstr ""
+
+#~ msgid "counter"
+#~ msgstr ""
+
+#~ msgid "tag"
+#~ msgstr ""
+
+#~ msgid "+graph"
+#~ msgstr ""
+
+#~ msgid "hide legend"
+#~ msgstr ""
+
+#~ msgid "show legend"
+#~ msgstr ""
+
+#~ msgid "legend"
+#~ msgstr ""
+
+#~ msgid "screen create fail"
+#~ msgstr ""
+
+#~ msgid "edit successful"
+#~ msgstr ""
+
+#~ msgid "edit"
+#~ msgstr ""
+
+#~ msgid "clone"
+#~ msgstr ""
+
+#~ msgid "Batch edit"
+#~ msgstr ""
+
+#~ msgid "Search endpoints"
+#~ msgstr ""
+
+#~ msgid "Using SPACE to separate keywords"
+#~ msgstr ""
+
+#~ msgid "Labels"
+#~ msgstr ""
+
+#~ msgid "Global search"
+#~ msgstr ""
+
+#~ msgid "Limit"
+#~ msgstr ""
+
+#~ msgid "Page"
+#~ msgstr ""
+
+#~ msgid "Delete endpoints"
+#~ msgstr ""
+
+#~ msgid "Quick filter"
+#~ msgstr ""
+
+#~ msgid "Using SHIFT to continue select"
+#~ msgstr ""
+
+#~ msgid "List counters"
+#~ msgstr ""
+
+#~ msgid "Search counters"
+#~ msgstr ""
+
+#~ msgid "Delete counters"
+#~ msgstr ""
+
+#~ msgid "Show"
+#~ msgstr ""
+
+#~ msgid "Endpoint view"
+#~ msgstr ""
+
+#~ msgid "Counter view"
+#~ msgstr ""
+
+#~ msgid "Multi view"
+#~ msgstr ""
+
+#~ msgid "Type"
+#~ msgstr ""
+
+#~ msgid "Step"
+#~ msgstr ""
+
+#~ msgid "Screens"
+#~ msgstr ""
+
+#~ msgid "+Screen"
+#~ msgstr ""
+
+#~ msgid "Fork me on Github"
+#~ msgstr ""
+
+#~ msgid "LDAP account"
+#~ msgstr ""
+
+#~ msgid "No account"
+#~ msgstr ""
+
+#~ msgid "Has account already"
+#~ msgstr ""
+
+#~ msgid "Date range"
+#~ msgstr ""
+
+#~ msgid "Sampling method"
+#~ msgstr ""
+
+#~ msgid "Max"
+#~ msgstr ""
+
+#~ msgid "Min"
+#~ msgstr ""
+
+#~ msgid "Average"
+#~ msgstr ""
+
+#~ msgid "Other"
+#~ msgstr ""
+
+#~ msgid "Sum"
+#~ msgstr ""
+
+#~ msgid "Sum only"
+#~ msgstr ""
+
+#~ msgid "Sancel sum"
+#~ msgstr ""
+
+#~ msgid "Reset"
+#~ msgstr ""
+
+#~ msgid "Select all"
+#~ msgstr ""
+
+#~ msgid "Reverse select"
+#~ msgstr ""
+
+#~ msgid "Refresh"
+#~ msgstr ""
+
+#~ msgid "Type to fiter, enter to refresh..."
+#~ msgstr ""
+
+#~ msgid "Cancel sum"
+#~ msgstr ""
+
+#~ msgid "Begin"
+#~ msgstr ""
+
+#~ msgid "End"
+#~ msgstr ""
+
+#~ msgid "View"
+#~ msgstr ""
+
+#~ msgid "Alerting cases"
+#~ msgstr ""
+
+#~ msgid "Not recovered cases"
+#~ msgstr ""
+
+#~ msgid "Template"
+#~ msgstr ""
+
+#~ msgid "Strategy"
+#~ msgstr ""
+
+#~ msgid "Expression"
+#~ msgstr ""
+
+#~ msgid "Delete"
+#~ msgstr ""
+
+#~ msgid "Event list"
+#~ msgstr ""
+
+#~ msgid "Batch delete"
+#~ msgstr ""
+
+#~ msgid "Alerts"
+#~ msgstr ""
+
+#~ msgid "Create cluster monitor metric"
+#~ msgstr ""
+
+#~ msgid "Aggregator"
+#~ msgstr ""
+
+#~ msgid "Configure help"
+#~ msgstr ""
+
+#~ msgid "Metric"
+#~ msgstr ""
+
+#~ msgid "Tags"
+#~ msgstr ""
+
+#~ msgid "Creator"
+#~ msgstr ""
+
+#~ msgid "Operation"
+#~ msgstr ""
+
+#~ msgid "No records"
+#~ msgstr ""
+
+#~ msgid "Search..."
+#~ msgstr ""
+
+#~ msgid "Expression detail"
+#~ msgstr ""
+
+#~ msgid "Old"
+#~ msgstr ""
+
+#~ msgid "New"
+#~ msgstr ""
+
+#~ msgid "Mine"
+#~ msgstr ""
+
+#~ msgid "Input name to create"
+#~ msgstr ""
+
+#~ msgid "Name"
+#~ msgstr ""
+
+#~ msgid "Hosts"
+#~ msgstr ""
+
+#~ msgid "Plugins"
+#~ msgstr ""
+
+#~ msgid "Binding groups"
+#~ msgstr ""
+
+#~ msgid "Group"
+#~ msgstr ""
+
+#~ msgid "Hostname"
+#~ msgstr ""
+
+#~ msgid "Maintain begin"
+#~ msgstr ""
+
+#~ msgid "Maintain end"
+#~ msgstr ""
+
+#~ msgid "Relation"
+#~ msgstr ""
+
+#~ msgid "Groups"
+#~ msgstr ""
+
+#~ msgid "Binding templates"
+#~ msgstr ""
+
+#~ msgid "Parent"
+#~ msgstr ""
+
+#~ msgid "Binding"
+#~ msgstr ""
+
+#~ msgid "Plugin dir"
+#~ msgstr ""
+
+#~ msgid "Sreen"
+#~ msgstr ""
+
+#~ msgid "Tag"
+#~ msgstr ""
+
+#~ msgid "+Graph"
+#~ msgstr ""
+
+#~ msgid "Hide legend"
+#~ msgstr ""
+
+#~ msgid "Show legend"
+#~ msgstr ""
+
+#~ msgid "Legend"
+#~ msgstr ""
+
+#~ msgid "using SPACE to separate keywords"
+#~ msgstr ""
+
+#~ msgid "creator"
+#~ msgstr ""
+
+#~ msgid "operation"
+#~ msgstr ""
+
+#~ msgid "no records"
+#~ msgstr ""
+
+#~ msgid "search..."
+#~ msgstr ""
+
+#~ msgid "search name"
+#~ msgstr ""
+
+#~ msgid "mine"
+#~ msgstr ""
+
+#~ msgid "input name to create"
+#~ msgstr ""
+
+#~ msgid "name"
+#~ msgstr ""
+
+#~ msgid "parent"
+#~ msgstr ""
+
+#~ msgid "binding"
+#~ msgstr ""
 

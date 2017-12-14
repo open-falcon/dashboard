@@ -1,7 +1,7 @@
 
 {% extends "base.html" %}
 
-{%block title%}Falcon-Dashboard{%endblock%}
+{%block title%}{{_('Falcon-Dashboard')}}{%endblock%}
 
 {% block more_head %}
 {{super()}}
@@ -65,43 +65,43 @@
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <img class="loading pull-right" src="/static/img/loading.gif" style="display:none;"></img>
-                            {{_('search endpoints')}}
+                            {{_('Search endpoints')}}
                         </div>
 
                         <div class="panel-body">
                             <form role="form">
                                 <div class="form-group">
-                                    <label>Endpoint</label>
+                                    <label>{{_('Endpoint')}}</label>
                                     <input id="endpoint-search" name="endpoint_search" type="text" class="form-control input-sm">
-                                    <p class="help-block"><span class="text-warning">{{_('using SPACE to separate keywords')}}</span></p>
+                                    <p class="help-block"><span class="text-warning">{{_('Using SPACE to separate keywords')}}</span></p>
                                 </div>
                                 <div class="form-group">
-                                    <label>{{_('labels')}}( eg: job=appstore-web)</label>
+                                    <label>{{_('Labels')}}( eg: job=appstore-web)</label>
                                     <input id="tag-search" name="tag_search" type="text" class="form-control input-sm">
                                 </div>
                             </form>
                             <form class="form-inline" role="form">
                                 <div class="form-group">
-                                    <button type="button" id="btn-search-endpoints" class="btn btn-default btn-sm btn-success" onclick="fn_list_endpoints();return false;">{{_('global search')}}</button>
+                                    <button type="button" id="btn-search-endpoints" class="btn btn-default btn-sm btn-success" onclick="fn_list_endpoints();return false;">{{_('Global search')}}</button>
                                     <select class="form-control input-sm" id="endpoint-limit" onchange="fn_list_endpoints();return false;">
-                                        <option value="50"> Limit 50</option>
-                                        <option value="100">Limit 100</option>
-                                        <option value="500">Limit 500</option>
+                                        <option value="50"> {{_('Limit')}} 50</option>
+                                        <option value="100">{{_('Limit')}} 100</option>
+                                        <option value="500">{{_('Limit')}} 500</option>
                                     </select>
                                     <select class="form-control input-sm" id="endpoint-page" onchange="fn_list_endpoints();return false;">
                                         {%for p in range(1, 21)%}
-                                        <option value="{{p}}"> page {{p}}</option>
+                                        <option value="{{p}}"> {{_('Page')}} {{p}}</option>
                                         {%endfor%}
                                     </select>
                                     <span class="cut-line">¦</span>
-                                    <button class="btn btn-default btn-sm" onclick="fn_delete_endpoints();return false;">{{_('delete endpoints')}}</button>
+                                    <button class="btn btn-default btn-sm" onclick="fn_delete_endpoints();return false;">{{_('Delete endpoints')}}</button>
                                 </div>
                             </form>
                             <hr/>
                             <form class="form-inline" role="form">
                                 <div class="form-group">
                                     <input id="endpoint-filter" type="text" class="form-control input-sm">
-                                    <button class="btn btn-default btn-sm btn-info" onclick="filter_endpoint();return false;">{{_('quick filter')}}</button>
+                                    <button class="btn btn-default btn-sm btn-info" onclick="filter_endpoint();return false;">{{_('Quick filter')}}</button>
                                 </div>
                             </form>
 
@@ -112,10 +112,10 @@
                                 <th>
                                 <span style="display: inline-block;vertical-align:middle;">
                                     <input type="checkbox" id="check_all_endpoints" style="height:13px;">
-                                    <span class="text-warning">{{_('using SHIFT to continue select')}}</span>
+                                    <span class="text-warning">{{_('Using SHIFT to continue select')}}</span>
                                 </span>
                                 <span class="pull-right">
-                                    <button class="btn btn-default btn-xs" onclick="fn_list_counters();return false;">{{_('list counters')}}</button>
+                                    <button class="btn btn-default btn-xs" onclick="fn_list_counters();return false;">{{_('List counters')}}</button>
                                 </span>
                                 </th>
                             </tr></thead>
@@ -150,44 +150,44 @@
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <img class="loading pull-right" src="/static/img/loading.gif" style="display:none;"></img>
-                            {{_('search counters')}}
+                            {{_('Search counters')}}
                         </div>
 
                         <div class="panel-body">
                             <form role="form">
                                 <div class="form-group">
-                                    <label>Counter</label>
+                                    <label>{{_('Counter')}}</label>
                                     <input id="counter-search" type="text" class="form-control input-sm">
-                                    <p class="help-block"><span class="text-warning">{{_('using SPACE to separate keywords')}}</span></p>
+                                    <p class="help-block"><span class="text-warning">{{_('Using SPACE to separate keywords')}}</span></p>
                                 </div>
                             </form>
 
                             <form class="form-inline" role="form">
-                                <button class="btn btn-default btn-sm btn-success" onclick="fn_list_counters();return false;">{{_('search')}}</button>
+                                <button class="btn btn-default btn-sm btn-success" onclick="fn_list_counters();return false;">{{_('Search')}}</button>
                                 <div class="form-group">
                                     <select class="form-control input-sm" id="counter-limit" onchange="fn_list_counters();return false;">
-                                        <option value="50"> Limit 50</option>
-                                        <option value="100">Limit 100</option>
-                                        <option value="500">Limit 500</option>
+                                        <option value="50"> {{_('Limit')}} 50</option>
+                                        <option value="100">{{_('Limit')}} 100</option>
+                                        <option value="500">{{_('Limit')}} 500</option>
                                     </select>
                                     <select class="form-control input-sm" id="counter-page" onchange="fn_list_counters();return false;">
                                         {%for p in range(1, 21)%}
-                                        <option value="{{p}}"> page {{p}}</option>
+                                        <option value="{{p}}"> {{_('Page')}} {{p}}</option>
                                         {%endfor%}
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <input id="counter-filter" type="text" class="form-control input-sm">
-                                    <button class="btn btn-default btn-sm btn-info" onclick="filter_counter();return false;">{{_('quick filter')}}</button>
-                                    <button class="btn btn-default btn-sm" onclick="fn_delete_counters();return false;">{{_('delete counters')}}</button>
+                                    <button class="btn btn-default btn-sm btn-info" onclick="filter_counter();return false;">{{_('Quick filter')}}</button>
+                                    <button class="btn btn-default btn-sm" onclick="fn_delete_counters();return false;">{{_('Delete counters')}}</button>
                                 </div>
 
                                 <div class="dropdown form-group pull-right">
-                                    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#"> {{_('show')}}<span class="caret"></span></a>
+                                    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#"> {{_('Show')}}<span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
-                                      <li><a href="#" class="btn btn-link btn-xs" onclick="fn_show_all('h');return false;">{{_('endpoint view')}}</a></li>
-                                      <li><a href="#" class="btn btn-link btn-xs" onclick="fn_show_all('k');return false;">{{_('counter view')}}</a></li>
-                                      <li><a href="#" class="btn btn-link btn-xs" onclick="fn_show_all('a');return false;">{{_('multi view')}}</a></li>
+                                      <li><a href="#" class="btn btn-link btn-xs" onclick="fn_show_all('h');return false;">{{_('Endpoint view')}}</a></li>
+                                      <li><a href="#" class="btn btn-link btn-xs" onclick="fn_show_all('k');return false;">{{_('Counter view')}}</a></li>
+                                      <li><a href="#" class="btn btn-link btn-xs" onclick="fn_show_all('a');return false;">{{_('Multi view')}}</a></li>
                                     </ul>
                                 </div>
 
@@ -198,9 +198,9 @@
                         <table class="table table-striped">
                             <thead> <tr>
                                 <th width="30px"><input type="checkbox" id="check_all_counters"></th>
-                                <th >Counters</th>
-                                <th width="60px">{{_('type')}}</th>
-                                <th width="60px">{{_('step')}}</th>
+                                <th >{{_('Counters')}}</th>
+                                <th width="60px">{{_('Type')}}</th>
+                                <th width="60px">{{_('Step')}}</th>
                             </tr></thead>
 
                             <tbody id="tbody-counters"> </tbody>

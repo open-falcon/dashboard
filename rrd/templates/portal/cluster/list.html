@@ -8,23 +8,23 @@
             <div class="pull-right">
                 <a class="btn btn-success btn-xs" href="/portal/group/{{ group.id }}/cluster/creator">
                     <span class="glyphicon glyphicon-plus"></span>
-                    新建
+                    {{_('Create')}}
                 </a>
             </div>
         </div>
         <div class="panel-body" style="padding-left: 8px;">
-            当前HostGroup：<span class="green">{{ group.grp_name }}</span>
+            当前{{_('HostGroup')}}：<span class="green">{{ group.grp_name }}</span>
         </div>
 
         <!-- Table -->
         <table class="table table-hover table-bordered table-striped" style="margin-bottom: 0px; margin-top: 0px;">
             <thead>
             <tr>
-                <th>endpoint</th>
-                <th>metric</th>
-                <th>tags</th>
-                <th>creator</th>
-                <th>operation</th>
+                <th>{{_('Endpoint')}}</th>
+                <th>{{_('Metric')}}</th>
+                <th>{{_('Tags')}}</th>
+                <th>{{_('Creator')}}</th>
+                <th>{{_('Operation')}}</th>
             </tr>
             </thead>
             <tbody>
@@ -56,7 +56,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="5">no records</td>
+                    <td colspan="5">{{_('No records')}}</td>
                 </tr>
             {% endfor %}
             </tbody>

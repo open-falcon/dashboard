@@ -7,19 +7,19 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="panel-title">
-                    克隆screen: <b>{{screen.name}}</b>
+                    克隆{{_('Screen')}}: <b>{{screen.name}}</b>
                 </div>
             </div>
 
             <div class="panel-body">
                 <form role="form" method="post" action="/screen/{{screen.id}}/clone">
                      <div class="form-group">
-                         <label> 新screen的名字 </label>
-                         <input type="text" name="screen_name" class="form-control" required placeholder="新screen名字" value="{{screen.name}}">
+                         <label> 新{{_('Screen')}}的名字 </label>
+                         <input type="text" name="screen_name" class="form-control" required placeholder="新{{_('Screen')}}名字" value="{{screen.name}}">
                      </div>
 
                      <div class="form-group">
-                         <label> 是否复制相应的graph </label>
+                         <label> 是否复制相应的{{_('Screen')}} </label>
                          <input type="checkbox" name="with_graph" class="form-control" checked>
                      </div>
                     <button type="submit" class="btn btn-default">克隆</button>

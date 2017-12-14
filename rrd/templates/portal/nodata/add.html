@@ -57,7 +57,7 @@
 
                 <div class="form-group">
                     <label for="obj_type">
-                        endpoint选择:
+                        {{_('Endpoint')}}选择:
                     </label>
                     <a target="_blank" href="http://book.open-falcon.org/zh/usage/nodata.html" title="endpoint配置说明">
                         <span class="glyphicon glyphicon-question-sign" style="float:right;"></span>
@@ -71,18 +71,18 @@
                 </div> 
 
                 <div class="form-group">
-                    <label for="metric">metric:</label>
+                    <label for="metric">{{_('Metric')}}:</label>
                     <input type="text" placeholder="agent.alive" value="{{ data.nodata.metric }}" class="form-control" id="metric">
                     <span class="help-block"></span>
                 </div>
 
                 <div class="form-group">
-                    <label for="tags">tags:</label>
+                    <label for="tags">{{_('Tags')}}:</label>
                     <input type="text" {% if not data.nodata.id %}placeholder="pdl=falcon,module=nodata"{% endif %} value="{{ data.nodata.tags }}" class="form-control" id="tags">
                 </div>
 
                 <div class="form-group">
-                    <label for="dstype">type:</label>
+                    <label for="dstype">{{_('Type')}}:</label>
                     <select class="form-control" id="dstype">
                         <option value="GAUGE"   {% if data.nodata.dstype == 'GAUGE' %}selected{% endif %}>GAUGE</option>
                     </select>
@@ -107,7 +107,7 @@
                     </button>
                     <a href="{{ url_for('nodatas_get') }}" class="btn btn-default">
                         <span class="glyphicon glyphicon-arrow-left"></span>
-                        Back
+                        {{_('Back')}}
                     </a>
                 </div>
 
@@ -117,7 +117,7 @@
 
         <a class="orange" target="_blank" href="http://book.open-falcon.org/zh/usage/nodata.html">
             <span class="glyphicon glyphicon-question-sign"></span>
-            Nodata监控用户手册
+            {{_('Nodata')}}监控用户手册
         </a>
     </div>    
 

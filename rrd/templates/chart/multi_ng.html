@@ -43,7 +43,7 @@
                     <div class="col-md-12">
                         <form class="form-inline" role="form">
                             <div class="form-group">
-                                <label class="control-label">{{_('begin')}}</label>
+                                <label class="control-label">{{_('Begin')}}</label>
                                 <a class="dropdown-toggle form-control input-sm date-area" id="dropdown1" role="button" data-toggle="dropdown" href="javascript:;">
                                     <div class="input-group">
                                         <span class="form-control-static">[[ vm.globalParam.start | date: 'yyyy-MM-dd HH:mm' ]]</span>
@@ -56,7 +56,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label">{{_('end')}}</label>
+                                <label class="control-label">{{_('End')}}</label>
                                 <a class="dropdown-toggle form-control input-sm date-area" id="dropdown2" role="button" data-toggle="dropdown" href="javascript:;">
                                     <div class="input-group">
                                         <span class="form-control-static">[[ vm.globalParam.end | date: 'yyyy-MM-dd HH:mm' ]]</span>
@@ -69,7 +69,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label">{{_('sampling method')}}</label>
+                                <label class="control-label">{{_('Sampling method')}}</label>
                                 <select class="form-control input-sm" name="cf" ng-model="vm.globalParam.cf">
                                     <option value="AVERAGE" selected="">AVERAGE</option>
                                     <option value="MAX">MAX</option>
@@ -77,26 +77,26 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">{{_('view')}}</label>
+                                <label class="control-label">{{_('View')}}</label>
                                 <select class="form-control input-sm" name="graph_type"  ng-model="vm.globalParam.graph_type">
-                                    <option value="h" selected="">{{_('endpoint view')}}</option>
-                                    <option value="k">{{_('counter view')}}</option>
-                                    <option value="a">{{_('multi view')}}</option>
+                                    <option value="h" selected="">{{_('Endpoint view')}}</option>
+                                    <option value="k">{{_('Counter view')}}</option>
+                                    <option value="a">{{_('Multi view')}}</option>
                                 </select>
                             </div>
 
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" id="sum" name="sum" value="on"  ng-model="vm.globalParam.sum" ng-true-value="on" ng-false-value="off">{{_('sum')}}
+                                        <input type="checkbox" id="sum" name="sum" value="on"  ng-model="vm.globalParam.sum" ng-true-value="on" ng-false-value="off">{{_('Sum')}}
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button id="go" class="btn btn-default btn-sm" ng-click="vm.show()">{{_('show')}}</button>
+                                <button id="go" class="btn btn-default btn-sm" ng-click="vm.show()">{{_('Show')}}</button>
                             </div>
                             <div class="form-group">
-                                <button id="reset" class="btn btn-default btn-sm" ng-click="vm.reset()">{{_('reset')}}</button>
+                                <button id="reset" class="btn btn-default btn-sm" ng-click="vm.reset()">{{_('Reset')}}</button>
                             </div>
 
                         </form>
@@ -111,7 +111,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading" style="padding:8px;">
                                 <a class="btn btn-default btn-xs reset-zoom pull-right">
-                                    <span class="glyphicon glyphicon-zoom-out" aria-hidden="true">
+                                    <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
                                 </a>
                                 <span class="panel-title graph-title">[[ con.title ]]</span>
                             </div>

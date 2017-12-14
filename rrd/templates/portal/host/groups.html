@@ -3,7 +3,7 @@
 
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading" style="padding-left: 8px;">binding groups</div>
+        <div class="panel-heading" style="padding-left: 8px;">{{_('Binding groups')}}</div>
         <div class="panel-body" style="padding-left: 8px;">
             host: <span class="green">{{ host.hostname }}</span>
         </div>
@@ -12,9 +12,9 @@
         <table class="table table-hover table-bordered table-striped" style="margin-bottom: 0px; margin-top: 0px;">
             <thead>
             <tr>
-                <th>group</th>
-                <th>creator</th>
-                <th>operation</th>
+                <th>{{_('Group')}}</th>
+                <th>{{_('Creator')}}</th>
+                <th>{{_('Operation')}}</th>
             </tr>
             </thead>
             <tbody>
@@ -26,13 +26,13 @@
                         <button class="btn btn-default btn-xs"
                                 onclick="host_unbind_group('{{ host.id }}', '{{ v.id }}');">
                             <span class="glyphicon glyphicon-trash"></span>
-                            Unbind
+                            {{_('Unbind')}}
                         </button>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">no records</td>
+                    <td colspan="3">{{_('No records')}}</td>
                 </tr>
             {% endfor %}
             </tbody>

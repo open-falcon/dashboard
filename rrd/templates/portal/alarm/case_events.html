@@ -3,8 +3,8 @@
 
     <div class="panel panel-danger">
         <div class="panel-heading">
-            <h4 class="panel-title">case:{{case.id}} {{_('event list')}}
-                <a href="/portal/alarm-dash/case" class="pull-right small">{{_('back')}}</a></h4>
+            <h4 class="panel-title">case:{{case.id}} {{_('Event list')}}
+                <a href="/portal/alarm-dash/case" class="pull-right small">{{_('Back')}}</a></h4>
         </div>
         <div class="panel-body">
             <div class="alarms">
@@ -15,7 +15,7 @@
                     [第<span class="orange">#{{evt.step}}</span>次/最大{{case.max_step}}次]
                     <span class="orange">{{evt.timestamp|time_duration}}</span>
                     <span class="gray">[</span>
-                    <a href="javascript:alarm_case_event_rm('{{evt.id}}');">delete</a>
+                    <a href="javascript:alarm_case_event_rm('{{evt.id}}');">{{_('Delete')}}</a>
                     <span class="gray">]</span>
                     <br/>
 
@@ -31,9 +31,9 @@
                 </div>
                 <hr>
                 {%endfor%}
-                <a href="javascript:alarm_case_event_all_select();">{{_('select all')}}</a>/
-                <a href="javascript:alarm_case_event_reverse_select();">{{_('reverse select')}}</a>
-                <button class="btn btn-warning btn-sm" onclick="alarm_case_event_batch_rm();">{{_('batch delete')}}</button>
+                <a href="javascript:alarm_case_event_all_select();">{{_('Select all')}}</a>/
+                <a href="javascript:alarm_case_event_reverse_select();">{{_('Reverse select')}}</a>
+                <button class="btn btn-warning btn-sm" onclick="alarm_case_event_batch_rm();">{{_('Batch delete')}}</button>
             </div>
         </div>
 

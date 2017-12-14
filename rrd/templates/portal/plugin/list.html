@@ -3,10 +3,10 @@
 
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading" style="padding-left: 8px;">plugins</div>
+        <div class="panel-heading" style="padding-left: 8px;">{{_('Plugins')}}</div>
         <div class="panel-body" style="padding-left: 8px;">
             <span class="green">{{ group.grp_name }}</span>
-            binding
+            {{_('Binding')}}
             <span class="glyphicon glyphicon-pushpin"></span>
         </div>
 
@@ -14,9 +14,9 @@
         <table class="table table-hover table-bordered table-striped" style="margin-bottom: 0px; margin-top: 0px;">
             <thead>
             <tr>
-                <th>plugin dir</th>
-                <th>creator</th>
-                <th>operation</th>
+                <th>{{_('Plugin dir')}}</th>
+                <th>{{_('Creator')}}</th>
+                <th>{{_('Operation')}}</th>
             </tr>
             </thead>
             <tbody>
@@ -38,7 +38,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3">no records</td>
+                    <td colspan="3">{{_('No records')}}</td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -51,11 +51,11 @@
                onkeydown="if(event.keyCode==13)bind_plugin('{{ group.id }}')">
         <button type="button" onclick="bind_plugin('{{ group.id }}');" class="btn btn-default">
             <span class="glyphicon glyphicon-plus"></span>
-            Bind
+            {{_('Bind')}}
         </button>
         <button type="button" onclick="history.go(-1);" class="btn btn-default">
             <span class="glyphicon glyphicon-arrow-left"></span>
-            Back
+            {{_('Back')}}
         </button>
     </div>
 

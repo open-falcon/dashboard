@@ -25,7 +25,7 @@
             <a {% if g.xbox %}target="_blank"{% endif %} href="{{ url_for('host_add_get', group_id = data.group.id) }}"
                class="btn btn-default" style="margin-left: 10px;">
                 <span class="glyphicon glyphicon-plus"></span>
-                Add Host
+                {{_('Add Host')}}
             </a>
         </div>
     </div>
@@ -34,10 +34,10 @@
         <thead>
         <tr>
             <th><input type="checkbox" onclick="select_all();" id="chk"/></th>
-            <th>hostname</th>
-            <th>maintain begin</th>
-            <th>maintain end</th>
-            <th>relation</th>
+            <th>{{_('Hostname')}}</th>
+            <th>{{_('Maintain begin')}}</th>
+            <th>{{_('Maintain end')}}</th>
+            <th>{{_('Relation')}}</th>
         </tr>
         </thead>
         <tbody id="hosts">
@@ -48,14 +48,14 @@
                 <td>{{ v.maintain_begin | fmt_time }}</td>
                 <td>{{ v.maintain_end | fmt_time }}</td>
                 <td>
-                    <a href="{{ url_for('host_groups_get', host_id=v.id) }}">groups</a>
+                    <a href="{{ url_for('host_groups_get', host_id=v.id) }}">{{_('Groups')}}</a>
                     <span class="cut-line">¦</span>
-                    <a href="{{ url_for('host_templates_get', host_id=v.id) }}">templates</a>
+                    <a href="{{ url_for('host_templates_get', host_id=v.id) }}">{{_('Templates')}}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records</td>
+                <td colspan="5">{{_('No records')}}</td>
             </tr>
         {% endfor %}
         <tr>
@@ -77,10 +77,10 @@
                     </span>
                     </div>
                     <div class='input-group'>
-                        <button class="btn btn-default" onclick="maintain()">Maintain</button>
+                        <button class="btn btn-default" onclick="maintain()">{{_('Maintain')}}</button>
                     </div>
                     <div class='input-group'>
-                        <button class="btn btn-default" onclick="no_maintain()">Unset</button>
+                        <button class="btn btn-default" onclick="no_maintain()">{{_('Unset')}}</button>
                     </div>
                 </div>
             </td>

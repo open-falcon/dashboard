@@ -45,37 +45,37 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <a class="btn btn-default btn-xs reset-zoom pull-right">
-                    <span class="glyphicon glyphicon-zoom-out" aria-hidden="true">
+                    <span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span>
                 </a>
                 <div class="btn-group pull-right chart-config">
                     <a class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:;" style="margin-left:0px; vertical-align:top;">
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu" style="min-width:400px; margin:0 0 0 0px;">
                         <table class="table table-striped">
-                            <tbody><tr><td width="100px;"><span>{{_('date range')}}</span>
+                            <tbody><tr><td width="100px;"><span>{{_('Date range')}}</span>
                                     </td><td>
-                                        <a ng-class="{enable: vm.param.start == -3600}" ng-click="vm.param.start=-3600" class="chart-opt">1h</a>
-                                        <a ng-class="{enable: vm.param.start == -21600}" ng-click="vm.param.start=-21600" class="chart-opt">6h</a>
-                                        <a ng-class="{enable: vm.param.start == -43200}" ng-click="vm.param.start=-43200" class="chart-opt">12h</a>
-                                        <a ng-class="{enable: vm.param.start == -86400}" ng-click="vm.param.start=-86400" class="chart-opt">24h</a>
-                                        <a ng-class="{enable: vm.param.start == -259200}" ng-click="vm.param.start=-259200" class="chart-opt">3d</a>
-                                        <a ng-class="{enable: vm.param.start == -604800}" ng-click="vm.param.start=-604800" class="chart-opt">7d</a>
-                                        <a ng-class="{enable: vm.param.start == -2592000}" ng-click="vm.param.start=-2592000" class="chart-opt">1m</a>
+                                        <a ng-class="{enable: vm.param.start == -3600}" ng-click="vm.param.start=-3600" class="chart-opt">{{_('1h')}}</a>
+                                        <a ng-class="{enable: vm.param.start == -21600}" ng-click="vm.param.start=-21600" class="chart-opt">{{_('6h')}}</a>
+                                        <a ng-class="{enable: vm.param.start == -43200}" ng-click="vm.param.start=-43200" class="chart-opt">{{_('12h')}}</a>
+                                        <a ng-class="{enable: vm.param.start == -86400}" ng-click="vm.param.start=-86400" class="chart-opt">{{_('24h')}}</a>
+                                        <a ng-class="{enable: vm.param.start == -259200}" ng-click="vm.param.start=-259200" class="chart-opt">{{_('3d')}}</a>
+                                        <a ng-class="{enable: vm.param.start == -604800}" ng-click="vm.param.start=-604800" class="chart-opt">{{_('7d')}}</a>
+                                        <a ng-class="{enable: vm.param.start == -2592000}" ng-click="vm.param.start=-2592000" class="chart-opt">{{_('1m')}}</a>
                                 </td></tr>
 
-                                <tr><td> <span>{{_('sampling method')}}</span>
+                                <tr><td> <span>{{_('Sampling method')}}</span>
                                     </td><td>
-                                        <a ng-class="{enable: vm.param.cf=='MAX'}" ng-click="vm.param.cf='MAX'" class="chart-opt">{{_('max')}}</a>
-                                        <a ng-class="{enable: vm.param.cf=='MIN'}" ng-click="vm.param.cf='MIN'" class="chart-opt">{{_('min')}}</a>
-                                        <a ng-class="{enable: vm.param.cf=='AVERAGE'}" ng-click="vm.param.cf='AVERAGE'" class="chart-opt">{{_('average')}}</a>
+                                        <a ng-class="{enable: vm.param.cf=='MAX'}" ng-click="vm.param.cf='MAX'" class="chart-opt">{{_('Max')}}</a>
+                                        <a ng-class="{enable: vm.param.cf=='MIN'}" ng-click="vm.param.cf='MIN'" class="chart-opt">{{_('Min')}}</a>
+                                        <a ng-class="{enable: vm.param.cf=='AVERAGE'}" ng-click="vm.param.cf='AVERAGE'" class="chart-opt">{{_('Average')}}</a>
                                 </td></tr>
 
-                                <tr><td><span>{{_('other')}}</span>
+                                <tr><td><span>{{_('Other')}}</span>
                                     </td><td>
-                                        <a ng-click="vm.param.sum='on';vm.param.sumonly='off'" data-k="sum|sumonly" data-v="1| " class="chart-opt">{{_('sum')}}</a>
-                                        <a ng-click="vm.param.sum='on';vm.param.sumonly='on'" data-k="sumonly" data-v="1" class="chart-opt">{{_('sum only')}}</a>
-                                        <a ng-click="vm.param.sum='off';vm.param.sumonly='off'" data-k="sum|sumonly" data-v=" | " class="chart-opt">{{_('cancel sum')}}</a>
-                                        <a ng-click="vm.reset()" data-k="start|end|sum|cf|tongbi|sumonly" data-v=" | | | | | | " class="chart-opt"><b>{{_('reset')}}</b></a>
+                                        <a ng-click="vm.param.sum='on';vm.param.sumonly='off'" data-k="sum|sumonly" data-v="1| " class="chart-opt">{{_('Sum')}}</a>
+                                        <a ng-click="vm.param.sum='on';vm.param.sumonly='on'" data-k="sumonly" data-v="1" class="chart-opt">{{_('Sum only')}}</a>
+                                        <a ng-click="vm.param.sum='off';vm.param.sumonly='off'" data-k="sum|sumonly" data-v=" | " class="chart-opt">{{_('Cancel sum')}}</a>
+                                        <a ng-click="vm.reset()" data-k="start|end|sum|cf|tongbi|sumonly" data-v=" | | | | | | " class="chart-opt"><b>{{_('Reset')}}</b></a>
                                 </td></tr>
                         </tbody></table>
                     </ul>

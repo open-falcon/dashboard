@@ -8,17 +8,17 @@
             <form class="form-inline" role="form">
 
                 <div class="form-group">
-                    <label class="control-label">{{_('begin')}}</label>
+                    <label class="control-label">{{_('Begin')}}</label>
                     <input type='text' class="form-control" name="start_s" data-date-format="YYYY-MM-DD HH:mm" />
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label">{{_('end')}}</label>
+                    <label class="control-label">{{_('End')}}</label>
                     <input class="form-control" name="end_s" data-date-format="YYYY-MM-DD HH:mm" type="text"></input>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label">{{_('sampling method')}}</label>
+                    <label class="control-label">{{_('Sampling method')}}</label>
                     <select class="form-control" name="cf">
                         {%for x in ["AVERAGE", "MAX", "MIN",]%}
                         <option value="{{x}}" {%if g.cf==x%}selected{%endif%}>{{x}}</option>
@@ -26,25 +26,25 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">{{_('view')}}</label>
+                    <label class="control-label">{{_('View')}}</label>
                     <select class="form-control" name="graph_type">
-                        <option value="h" {%if g.graph_type=="h" or g.graph_type==""%}selected{%endif%}>{{_('endpoint view')}}</option>
-                        <option value="k" {%if g.graph_type=="k"%}selected{%endif%}>{{_('counter view')}}</option>
+                        <option value="h" {%if g.graph_type=="h" or g.graph_type==""%}selected{%endif%}>{{_('Endpoint view')}}</option>
+                        <option value="k" {%if g.graph_type=="k"%}selected{%endif%}>{{_('Counter view')}}</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" id="sum" name="sum" value="on" {%if g.sum == 'on'%}checked{%endif%}>{{_('sum')}}
+                            <input type="checkbox" id="sum" name="sum" value="on" {%if g.sum == 'on'%}checked{%endif%}>{{_('Sum')}}
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <button id="go" class="btn btn-default" class="btn btn-default">{{_('show')}}</button>
+                    <button id="go" class="btn btn-default" class="btn btn-default">{{_('Show')}}</button>
                 </div>
                 <div class="form-group">
-                    <button id="reset" class="btn btn-default" class="btn btn-default">{{_('reset')}}</button>
+                    <button id="reset" class="btn btn-default" class="btn btn-default">{{_('Reset')}}</button>
                 </div>
 
             </form>

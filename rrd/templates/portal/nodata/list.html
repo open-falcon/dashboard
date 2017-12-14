@@ -22,13 +22,13 @@
     <div class="form-inline" role="form">
         <div class="form-group">
             <input type="text" value="{{ data.query }}" class="form-control" id="query"
-                   placeholder="search..." onkeydown="if(event.keyCode==13)query_nodata()">
+                   placeholder="{{_('Search...')}}" onkeydown="if(event.keyCode==13)query_nodata()">
         </div>
         <button type="button" onclick="query_nodata();" class="btn btn-default">
             <span class="glyphicon glyphicon-search"></span>
         </button>
         <input type="checkbox" name="mine" id="mine" {% if data.mine == '1' %}checked="checked"{% endif %}>
-        <span>mine</span>
+        <span>{{_('Mine')}}</span>
 
         <div class="pull-right">
             <a href="{{ url_for('nodata_add_get') }}" class="btn btn-default">
@@ -60,7 +60,7 @@
             </div>
         {% else %}
             <hr/>
-            no records
+        {{_('No records')}}
         {% endfor %}
     </div>
 

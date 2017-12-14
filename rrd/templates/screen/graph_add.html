@@ -16,31 +16,31 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-title">
-                    在screen [&nbsp;<b>{{screen.name}}</b>&nbsp;] 中新增一个graph
+                    在{{_('Screen')}} [&nbsp;<b>{{screen.name}}</b>&nbsp;] 中新增一个{{_('Graph')}}
                     </div>
                 </div>
 
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="post" action="/screen/{{screen.id}}/graph">
                      <div class="form-group">
-                         <label class="control-label col-md-2" for="title">Graph标题</label>
+                         <label class="control-label col-md-2" for="title">{{_('Graph')}}标题</label>
                          <div class="col-md-8">
                              <input required type="text" class="form-control" name="title" value="{{graph and graph.title or ''}}">
                          </div>
                      </div>
                      <div class="form-group">
-                         <label class="control-label col-md-2" for="hosts">Endpoints列表</label>
+                         <label class="control-label col-md-2" for="hosts">{{_('Endpoints')}}列表</label>
                          <div class="col-md-8">
                             <textarea name="hosts" rows="5" class="form-control">{{"\n".join(graph.hosts)}}</textarea>
                          </div>
                      </div>
 
                      <div class="form-group">
-                         <label class="control-label col-md-2" for="counters">Counters列表</label>
+                         <label class="control-label col-md-2" for="counters">{{_('Counters')}}列表</label>
                          <div class="col-md-8">
                              <textarea required rows="5" class="form-control" name="counters">{{"\n".join(graph.counters)}}</textarea>
-                             <span class="help-block">一行一个完整的counter，比如: cpu.idle 或者<br/>
-                             使用tag来筛选，比如metric=net.if.in.bytes iface=eth0 (其中metric项必须得有; metric和tag之间，tag与tag之间用空格分割)</span>
+                             <span class="help-block">一行一个完整的{{_('Counter')}}，比如: cpu.idle 或者<br/>
+                             使用{{_('Tag')}}来筛选，比如metric=net.if.in.bytes iface=eth0 (其中{{_('Metric')}}项必须得有; {{_('Metric')}}和{{_('Tags')}}之间，{{_('Tag')}}与{{_('Tag')}}之间用空格分割)</span>
                          </div>
                      </div>
 

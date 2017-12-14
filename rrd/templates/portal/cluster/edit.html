@@ -23,15 +23,15 @@
                         <span>计算得出的监控值要重新push回Falcon，需填写以下信息：</span>
                     </div>
                     <div class="form-group">
-                        <label for="endpoint">endpoint:</label>
+                        <label for="endpoint">{{_('Endpoint')}}:</label>
                         <input type="text" class="form-control" id="endpoint" value="{{ cluster.endpoint }}">
                     </div>
                     <div class="form-group">
-                        <label for="metric">metric:</label>
+                        <label for="metric">{{_('Metric')}}:</label>
                         <input type="text" class="form-control" id="metric" value="{{ cluster.metric }}">
                     </div>
                     <div class="form-group">
-                        <label for="tags">tags:</label>
+                        <label for="tags">{{_('Tags')}}:</label>
                         <input type="text" class="form-control" id="tags" value="{{ cluster.tags }}">
                     </div>
                     <div class="form-group">
