@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-06-07 23:01+0800\n"
+"POT-Creation-Date: 2017-12-14 14:01+0800\n"
 "PO-Revision-Date: 2017-06-07 17:26+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -16,9 +16,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.4.0\n"
+"Generated-By: Babel 2.5.1\n"
 
-#: rrd/__init__.py:16
+#: rrd/__init__.py:31
 msgid "Temporary error, please contact your administrator."
 msgstr "暂时无法访问,请联系管理员。"
 
@@ -104,6 +104,82 @@ msgstr "类型"
 #: rrd/templates/index.html:203
 msgid "step"
 msgstr "频率"
+
+#: rrd/templates/navbar.html:6
+msgid "Falcon+"
+msgstr "Falcon+"
+
+#: rrd/templates/navbar.html:10
+msgid "Dashboard"
+msgstr "仪表盘"
+
+#: rrd/templates/navbar.html:12
+msgid "Screen"
+msgstr "面板"
+
+#: rrd/templates/navbar.html:14
+msgid "screens"
+msgstr "现有面板"
+
+#: rrd/templates/navbar.html:15
+msgid "+screen"
+msgstr "创建面板"
+
+#: rrd/templates/navbar.html:18
+msgid "HostGroups"
+msgstr "主机组"
+
+#: rrd/templates/navbar.html:19
+msgid "Templates"
+msgstr "模板"
+
+#: rrd/templates/navbar.html:20
+msgid "Expressions"
+msgstr "表达式"
+
+#: rrd/templates/navbar.html:21
+msgid "Nodata"
+msgstr "空数据"
+
+#: rrd/templates/navbar.html:22
+msgid "Alarm-Dashboard"
+msgstr "报警"
+
+#: rrd/templates/navbar.html:25
+msgid "Welcome"
+msgstr "欢迎"
+
+#: rrd/templates/navbar.html:25
+msgid "Sign in"
+msgstr "登录"
+
+#: rrd/templates/navbar.html:28
+msgid "Profile"
+msgstr "个人信息"
+
+#: rrd/templates/navbar.html:29
+msgid "Users"
+msgstr "用户"
+
+#: rrd/templates/navbar.html:30
+msgid "Teams"
+msgstr "团队"
+
+#: rrd/templates/navbar.html:31
+msgid "Logout"
+msgstr "退出"
+
+#: rrd/templates/navbar.html:33
+msgid "Login"
+msgstr "登录"
+
+#: rrd/templates/navbar.html:34
+msgid "Sign Up"
+msgstr "注册"
+
+#: rrd/templates/navbar.html:36
+msgid "fork me on Github"
+msgstr "在GIthub上关注我们"
 
 #: rrd/templates/auth/register.html:21
 msgid "UserName"
@@ -212,19 +288,19 @@ msgstr "创建集群监控项"
 msgid "configure help"
 msgstr "配置说明"
 
-#: rrd/view/dashboard/screen.py:58
+#: rrd/view/dashboard/screen.py:73
 msgid "screen create fail"
 msgstr "创建screen失败"
 
-#: rrd/view/dashboard/screen.py:224
+#: rrd/view/dashboard/screen.py:239
 msgid "edit successful"
 msgstr "更新成功"
 
-#: rrd/view/portal/cluster.py:85
+#: rrd/view/portal/cluster.py:100
 msgid "edit"
 msgstr "编辑"
 
-#: rrd/view/portal/cluster.py:95
+#: rrd/view/portal/cluster.py:110
 msgid "clone"
 msgstr "克隆"
 
