@@ -15,7 +15,7 @@ Open-Falcon homepage：[http://open-falcon.org](http://open-falcon.org)
 - TODO
 
 ## i18n
-Open-Falcon natively support zh_CN and currently partially support English. Any translation will be appreciated.
+Open-Falcon natively support zh and currently partially support English. Any translation will be appreciated.
 
 [How to participate in the translation](./i18n.md)
 
