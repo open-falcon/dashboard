@@ -3,37 +3,37 @@
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
         </button>
-        <a class="navbar-brand" href="/">Falcon+</a>
+        <a class="navbar-brand" href="/">{{_('Falcon+')}}</a>
     </div>
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav navbar-right">
-         <li {%if g.nav_menu == "nav_dashboard"%}class="active"{%endif%}><a href="/">Dashboard</a></li>
+         <li {%if g.nav_menu == "nav_dashboard"%}class="active"{%endif%}><a href="/">{{_('Dashboard')}}</a></li>
          <li class="dropdown" {%if g.nav_menu == "nav_screen"%}class="active"{%endif%}>
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Screen<span class="caret"></span></a>
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{_('Screen')}}<span class="caret"></span></a>
            <ul class="dropdown-menu" role="menu" style="font-size:12px;">
-               <li><a href="/screen">screens</a></li>
-               <li><a href="/screen/add">+screen</a></li>
+               <li><a href="/screen">{{_('screens')}}</a></li>
+               <li><a href="/screen/add">{{_('+screen')}}</a></li>
            </ul>
           </li>
-          <li {%if g.nav_menu == "p_hostgroup"%}class="active"{%endif%}><a href="/portal/hostgroup">HostGroups</a></li>
-          <li {%if g.nav_menu == "p_template"%}class="active"{%endif%}><a href="/portal/template">Templates</a></li>
-          <li {%if g.nav_menu == "p_expression"%}class="active"{%endif%}><a href="/portal/expression">Expressions</a></li>
-          <li {%if g.nav_menu == "p_nodata"%}class="active"{%endif%}><a href="/portal/nodata">Nodata</a></li>
-          <li {%if g.nav_menu == "p_alarm-dash"%}class="active"{%endif%}><a href="/portal/alarm-dash/case">Alarm-Dashboard</a></li>
+          <li {%if g.nav_menu == "p_hostgroup"%}class="active"{%endif%}><a href="/portal/hostgroup">{{_('HostGroups')}}</a></li>
+          <li {%if g.nav_menu == "p_template"%}class="active"{%endif%}><a href="/portal/template">{{_('Templates')}}</a></li>
+          <li {%if g.nav_menu == "p_expression"%}class="active"{%endif%}><a href="/portal/expression">{{_('Expressions')}}</a></li>
+          <li {%if g.nav_menu == "p_nodata"%}class="active"{%endif%}><a href="/portal/nodata">{{_('Nodata')}}</a></li>
+          <li {%if g.nav_menu == "p_alarm-dash"%}class="active"{%endif%}><a href="/portal/alarm-dash/case">{{_('Alarm-Dashboard')}}</a></li>
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                  {%if g.user%} Welcome {{g.user.name}}{%else%}Sign in{%endif%}<span class="caret"></span></a>
+                  {%if g.user%} {{_('Welcome')}} {{g.user.name}}{%else%}{{_('Sign in')}}{%endif%}<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu" style="font-size:12px;">
                   {%if g.user%}
-                      <li><a href="/user/profile">Profile</a></li>
-                      <li><a href="/user/list">Users</a></li>
-                      <li><a href="/team/list">Teams</a></li>
-                      <li><a href="/auth/logout">Logout</a></li>
+                      <li><a href="/user/profile">{{_('Profile')}}</a></li>
+                      <li><a href="/user/list">{{_('Users')}}</a></li>
+                      <li><a href="/team/list">{{_('Teams')}}</a></li>
+                      <li><a href="/auth/logout">{{_('Logout')}}</a></li>
                   {%else%}
-                      <li><a href="/auth/login">Login</a></li>
-                      <li><a href="/auth/register">Sign Up</a></li>
+                      <li><a href="/auth/login">{{_('Login')}}</a></li>
+                      <li><a href="/auth/register">{{_('Sign Up')}}</a></li>
                   {%endif%}
-                  <li><a href="https://github.com/open-falcon/dashboard">fork me on Github</a></li>
+                  <li><a href="https://github.com/open-falcon/dashboard">{{_('fork me on Github')}}</a></li>
               </ul>
           </li>
         </ul>
