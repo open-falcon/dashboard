@@ -32,7 +32,7 @@
         function on_endpoint_changed(){
             var d = $("#obj_type").val()
             if (d == "group"){
-                $("#obj").attr('placeholder', "分组一行一组:cop.xiaomi_owt.inf_pdl.falcon")
+                $("#obj").attr('placeholder', "分组一行一组,只有一列:cop.xiaomi_owt.inf_pdl.falcon")
             } else if(d == "host") {
                 $("#obj").attr('placeholder', "c3-op-mon-nodata01.bj\nc3-op-mon-nodata02.bj")
             } else {
@@ -67,7 +67,7 @@
                         <option value="host"  {% if data.nodata.obj_type == 'host'  %}selected{% endif %}>机器名</option>
                         <option value="other" {% if data.nodata.obj_type == 'other' %}selected{% endif %}>其他</option>
                     </select>
-                    <textarea class="form-control" rows="3" id="obj" placeholder="分组一行一组:cop.xiaomi_owt.inf_pdl.falcon" style="margin-top: 5px;">{{ data.nodata.obj }}</textarea>
+                    <textarea class="form-control" rows="3" id="obj" placeholder="分组一行一组,只有一列:cop.xiaomi_owt.inf_pdl.falcon" style="margin-top: 5px;">{{ data.nodata.obj }}</textarea>
                 </div> 
 
                 <div class="form-group">
