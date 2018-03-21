@@ -68,6 +68,8 @@ LANGUAGES   = {
 MAINTAINERS = ['root']
 CONTACT = 'root@open-falcon.org'
 
+DEBUG = True
+
 try:
     from rrd.local_config import *
 except:

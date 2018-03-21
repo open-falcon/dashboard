@@ -25,13 +25,14 @@ app = Flask(__name__)
 app.config.from_object("rrd.config")
 babel = Babel(app)
 
-@app.errorhandler(Exception)
-def all_exception_handler(error):
-    tb = traceback.format_exc()
-    err_tip = gettext('Temporary error, please contact your administrator.')
-    err_msg = err_tip + '\n\nError: %s\n\nTraceback:\n%s' %(error, tb)
-    return '<pre>' + err_msg + '</pre>', 500
-
+if not config.DEBUG:
+    @app.errorhandler(Exception)
+    def all_exception_handler(error):
+        tb = traceback.format_exc()
+        err_tip = gettext('Temporary error, please contact your administrator.')
+        err_msg = err_tip + '\n\nError: %s\n\nTraceback:\n%s' %(error, tb)
+        return '<pre>' + err_msg + '</pre>', 500
+    
 @babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(config.LANGUAGES.keys())
