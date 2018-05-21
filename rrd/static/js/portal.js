@@ -368,7 +368,9 @@ function make_select2_for_metric(selector) {
                 };
             },
             results: function (json, page) {
-                return {results: json.data};
+                var input = json.data[0].name
+                var data = _.filter(json.data, function(ele){return ele.name.indexOf(input) != -1})
+                return {results: data};
             }
         },
 
