@@ -117,7 +117,7 @@ def dash_screen(sid):
     for graph in graphs:
         all_graphs.extend(generate_graph_urls(graph, start, end) or [])
 
-    all_graphs = sorted(all_graphs, key=lambda x:x.position)
+    all_graphs = sorted(all_graphs, key=lambda x: (x.position, x.id))
 
     return render_template("screen/screen.html", **locals())
 
@@ -139,7 +139,7 @@ def dash_screen_embed(sid):
     for graph in graphs:
         all_graphs.extend(generate_graph_urls(graph, start, end) or [])
 
-    all_graphs = sorted(all_graphs, key=lambda x:x.position)
+    all_graphs = sorted(all_graphs, key=lambda x: (x.position, x.id))
 
     return render_template("screen/screen_embed.html", **locals())
 
