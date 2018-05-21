@@ -112,7 +112,7 @@ def multi_endpoints_chart_data():
         max_size = 0
         for serie in series:
             serie_vs = [x[1] for x in serie["data"]]
-            if (max_size == 0 and serie_vs.count(None) > 50) or (max_size !=0 and serie_vs.count(None) >= max_size):
+            if (max_size == 0 and serie_vs[0] is not None and serie_vs.count(None) > 50) or (max_size !=0 and serie_vs.count(None) >= max_size):
                 continue
             if len(serie_vs) > max_size:
                 max_size = len(serie_vs)
@@ -190,7 +190,7 @@ def multi_counters_chart_data():
         max_size = 0
         for serie in series:
             serie_vs = [x[1] for x in serie["data"]]
-            if (max_size == 0 and serie_vs.count(None) > 50) or (max_size !=0 and serie_vs.count(None) >= max_size):
+            if (max_size == 0 and serie_vs[0] is not None and serie_vs.count(None) > 50) or (max_size !=0 and serie_vs.count(None) >= max_size):
                 continue
             if len(serie_vs) > max_size:
                 max_size = len(serie_vs)
@@ -266,7 +266,7 @@ def multi_chart_data():
         max_size = 0
         for serie in series:
             serie_vs = [x[1] for x in serie["data"]]
-            if (max_size == 0 and serie_vs.count(None) > 50) or (max_size !=0 and serie_vs.count(None) >= max_size):
+            if (max_size == 0 and serie_vs[0] is not None and serie_vs.count(None) > 50) or (max_size !=0 and serie_vs.count(None) >= max_size):
                 continue
             if len(serie_vs) > max_size:
                 max_size = len(serie_vs)
