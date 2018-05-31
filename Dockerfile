@@ -7,7 +7,7 @@ yum groupinstall -y "Development tools"
 RUN export HOME=/home/work/ && mkdir -p $HOME/open-falcon/dashboard && cd $HOME/open-falcon/dashboard
 WORKDIR /home/work/open-falcon/dashboard
 ADD ./ ./
-RUN virtualenv ./env && ./env/bin/pip install -r pip_requirements.txt -i http://pypi.douban.com/simple
+RUN virtualenv ./env && ./env/bin/pip install -r pip_requirements.txt -i https://pypi.douban.com/simple
 
 ADD ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
