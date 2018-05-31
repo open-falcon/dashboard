@@ -195,6 +195,6 @@ def ldap_login_user(name, password):
 def gen_random_pass(pass_len):
     s = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+{}|:"<>?'
     nonce = ''
-    for i in range(6):
+    for i in range(pass_len):
         nonce = "%s%s" % (nonce, random.choice(s))
     return nonce
