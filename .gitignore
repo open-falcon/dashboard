@@ -20,3 +20,4 @@ var/
 *.tar.gz
 gitversion
 .DS_Store
+.idea/

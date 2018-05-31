@@ -16,6 +16,7 @@
 
 import json
 import requests
+import random
 from flask import g, redirect, session, abort, request
 
 from functools import wraps
@@ -116,6 +117,17 @@ def login_user(name, password):
     set_user_cookie(ut, session)
     return ut
 
+def get_root_sig(name, password):
+    params = {
+        "name": name,
+        "password": password,
+    }
+    r = requests.post("%s/user/login" %config.API_ADDR, data=params)
+    if r.status_code != 200:
+        raise Exception("%s : %s" %(r.status_code, r.text))
+
+    j = r.json()
+    return j["sig"]
 
 def ldap_login_user(name, password):
     import ldap
@@ -179,3 +191,10 @@ def ldap_login_user(name, password):
         raise e
     finally:
         cli and cli.unbind_s()
+
+def gen_random_pass(pass_len):
+    s = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ~!@#$%^&*()_+{}|:"<>?'
+    nonce = ''
+    for i in range(6):
+        nonce = "%s%s" % (nonce, random.choice(s))
+    return nonce

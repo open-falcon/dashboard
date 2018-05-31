@@ -16,7 +16,7 @@
 
 import datetime
 import time
-from flask import g, session, request, redirect
+from flask import g, abort, session, request, redirect
 
 from rrd import app, config
 from rrd.view.utils import get_usertoken_from_session, get_current_user_profile
@@ -64,7 +64,9 @@ def app_before():
             not path.startswith("/portal/links/") and \
             not path.startswith("/auth/register"):
         return redirect("/auth/login")
-
+    if path.startswith("/portal/"):
+        if not (g.user.is_admin() or g.user.is_root()):
+            return abort(403, "no such privilege")
     if path.startswith("/screen"):
         g.nav_menu = "nav_screen"
     elif path.startswith("/portal/hostgroup") or path.startswith("/portal/group"):
