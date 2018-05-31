@@ -33,7 +33,6 @@ docker run -itd --name aaa --net host \
 	-e PORTAL_DB_USER=root \
 	-e PORTAL_DB_PASS=123456 \
 	-e PORTAL_DB_NAME=falcon_portal \
-	-e ALARM_DB_PASS=123456 \
 	-e ALARM_DB_HOST=127.0.0.1 \
 	-e ALARM_DB_PORT=3306 \
 	-e ALARM_DB_USER=root \
