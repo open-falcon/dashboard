@@ -10,13 +10,30 @@
         <div class="panel-body">
             <div class="alarms">
                 {%for case in cases%}
-                <div class="alarm">
-                    <input type="checkbox" alarm="{{case.id}}">
+                    {% if case.priority == 0 %}
+                        <div class="alarm danger">
+                    {% elif case.priority < 3 %}
+                        <div class="alarm attention">
+                    {% else %}
+                        <div class="alarm">
+                    {% endif %}
+                    {% if case.status.startswith("OK") %}
+                        <input type="checkbox" alarm="{{case.id}}">
+                    {% endif %}
                     {{case.status}} P{{case.priority}}
-                    [第<span class="orange">#{{case.current_step}}</span>次/最大{{case.max_step}}次]
-                    <span class="orange">{{case.timestamp|time_duration}}</span>
-                    <span class="gray">[</span>
-                    <a href="/portal/template/view/{{case.template_id}}" target="_blank">template</a>
+                    
+                    {% if case.priority < 3 %}
+                        [第#{{case.current_step}}次/最大{{case.max_step}}次]
+                        {{case.timestamp|time_duration}}
+                        [
+                        <a href="/portal/template/view/{{case.template_id}}" target="_blank">template</a>
+                    {% else %}
+                        [第<span class="orange">#{{case.current_step}}</span>次/最大{{case.max_step}}次]
+                        <span class="orange">{{case.timestamp|time_duration}}</span>
+                        <span class="gray">[</span>
+                        <a href="/portal/template/view/{{case.template_id}}" target="_blank">template</a>
+                    {% endif %}
+
 
                     {%if case.strategy_id>0%}
                     <span class="cut-line">¦</span>
@@ -28,11 +45,17 @@
                     <a href="/portal/expression/view/{{case.expression_id}}" target="_blank">expression</a>
                     {%endif%}
 
-                    <span class="cut-line">¦</span>
-                    <a href="javascript:alarm_case_rm('{{case.id}}');">delete</a>
+                    {% if case.status.startswith("OK") %}
+                        <span class="cut-line">¦</span>
+                        <a href="javascript:alarm_case_rm('{{case.id}}');">delete</a>
+                    {% endif %}
                     <span class="cut-line">¦</span>
                     <a href="/portal/alarm-dash/case/event?case_id={{case.id}}">{{_('event list')}}</a>
-                    <span class="gray">]</span>
+                    {% if case.priority < 3 %}
+                        ]
+                    {% else %}
+                        <span class="gray">]</span>
+                    {% endif %}
                     </br>
 
                     <span style="padding-left:17px;"> {{case.endpoint}} 
@@ -43,7 +66,11 @@
                         <span class="cut-line">¦</span> 
                         {{case.cond}}</span>
                         <span class="cut-line">¦</span> 
-                        <span class="gray">note: {{case.note}}</span>
+                        {% if case.priority < 3 %}
+                            note: {{case.note}}
+                        {% else %}
+                            <span class="gray">note: {{case.note}}</span>
+                        {% endif %}
                 </div>
                 <hr>
                 {%endfor%}
@@ -57,6 +84,13 @@
         <div class="pull-left">
             {{ blocks.pager('/portal/alarm-dash/case?status='+status, total, limit, page) }}
         </div>
+        <script language="JavaScript">
+            function myrefresh()
+            {
+            window.location.reload();
+            }
+            setTimeout('myrefresh()',10000); //指定1秒刷新一次
+        </script>
 
     </div>
 {%endblock%}
