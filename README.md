@@ -9,7 +9,7 @@ dashboard is the Open-Falcon unified default forntend component, including:
 - combine the multiple alerting.
 - user management, such as login, logout, register, ldap_login, etc.
 
-Open-Falcon homepage：[http://open-falcon.org](http://open-falcon.org)
+Open-Falcon homepage：[http://open-falcon.com](http://open-falcon.com)
 
 ## Demo site
 - TODO
