@@ -66,7 +66,7 @@ LANGUAGES   = {
 
 # portal site config
 MAINTAINERS = ['root']
-CONTACT = 'root@open-falcon.org'
+CONTACT = 'root@open-falcon.com'
 
 try:
     from rrd.local_config import *

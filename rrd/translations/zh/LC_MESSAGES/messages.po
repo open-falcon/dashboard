@@ -18,6 +18,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.4.0\n"
 
+#: rrd/static/500.html:6
+msgid "Dashboard happen an error, please contact your administrator if there is a continuous error."
+msgstr "Dashboard 出错了，持续出错请联系管理员"
+
 #: rrd/__init__.py:16
 msgid "Temporary error, please contact your administrator."
 msgstr "暂时无法访问,请联系管理员。"
