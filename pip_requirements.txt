@@ -2,7 +2,7 @@ Flask==0.10.1
 Flask-Babel==0.9
 Jinja2==2.7.2
 Werkzeug==0.9.4
-gunicorn==19.1.1
+gunicorn ~> 19.5.0
 python-dateutil==2.2
 requests==2.3.0
 mysql-python
