@@ -67,7 +67,7 @@ yum groupinstall "Development tools"
 cd $HOME/open-falcon/dashboard/
 virtualenv ./env
 
-./env/bin/pip install -r pip_requirements.txt -i https://pypi.douban.com/simple
+./env/bin/pip install -r pip_requirements.txt
 ```
 
 - **Ubuntu**
@@ -82,7 +82,7 @@ apt-get install -y python-dev libldap2-dev libsasl2-dev libssl-dev
 cd $HOME/open-falcon/dashboard/
 virtualenv ./env
 
-./env/bin/pip install -r pip_requirements.txt -i https://pypi.douban.com/simple
+./env/bin/pip install -r pip_requirements.txt
 ```
 
 ## Init database
@@ -110,6 +110,9 @@ rm -rf /tmp/falcon-plus/
 
     ## set PORTAL_DB_* if necessary, default mysql user is root, default passwd is ""
     ## set ALARM_DB_* if necessary, default mysql user is root, default passwd is ""
+    ## if following error msg occurred, please check DB config in rrd/config.py
+    
+    Error 'NoneType' object has no attribute 'cursor'
 
 ## Start in debug mode
 
