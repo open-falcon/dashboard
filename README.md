@@ -12,7 +12,7 @@ dashboard is the Open-Falcon unified default forntend component, including:
 Open-Falcon homepage：[http://open-falcon.com](http://open-falcon.com)
 
 ## Demo site
-- [dashboard demo](http://103.73.51.204:8081/), user:`test`, password:`test123`
+- [dashboard demo](http://116.85.44.234:8081/), user:`test`, password:`test123`
 
 ## i18n
 Open-Falcon natively support zh_CN and currently partially support English. Any translation will be appreciated.
