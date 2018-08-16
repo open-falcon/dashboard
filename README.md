@@ -21,26 +21,7 @@ Open-Falcon natively support zh_CN and currently partially support English. Any 
 
 
 ## Run in docker
-```
-# make the image，run commands under dir of dashboard:
-docker build -t falcon-dashboard:v1.0 .
-
-# start the container
-docker run -itd --name aaa --net host \
-	-e API_ADDR=http://127.0.0.1:8080/api/v1 \
-	-e PORTAL_DB_HOST=127.0.0.1 \
-	-e PORTAL_DB_PORT=3306 \
-	-e PORTAL_DB_USER=root \
-	-e PORTAL_DB_PASS=123456 \
-	-e PORTAL_DB_NAME=falcon_portal \
-	-e ALARM_DB_PASS=123456 \
-	-e ALARM_DB_HOST=127.0.0.1 \
-	-e ALARM_DB_PORT=3306 \
-	-e ALARM_DB_USER=root \
-	-e ALARM_DB_PASS=123456 \
-	-e ALARM_DB_NAME=alarms \
-	falcon-dashboard:v1.0
-```
+- [run dashboard in docker container](https://github.com/open-falcon/falcon-plus/blob/master/docker/README.md)
 
 ## Clone & Prepare
 ```
