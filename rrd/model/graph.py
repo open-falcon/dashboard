@@ -30,7 +30,7 @@ class DashboardGraph(object):
         self.timespan = timespan
         self.graph_type = graph_type
         self.method = method.upper()  # method can be ["", "sum", "average", "max", "min", "last"]
-        self.position = position or self.id # init as self.id
+        self.position = position or int(self.id) # init as self.id
 
     def __repr__(self):
         return "<DashboardGraph id=%s, title=%s, screen_id=%s>" %(self.id, self.title, self.screen_id)
