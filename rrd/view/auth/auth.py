@@ -98,9 +98,9 @@ def auth_register():
     if request.method == "POST":
         ret = {"msg":""}
 
-        name = request.form.get("name", "")
-        cnname = request.form.get("cnname", "")
-        email = request.form.get("email", "")
+        name = request.form.get("name", "").strip()
+        cnname = request.form.get("cnname", "").strip()
+        email = request.form.get("email", "").strip()
         password = request.form.get("password", "")
         repeat_password = request.form.get("repeat_password", "")
 

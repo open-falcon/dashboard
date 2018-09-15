@@ -53,8 +53,8 @@ def team_create():
     if request.method == "POST":
         ret = {"msg":""}
 
-        name = request.form.get("name", "")
-        resume = request.form.get("resume", "")
+        name = request.form.get("name", "").strip()
+        resume = request.form.get("resume", "").strip()
         users = request.form.get("users", "")
 
         user_ids = users and users.split(",") or []
@@ -82,7 +82,7 @@ def team_edit(team_id):
     if request.method == "POST":
         ret = {"msg":""}
 
-        resume = request.form.get("resume", "")
+        resume = request.form.get("resume", "").strip()
         users = request.form.get("users", "")
 
         user_ids = users and users.split(",") or []
