@@ -15,11 +15,13 @@
                <li><a href="/screen/add">+screen</a></li>
            </ul>
           </li>
+          {%if g.user.is_admin() or g.user.is_root() %}
           <li {%if g.nav_menu == "p_hostgroup"%}class="active"{%endif%}><a href="/portal/hostgroup">HostGroups</a></li>
           <li {%if g.nav_menu == "p_template"%}class="active"{%endif%}><a href="/portal/template">Templates</a></li>
           <li {%if g.nav_menu == "p_expression"%}class="active"{%endif%}><a href="/portal/expression">Expressions</a></li>
           <li {%if g.nav_menu == "p_nodata"%}class="active"{%endif%}><a href="/portal/nodata">Nodata</a></li>
           <li {%if g.nav_menu == "p_alarm-dash"%}class="active"{%endif%}><a href="/portal/alarm-dash/case">Alarm-Dashboard</a></li>
+          {%endif%}
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                   {%if g.user%} Welcome {{g.user.name}}{%else%}Sign in{%endif%}<span class="caret"></span></a>

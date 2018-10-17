@@ -38,7 +38,9 @@ def auth_login():
         ret = { "msg": "", }
 
         name = request.form.get("name")
+        user_id = -1
         password = request.form.get("password")
+        random_pass = view_utils.gen_random_pass(12)
         ldap = request.form.get("ldap") or "0"
 
         if not name or not password:
@@ -52,15 +54,39 @@ def auth_login():
                 h = {"Content-type":"application/json"}
                 d = {
                     "name": name,
-                    "password": password,
+                    "password": random_pass,
                     "cnname": ldap_info['cnname'],
                     "email": ldap_info['email'],
                     "phone": ldap_info['phone'],
                 }
 
-                r = requests.post("%s/user/create" %(config.API_ADDR,), \
-                        data=json.dumps(d), headers=h)
-                log.debug("%s:%s" %(r.status_code, r.text))
+                root_sig = view_utils.get_root_sig("root", config.ROOT_PASSWD)
+                if not root_sig:
+                    ret["msg"] = "ldap user login failed"
+                    return json.dumps(ret)
+
+                Apitoken = {"name":"root", "sig":root_sig}
+                h.update({"apitoken":json.dumps(Apitoken)})
+                r = requests.get("%s/user/name/%s" % (config.API_ADDR,name), headers=h)
+                if r.status_code == 200:
+                    j = r.json()
+                    user_id = j["id"]
+
+                    d = {
+                        "user_id": user_id, "password": random_pass,
+                    }
+                    req = requests.put("%s/admin/change_user_passwd" % (config.API_ADDR,), \
+                                       data=json.dumps(d), headers=h)
+                    log.debug("%s:%s" % (req.status_code, req.text))
+
+                    if req.status_code != 200:
+                        raise Exception("%s %s" % (req.status_code, req.text))
+                else:
+                    req = requests.post("%s/user/create" %(config.API_ADDR,), \
+                            data=json.dumps(d), headers=h)
+                    log.debug("%s:%s" %(req.status_code, reqr.text))
+
+                password = random_pass
 
                 #TODO: update password in db if ldap password changed
             except Exception as e:
