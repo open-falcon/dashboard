@@ -116,17 +116,34 @@ def login_user(name, password):
     set_user_cookie(ut, session)
     return ut
 
+def admin_login_user(name, Apitoken):
+    params = {
+        "name": name,
+    }
+    h = {
+        "Apitoken": Apitoken
+    }
+    r = requests.post("%s/admin/login" %config.API_ADDR, data=params, headers=h)
+    log.debug("%s:%s" %(r.status_code, r.text))
+    if r.status_code != 200:
+        if json.loads(r.text)["error"] == "no such user":
+            return None
+        else:
+            raise Exception("%s : %s" %(r.status_code, r.text))
+
+    j = r.json()
+    ut = UserToken(j["name"], j["sig"])
+    set_user_cookie(ut, session)
+    return ut
 
 def ldap_login_user(name, password):
     import ldap
     if not config.LDAP_ENABLED:
         raise Exception("ldap not enabled")
 
-    bind_dn = config.LDAP_BINDDN_FMT
+    bind_dn = config.LDAP_BINDDN
+    bind_pass = config.LDAP_BIND_PASS
     base_dn = config.LDAP_BASE_DN
-    try:
-        bind_dn = config.LDAP_BINDDN_FMT %name
-    except TypeError: pass
 
     search_filter = config.LDAP_SEARCH_FMT
     try:
@@ -150,9 +167,11 @@ def ldap_login_user(name, password):
                 cli.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, config.LDAP_TLS_REQUIRE_CERT)
             if config.LDAP_TLS_CIPHER_SUITE:
                 cli.set_option(ldap.OPT_X_TLS_CIPHER_SUITE, config.LDAP_TLS_CIPHER_SUITE)
-        cli.simple_bind_s(bind_dn, password)
+        cli.bind_s(bind_dn, bind_pass, ldap.AUTH_SIMPLE)
         result = cli.search_s(base_dn, ldap.SCOPE_SUBTREE, search_filter, config.LDAP_ATTRS)
         log.debug("ldap result: %s" % result)
+        user_dn = result[0][0]
+        cli.bind_s(user_dn, password, ldap.AUTH_SIMPLE)
         d = result[0][1]
         email = d['mail'][0]
         cnname = d['cn'][0]
@@ -173,9 +192,43 @@ def ldap_login_user(name, password):
                 "phone": phone,
         }
     except ldap.LDAPError as e:
+        if "desc" in e[0]:
+            raise NameError(e[0]["desc"])
         cli and cli.unbind_s()
         raise e
     except (IndexError, KeyError) as e:
+        if str(e) == "list index out of range":
+            raise IndexError("no such user")
+            # result = [], so result out of range
         raise e
     finally:
         cli and cli.unbind_s()
+
+def get_Apitoken(name, password):
+    d = {
+        "name": name, "password": password,
+    }
+	
+    h = {"Content-type":"application/json"}
+	
+    r = requests.post("%s/user/login" %(config.API_ADDR,), \
+            data=json.dumps(d), headers=h)
+    log.debug("%s:%s" %(r.status_code, r.text))
+	
+    if r.status_code != 200:
+        raise Exception("%s %s" %(r.status_code, r.text))
+
+    sig = json.loads(r.text)["sig"]
+    return json.dumps({"name":name,"sig":sig})
+
+def create_user(user_info):
+    h = {"Content-type":"application/json"}
+	
+    r = requests.post("%s/user/create" %(config.API_ADDR,), \
+           data=json.dumps(user_info), headers=h)
+    log.debug("%s:%s" %(r.status_code, r.text))
+	
+    if r.status_code != 200:
+        raise Exception("%s %s" %(r.status_code, r.text))
+		
+    return

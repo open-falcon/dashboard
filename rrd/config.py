@@ -23,6 +23,8 @@ SITE_COOKIE = os.environ.get("SITE_COOKIE","open-falcon-ck")
 
 # Falcon+ API
 API_ADDR = os.environ.get("API_ADDR","http://127.0.0.1:8080/api/v1")
+API_USER = os.environ.get("API_USER","admin")
+API_PASS = os.environ.get("API_PASS","password")
 
 # portal database
 # TODO: read from api instead of db
@@ -44,7 +46,8 @@ ALARM_DB_NAME = os.environ.get("ALARM_DB_NAME","alarms")
 LDAP_ENABLED = os.environ.get("LDAP_ENABLED",False)
 LDAP_SERVER = os.environ.get("LDAP_SERVER","ldap.forumsys.com:389")
 LDAP_BASE_DN = os.environ.get("LDAP_BASE_DN","dc=example,dc=com")
-LDAP_BINDDN_FMT = os.environ.get("LDAP_BINDDN_FMT","uid=%s,dc=example,dc=com")
+LDAP_BINDDN = os.environ.get("LDAP_BINDDN","cn=manager,dc=example,dc=org")
+LDAP_BIND_PASS = os.environ.get("LDAP_BIND_PASS","password")
 LDAP_SEARCH_FMT = os.environ.get("LDAP_SEARCH_FMT","uid=%s")
 LDAP_ATTRS = ["cn","mail","telephoneNumber"]
 LDAP_TLS_START_TLS = False
