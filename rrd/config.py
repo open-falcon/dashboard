@@ -61,7 +61,7 @@ LDAP_TLS_CIPHER_SUITE = ""
 # i18n
 BABEL_DEFAULT_LOCALE   = 'zh_CN'
 BABEL_DEFAULT_TIMEZONE = 'Asia/Shanghai'
-# aviliable translations
+# available translations
 LANGUAGES   = {
     'en':  'English',
     'zh_CN':  'Chinese-Simplified',
