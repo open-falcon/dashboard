@@ -20,3 +20,5 @@ var/
 *.tar.gz
 gitversion
 .DS_Store
+.vscode/
+.gitignore

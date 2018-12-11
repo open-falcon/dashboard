@@ -1,4 +1,4 @@
-#-*-coding:utf8-*-
+#-*-coding:utf-8 -*-
 # Copyright 2017 Xiaomi, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
