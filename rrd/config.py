@@ -30,8 +30,8 @@ API_PASS = os.environ.get("API_PASS","password")
 # TODO: read from api instead of db
 PORTAL_DB_HOST = os.environ.get("PORTAL_DB_HOST","127.0.0.1")
 PORTAL_DB_PORT = int(os.environ.get("PORTAL_DB_PORT",3306))
-PORTAL_DB_USER = os.environ.get("PORTAL_DB_USER","root")
-PORTAL_DB_PASS = os.environ.get("PORTAL_DB_PASS","")
+PORTAL_DB_USER = os.environ.get("PORTAL_DB_USER","falcon")
+PORTAL_DB_PASS = os.environ.get("PORTAL_DB_PASS","falcon")
 PORTAL_DB_NAME = os.environ.get("PORTAL_DB_NAME","falcon_portal")
 
 # alarm database
@@ -70,6 +70,8 @@ LANGUAGES   = {
 # portal site config
 MAINTAINERS = ['root']
 CONTACT = 'root@open-falcon.com'
+
+DEBUG = True
 
 try:
     from rrd.local_config import *

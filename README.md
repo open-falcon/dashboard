@@ -72,18 +72,24 @@ cd /tmp/ && git clone https://github.com/open-falcon/falcon-plus.git
 cd /tmp/falcon-plus/scripts/mysql/db_schema/
 mysql -h 127.0.0.1 -u root -p < 1_uic-db-schema.sql
 mysql -h 127.0.0.1 -u root -p < 2_portal-db-schema.sql
-mysql -h 127.0.0.1 -u root -p < 3_graph-db-schema.sql
-mysql -h 127.0.0.1 -u root -p < 4_dashboard-db-schema.sql
+mysql -h 127.0.0.1 -u root -p < 3_dashboard-db-schema.sql
+mysql -h 127.0.0.1 -u root -p < 4_graph-db-schema.sql
 mysql -h 127.0.0.1 -u root -p < 5_alarms-db-schema.sql
 rm -rf /tmp/falcon-plus/
 ```
 
 **if you are upgrading from v0.1 to current version v0.2.0,then**
 
-    mysql -h 127.0.0.1 -u root -p < alarms-db-schema.sql
+    mysql -h 127.0.0.1 -u root -p < 5_alarms-db-schema.sql
 
 
 ## Configure
+
+The open-falcon modules' configuration files is `path/to/open-falcon-binaries/<moduleName>/config/cfg.json`, change them if necessary.
+
+**MAKE SURE** Open-falcon api module is up running and works as expcted before start dashboard.
+
+
     dashboard config file is 'rrd/config.py', change it if necessary.
 
     ## set API_ADDR to your falcon-plus api modules addr, default value as bellow:
