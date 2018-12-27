@@ -21,4 +21,3 @@ var/
 gitversion
 .DS_Store
 .vscode/
-.gitignore
