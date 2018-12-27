@@ -1,15 +1,25 @@
-FROM centos:7.3.1611
+FROM python:2.7-alpine3.7
+USER root
+ENV prefix=/open-falcon
+ENV workdir=$prefix/dashboard
 
-RUN yum clean all && yum install -y epel-release && yum -y update && \
-yum install -y git python-virtualenv python-devel openldap-devel mysql-devel && \
-yum groupinstall -y "Development tools"
+RUN apk add --no-cache \
+    ca-certificates bash git g++ perl make \
+    py-mysqldb \
+    py-pyldap
 
-RUN export HOME=/home/work/ && mkdir -p $HOME/open-falcon/dashboard && cd $HOME/open-falcon/dashboard
-WORKDIR /home/work/open-falcon/dashboard
+RUN mkdir -p $prefix
+
+ENV PYTHONPATH "${PYTHONPATH}:/usr/lib/python2.7/site-packages/"
+WORKDIR $workdir
 ADD ./ ./
-RUN virtualenv ./env && ./env/bin/pip install -r pip_requirements.txt -i http://pypi.douban.com/simple
+RUN pip install \
+    Flask==0.10.1 \
+    Flask-Babel==0.9 \
+    Jinja2==2.7.2 \
+    Werkzeug==0.9.4 \
+    gunicorn==19.9.0 \
+    python-dateutil==2.2 \
+    requests==2.3.0
 
-ADD ./entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "-c"]

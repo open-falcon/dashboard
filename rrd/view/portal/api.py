@@ -128,9 +128,10 @@ def api_metric_query():
         return []
 
     metrics = r.json() or []
-    metrics = [q,] + metrics
+    matched_metrics = [x for x in metrics if q in x]
+    ret_data = [q,] + matched_metrics[:limit]
 
-    return jsonify(data=[{'name': name} for name in metrics])
+    return jsonify(data=[{'name': name} for name in ret_data])
 
 
 # 给ping监控提供的接口

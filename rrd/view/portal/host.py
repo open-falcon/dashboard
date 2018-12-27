@@ -123,7 +123,7 @@ def host_add_post():
         return jsonify(msg='hosts is blank')
 
     host_arr = hosts.splitlines()
-    safe_host_arr = [h for h in host_arr if h]
+    safe_host_arr = [h.strip() for h in host_arr if h]
     if not safe_host_arr:
         return jsonify(msg='hosts is blank')
 

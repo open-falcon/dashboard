@@ -52,7 +52,7 @@ def dash_screen_edit(sid):
         abort(404, "no such screen")
 
     if request.method == "POST":
-        screen_name = request.form.get("screen_name")
+        screen_name = request.form.get("screen_name").strip()
         screen.update(name=screen_name)
         return redirect("/screen/%s" %screen.id)
     else:
@@ -65,7 +65,7 @@ def dash_screen_clone(sid):
         abort(404, "no such screen")
 
     if request.method == "POST":
-        screen_name = request.form.get("screen_name")
+        screen_name = request.form.get("screen_name").strip()
         with_graph = request.form.get("with_graph")
 
         new_s = DashboardScreen.add(screen.pid, screen_name)
@@ -117,7 +117,7 @@ def dash_screen(sid):
     for graph in graphs:
         all_graphs.extend(generate_graph_urls(graph, start, end) or [])
 
-    all_graphs = sorted(all_graphs, key=lambda x:x.position)
+    all_graphs = sorted(all_graphs, key=lambda x: (x.position, x.id))
 
     return render_template("screen/screen.html", **locals())
 
@@ -139,7 +139,7 @@ def dash_screen_embed(sid):
     for graph in graphs:
         all_graphs.extend(generate_graph_urls(graph, start, end) or [])
 
-    all_graphs = sorted(all_graphs, key=lambda x:x.position)
+    all_graphs = sorted(all_graphs, key=lambda x: (x.position, x.id))
 
     return render_template("screen/screen_embed.html", **locals())
 
@@ -147,7 +147,7 @@ def dash_screen_embed(sid):
 @app.route("/screen/add", methods=["GET", "POST"])
 def dash_screen_add():
     if request.method == "POST":
-        name = request.form.get("screen_name")
+        name = request.form.get("screen_name").strip()
         pid = request.form.get("pid", '0')
         screen = DashboardScreen.add(pid, name)
         return redirect("/screen/%s" % screen.id)
@@ -173,7 +173,7 @@ def dash_graph_add(sid):
     pscreen = DashboardScreen.get(screen.pid)
 
     if request.method == "POST":
-        title = request.form.get("title")
+        title = request.form.get("title").strip()
 
         hosts = request.form.get("hosts", "").strip()
         hosts = hosts and hosts.split("\n") or []

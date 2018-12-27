@@ -42,11 +42,11 @@ def user_profile():
     if request.method == "POST":
         ret = {"msg":""}
 
-        cnname = request.form.get("cnname", "")
-        email = request.form.get("email", "")
-        im = request.form.get("im", "")
-        phone = request.form.get("phone", "")
-        qq = request.form.get("qq", "")
+        cnname = request.form.get("cnname", "").strip()
+        email = request.form.get("email", "").strip()
+        im = request.form.get("im", "").strip()
+        phone = request.form.get("phone", "").strip()
+        qq = request.form.get("qq", "").strip()
 
         d = {
                 "cnname": cnname,
@@ -121,13 +121,13 @@ def user_create():
     if request.method == "POST":
         ret = {"msg":""}
 
-        name = request.form.get("name", "")
-        cnname = request.form.get("cnname", "")
+        name = request.form.get("name", "").strip()
+        cnname = request.form.get("cnname", "").strip()
         password = request.form.get("password", "")
-        email = request.form.get("email", "")
-        phone = request.form.get("phone", "")
-        im = request.form.get("im", "")
-        qq = request.form.get("qq", "")
+        email = request.form.get("email", "").strip()
+        phone = request.form.get("phone", "").strip()
+        im = request.form.get("im", "").strip()
+        qq = request.form.get("qq", "").strip()
 
         if not name or not cnname or not password or not email:
             ret["msg"] = "not all form item entered"
@@ -161,11 +161,11 @@ def admin_user_edit(user_id):
             return json.dumps(ret)
 
         user_id = request.form.get("id", "")
-        cnname = request.form.get("cnname", "")
-        email = request.form.get("email", "")
-        phone = request.form.get("phone", "")
-        im = request.form.get("im", "")
-        qq = request.form.get("qq", "")
+        cnname = request.form.get("cnname", "").strip()
+        email = request.form.get("email", "").strip()
+        phone = request.form.get("phone", "").strip()
+        im = request.form.get("im", "").strip()
+        qq = request.form.get("qq", "").strip()
 
         d = {
             "user_id": int(user_id), "cnname": cnname, "email": email, "phone": phone, "im": im, "qq": qq,
