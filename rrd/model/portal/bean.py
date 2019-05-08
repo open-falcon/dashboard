@@ -103,7 +103,7 @@ class Bean(object):
     @classmethod
     def select_vs(cls, where=None, params=None, order=None, limit=None, page=None, offset=None):
         rows = cls.select(where=where, params=params, order=order, limit=limit, page=page, offset=offset)
-        return [cls(*row) for row in rows]
+        return [cls(*row) for row in rows] if rows else []
 
     @classmethod
     def read(cls, where=None, params=None):
@@ -134,7 +134,7 @@ class Bean(object):
 
         sql += ' WHERE ' + where
         ret = cls._db.query_column(sql, params)
-        return ret[0]
+        return ret[0] if ret and len(ret) > 0 else 0
 
     @classmethod
     def exists(cls, where=None, params=None):

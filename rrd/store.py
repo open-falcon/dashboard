@@ -55,8 +55,8 @@ class DB(object):
         self.config = cfg
         self.conn = None
 
-    def get_conn(self):
-        if self.conn is None:
+    def get_conn(self, reset=False):
+        if self.conn is None or reset:
             self.conn = connect_db(self.config)
         return self.conn
 
@@ -67,9 +67,10 @@ class DB(object):
             cursor.execute(*a, **kw)
         except (AttributeError, MySQLdb.OperationalError):
             self.conn and self.conn.close()
-            self.conn = None
-            cursor = self.get_conn().cursor()
-            cursor.execute(*a, **kw)
+            self.conn = self.get_conn(True)
+            if self.conn:
+                cursor = self.conn.cursor()
+                cursor.execute(*a, **kw)
         return cursor
 
     # insert one record in a transaction
@@ -104,7 +105,7 @@ class DB(object):
         cursor = None
         try:
             cursor = self.execute(*a, **kw)
-            return cursor.fetchall()
+            return cursor.fetchall() if cursor else None
         finally:
             cursor and cursor.close()
 
