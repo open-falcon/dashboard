@@ -79,7 +79,7 @@ class DB(object):
         cursor = None
         try:
             cursor = self.execute(*a, **kw)
-            row_id = cursor.lastrowid
+            row_id = cursor.lastrowid if cursor else None
             self.commit()
             return row_id
         except MySQLdb.IntegrityError:
