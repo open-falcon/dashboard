@@ -15,9 +15,11 @@
 
 
 import os
+#获取绝对路径
 base_dir = os.path.dirname(os.path.abspath(__file__))
 activate_this = '%s/env/bin/activate_this.py' % base_dir
 try:
+    #激活Python虚拟环境
     execfile(activate_this, dict(__file__=activate_this))
 except:
     print "running without local python env"
