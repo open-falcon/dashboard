@@ -78,7 +78,7 @@ mysql -h 127.0.0.1 -u root -p < 5_alarms-db-schema.sql
 rm -rf /tmp/falcon-plus/
 ```
 
-**if you are upgrading from v0.1 to current version v0.2.0,then**
+**if you are upgrading from v0.1 to version v0.2.0(or above),then**
 
     mysql -h 127.0.0.1 -u root -p < 5_alarms-db-schema.sql
 
