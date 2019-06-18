@@ -121,11 +121,11 @@ def api_metric_query():
     limit = int(request.args.get('limit', '10'))
 
     h = {"Content-type": "application/json"}
-    r = corelib.auth_requests("GET", "%s/metric/default_list" \
-            %(config.API_ADDR,), headers=h)
+    r = corelib.auth_requests("GET", "%s/metric/default_list?q=%s&limit=%d" \
+            %(config.API_ADDR, q, limit), headers=h)
     if r.status_code != 200:
-        log.error("%s:%s" %(r.status_code, r.text))       
-        return []
+        log.error("%s:%s" %(r.status_code, r.text))
+        return jsonify(data=[{'name': q}])
 
     metrics = r.json() or []
     matched_metrics = [x for x in metrics if q in x]
