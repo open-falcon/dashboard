@@ -18,7 +18,7 @@ import json
 import copy
 import json
 from flask import render_template, abort, request, url_for, redirect, g
-from flask.ext.babel import gettext
+from flask_babel import gettext
 import time
 import datetime
 
