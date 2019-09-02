@@ -9,7 +9,7 @@ dashboard is the Open-Falcon unified default forntend component, including:
 - combine the multiple alerting.
 - user management, such as login, logout, register, ldap_login, etc.
 
-Open-Falcon homepage：[http://open-falcon.com](http://open-falcon.com)
+Open-Falcon homepage：[http://open-falcon.org](http://open-falcon.org)
 
 ## Demo site
 - [dashboard demo](http://116.85.44.234:8081/), user:`test`, password:`test123`
@@ -78,7 +78,7 @@ mysql -h 127.0.0.1 -u root -p < 5_alarms-db-schema.sql
 rm -rf /tmp/falcon-plus/
 ```
 
-**if you are upgrading from v0.1 to current version v0.2.0,then**
+**if you are upgrading from v0.1 to version v0.2.0(or above),then**
 
     mysql -h 127.0.0.1 -u root -p < 5_alarms-db-schema.sql
 
@@ -103,7 +103,10 @@ The open-falcon modules' configuration files is `path/to/open-falcon-binaries/<m
 
 ## Start in debug mode
 
-    $ ./env/bin/python wsgi.py
+    $ source ./env/bin/python wsgi.py
+    $ export FLASK_ENV=development
+    $ flask run --host=0.0.0.0 --port=8081
+
 
     open http://127.0.0.1:8081 in your browser.
 

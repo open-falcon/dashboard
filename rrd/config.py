@@ -24,7 +24,7 @@ PORTAL_HOST = os.environ.get("PORTAL_HOST","127.0.0.1")
 PORTAL_PORT = os.environ.get("PORTAL_PORT",8081)
 
 # Falcon+ API
-API_ADDR = os.environ.get("API_ADDR","http://127.0.0.1:8080/api/v1")
+API_ADDR = os.environ.get("API_ADDR","http://127.0.0.1:18080/api/v1")
 API_USER = os.environ.get("API_USER","admin")
 API_PASS = os.environ.get("API_PASS","password")
 

@@ -16,7 +16,7 @@
 
 __author__ = 'Ulric Qin'
 from flask import jsonify, render_template, request, g
-from flask.ext.babel import gettext
+from flask_babel import gettext
 from rrd import app
 from rrd.model.portal.host_group import HostGroup
 from rrd.model.portal.cluster import Cluster

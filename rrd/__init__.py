@@ -17,7 +17,7 @@
 import os
 import traceback
 from flask import Flask, request
-from flask.ext.babel import Babel, gettext
+from flask_babel import Babel, gettext
 from rrd import config
 
 #-- create app --
