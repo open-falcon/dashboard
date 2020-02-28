@@ -32,8 +32,10 @@ def group_create_post():
     grp_id = HostGroup.create(grp_name, g.user.name, 1)
     if grp_id > 0:
         return jsonify(msg='')
-    else:
+    elif grp_id == -1:
         return jsonify(msg='grp_name has already existent')
+    else:
+        return jsonify(msg='create fail, view logs for more.')
 
 
 @app.route('/portal/group/delete/<group_id>')

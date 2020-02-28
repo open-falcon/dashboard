@@ -34,8 +34,9 @@ def templates_get():
     mine = request.args.get('mine', '1')
     me = g.user.name if mine == '1' else None
     vs, total = Template.query(page, limit, query, me)
-    for v in vs:
-        v.parent = Template.get(v.parent_id)
+    if vs:
+        for v in vs:
+            v.parent = Template.get(v.parent_id)
     return render_template(
         'portal/template/list.html',
         data={
@@ -62,7 +63,7 @@ def template_create_post():
     if tpl_id:
         return jsonify(msg='', id=tpl_id)
 
-    return jsonify(msg='create fail')
+    return jsonify(msg='create fail, view logs for more.')
 
 
 @app.route('/portal/template/update/<tpl_id>')

@@ -20,6 +20,8 @@ LOG_LEVEL = os.environ.get("LOG_LEVEL",'DEBUG')
 SECRET_KEY = os.environ.get("SECRET_KEY","secret-key")
 PERMANENT_SESSION_LIFETIME = os.environ.get("PERMANENT_SESSION_LIFETIME",3600 * 24 * 30)
 SITE_COOKIE = os.environ.get("SITE_COOKIE","open-falcon-ck")
+PORTAL_HOST = os.environ.get("PORTAL_HOST","127.0.0.1")
+PORTAL_PORT = os.environ.get("PORTAL_PORT",8081)
 
 # Falcon+ API
 API_ADDR = os.environ.get("API_ADDR","http://127.0.0.1:8080/api/v1")

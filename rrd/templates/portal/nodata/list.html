@@ -38,30 +38,35 @@
 
     </div>
     <div>
-        {% for v in data.vs %}
-            <hr/>
-            <div>{{ v.name }}; {{ v.obj_type }} [{{ v.obj }}]/{{ v.metric }}/{{ v.tags }};&nbsptype={{ v.dstype }},step={{ v.step }}</div>
-            <div class="mt10 gray">
-                <span class="gray">默认值: {{ v.mock }}</span> 
-                {% if v.writable(g.user) %}
-                    <div class="pull-right">
-                        <a href="{{ url_for('nodata_add_get', id=v.id) }}" class="btn btn-default"
-                           style="text-decoration: none;">
-                            <span class="glyphicon glyphicon-edit orange"></span>
-                        </a>
-                        <button onclick="delete_nodata('{{ v.id }}');" class="btn btn-default">
-                            <span class="glyphicon glyphicon-trash orange"></span>
-                        </button>
-                    </div>
-                {% endif %}
-            </div>
-            <div class="mt10 gray">
-                <p> 创建人: {{ v.creator }}, 最后更改时间: {{ v.t_modify }}</p>
-            </div>
+        {% if data.vs is not none %}
+            {% for v in data.vs %}
+                <hr/>
+                <div>{{ v.name }}; {{ v.obj_type }} [{{ v.obj }}]/{{ v.metric }}/{{ v.tags }};&nbsptype={{ v.dstype }},step={{ v.step }}</div>
+                <div class="mt10 gray">
+                    <span class="gray">默认值: {{ v.mock }}</span> 
+                    {% if v.writable(g.user) %}
+                        <div class="pull-right">
+                            <a href="{{ url_for('nodata_add_get', id=v.id) }}" class="btn btn-default"
+                               style="text-decoration: none;">
+                                <span class="glyphicon glyphicon-edit orange"></span>
+                            </a>
+                            <button onclick="delete_nodata('{{ v.id }}');" class="btn btn-default">
+                                <span class="glyphicon glyphicon-trash orange"></span>
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="mt10 gray">
+                    <p> 创建人: {{ v.creator }}, 最后更改时间: {{ v.t_modify }}</p>
+                </div>
+            {% else %}
+                <hr/>
+                no records
+            {% endfor %}
         {% else %}
             <hr/>
-            no records
-        {% endfor %}
+            list fail, view logs for more.
+        {% endif %}
     </div>
 
     {% import "portal/blocks.html" as blocks %}

@@ -41,6 +41,9 @@ def get_locale():
 def get_timezone():
     return app.config.get("BABEL_DEFAULT_TIMEZONE")
 
+def start():
+    app.run(host=app.config.get("PORTAL_HOST", "0.0.0.0"), port=app.config.get("PORTAL_PORT", 8081), debug=False)
+
 from view import index
 from view.auth import auth
 from view.user import user

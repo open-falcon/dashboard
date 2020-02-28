@@ -168,6 +168,10 @@ function batch_add_host() {
     }, "json");
 }
 
+function goto_url(url) {
+    window.location = url;
+}
+
 function host_unbind_group(host_id, group_id) {
     $.getJSON('/portal/host/unbind', {'host_id': host_id, 'group_id': group_id}, function (json) {
         handle_quietly(json, function () {

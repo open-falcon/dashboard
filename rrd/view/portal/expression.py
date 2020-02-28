@@ -29,8 +29,9 @@ def expressions_get():
     mine = request.args.get('mine', '1')
     me = g.user.name if mine == '1' else None
     vs, total = Expression.query(page, limit, query, me)
-    for v in vs:
-        v.action = Action.get(v.action_id)
+    if vs:
+        for v in vs:
+            v.action = Action.get(v.action_id)
     return render_template(
         'portal/expression/list.html',
         data={

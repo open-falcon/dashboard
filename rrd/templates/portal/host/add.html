@@ -23,7 +23,7 @@
             <span class="glyphicon glyphicon-plus"></span>
             Add Host
         </button>
-        <button class="btn btn-default" onclick="history.go(-1);">
+        <button class="btn btn-default" onclick="goto_url('{{ url_for('group_hosts_list', group_id=group.id) }}');">
             <span class="glyphicon glyphicon-arrow-left"></span>
             Back
         </button>
