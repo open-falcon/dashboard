@@ -47,9 +47,6 @@ $(function(){
         {%set i=0%}
         <div class="row">
         {%for graph in graphs%}
-           {% if (i % layout == 0) %}
-             <div style="clear: both;">
-           {% endif %}
                 {% set col = (12/layout)|int %}
                 <div class="col-md-{{col}}" id="graph-{{i}}" style="padding:3px;">
                         <div class="panel panel-default chart-container" data-u="{{graph.src}}">
@@ -100,9 +97,6 @@ $(function(){
                         </div>
                     {%set i=i+1%}
                 </div>
-           {% if (i % layout == 0 or loop.last) %}
-             </div>
-           {% endif %}
         {%endfor%}
     </div>
 
