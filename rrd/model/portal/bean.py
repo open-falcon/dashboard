@@ -97,7 +97,6 @@ class Bean(object):
             if offset < 0:
                 offset = 0
             sql = '%s OFFSET %s' % (sql, offset)
-
         return cls._db.query_all(sql, params)
 
     @classmethod
