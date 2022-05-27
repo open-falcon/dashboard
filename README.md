@@ -1,6 +1,6 @@
 ## Introduction
 
-dashboard is the Open-Falcon unified default forntend component, including:
+dashboard is the Open-Falcon unified default frontend component, including:
 
 - user-defined dashboard and screen.
 - configure managent of alerting, hostgroup, template. 
