@@ -1,7 +1,7 @@
 Flask==1.0
 Flask-Babel==0.9
 Jinja2>=2.10.1
-Werkzeug==0.15.4
+Werkzeug==2.2.3
 gunicorn==19.9.0
 python-dateutil==2.2
 requests==2.3.0
