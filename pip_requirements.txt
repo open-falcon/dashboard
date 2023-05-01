@@ -1,4 +1,4 @@
-Flask==1.0
+Flask==2.3.2
 Flask-Babel==0.9
 Jinja2>=2.10.1
 Werkzeug==0.15.4
