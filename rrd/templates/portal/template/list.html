@@ -31,41 +31,47 @@
         </tr>
         </thead>
         <tbody>
-        {% for v in data.vs %}
-            <tr>
-                <td><a href="{{ url_for('template_view_get', tpl_id=v.id) }}">{{ v.tpl_name }}</a></td>
-                <td>{% if v.parent %}<a href="{{ url_for('template_view_get', tpl_id=v.parent.id) }}">{{ v.parent.tpl_name }}</a>{% endif %}</td>
-                <td>
-                    <a href="/user/about/{{ v.create_user }}">{{ v.create_user }}</a>
-                </td>
-                <td>
-                    <a data-toggle="tooltip" data-placement="top" title="克隆一份该模板" href="javascript:fork_template('{{ v.id }}');" style="text-decoration: none;">
-                        <span class="glyphicon glyphicon-duplicate orange"></span>
-                    </a>
-                    {% if v.writable(g.user) %}
-                        <span class="cut-line">¦</span>
-                        <a data-toggle="tooltip" data-placement="top" title="查看绑定了哪些HostGroup" href="{{ url_for('template_binds_get', tpl_id=v.id) }}"
-                           style="text-decoration: none;">
-                            <span class="glyphicon glyphicon-list-alt orange"></span>
+        {% if data.vs is not none %}
+            {% for v in data.vs %}
+                <tr>
+                    <td><a href="{{ url_for('template_view_get', tpl_id=v.id) }}">{{ v.tpl_name }}</a></td>
+                    <td>{% if v.parent %}<a href="{{ url_for('template_view_get', tpl_id=v.parent.id) }}">{{ v.parent.tpl_name }}</a>{% endif %}</td>
+                    <td>
+                        <a href="/user/about/{{ v.create_user }}">{{ v.create_user }}</a>
+                    </td>
+                    <td>
+                        <a data-toggle="tooltip" data-placement="top" title="克隆一份该模板" href="javascript:fork_template('{{ v.id }}');" style="text-decoration: none;">
+                            <span class="glyphicon glyphicon-duplicate orange"></span>
                         </a>
-                        <span class="cut-line">¦</span>
-                        <a data-toggle="tooltip" data-placement="top" title="修改" href="{{ url_for('template_update_get', tpl_id=v.id) }}"
-                           style="text-decoration: none;">
-                            <span class="glyphicon glyphicon-edit orange"></span>
-                        </a>
-                        <span class="cut-line">¦</span>
-                        <a data-toggle="tooltip" data-placement="top" title="删除" href="javascript:delete_template('{{ v.id }}');"
-                           style="text-decoration: none;">
-                            <span class="glyphicon glyphicon-trash orange"></span>
-                        </a>
-                    {% endif %}
-                </td>
-            </tr>
+                        {% if v.writable(g.user) %}
+                            <span class="cut-line">¦</span>
+                            <a data-toggle="tooltip" data-placement="top" title="查看绑定了哪些HostGroup" href="{{ url_for('template_binds_get', tpl_id=v.id) }}"
+                               style="text-decoration: none;">
+                                <span class="glyphicon glyphicon-list-alt orange"></span>
+                            </a>
+                            <span class="cut-line">¦</span>
+                            <a data-toggle="tooltip" data-placement="top" title="修改" href="{{ url_for('template_update_get', tpl_id=v.id) }}"
+                               style="text-decoration: none;">
+                                <span class="glyphicon glyphicon-edit orange"></span>
+                            </a>
+                            <span class="cut-line">¦</span>
+                            <a data-toggle="tooltip" data-placement="top" title="删除" href="javascript:delete_template('{{ v.id }}');"
+                               style="text-decoration: none;">
+                                <span class="glyphicon glyphicon-trash orange"></span>
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records</td>
+                </tr>
+            {% endfor %}
         {% else %}
             <tr>
-                <td colspan="4">no records</td>
+                <td colspan="4">list fail, view logs for more.</td>
             </tr>
-        {% endfor %}
+        {% endif %}
         </tbody>
     </table>
     <div class="pull-right" style="margin-top: 20px;">

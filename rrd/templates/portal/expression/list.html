@@ -20,41 +20,46 @@
     </div>
 
     <div>
-        {% set left = '{' %}
-        {% set right = '}' %}
-        {% for v in data.vs %}
+        {% if data.vs is not none %}
+            {% set left = '{' %}
+            {% set right = '}' %}
+            {% for v in data.vs %}
 
-            <hr>
+                <hr>
 
-            <div class="">{{ v.expression }}</div>
-            <div class="mt10">
-                <span class="gray">if {{ v.func }}{{ v.op }}{{ v.right_value }}
-                    {{ left }}{{ v.action.html()|safe }}{{ right }}</span>
+                <div class="">{{ v.expression }}</div>
+                <div class="mt10">
+                    <span class="gray">if {{ v.func }}{{ v.op }}{{ v.right_value }}
+                        {{ left }}{{ v.action.html()|safe }}{{ right }}</span>
 
-                {% if v.writable(g.user) %}
-                    <div class="pull-right">
-                        <button onclick="pause_expression('{{v.id}}')" class="btn btn-default">
-                            <span id="i-{{v.id}}" class="glyphicon glyphicon-{% if v.pause %}play{% else %}pause{% endif %} orange"></span>
-                        </button>
-                        <a href="{{ url_for('expression_add_get', id=v.id) }}" class="btn btn-default"
-                           style="text-decoration: none;">
-                            <span class="glyphicon glyphicon-edit orange"></span>
-                        </a>
-                        <button onclick="delete_expression('{{ v.id }}');" class="btn btn-default">
-                            <span class="glyphicon glyphicon-trash orange"></span>
-                        </button>
-                    </div>
-                {% endif %}
-            </div>
-            <div class="mt10 gray">
-                note: {{ v.note }} (Max:{{ v.max_step }}, P{{ v.priority }})
-                by {{ v.create_user }}
-            </div>
+                    {% if v.writable(g.user) %}
+                        <div class="pull-right">
+                            <button onclick="pause_expression('{{v.id}}')" class="btn btn-default">
+                                <span id="i-{{v.id}}" class="glyphicon glyphicon-{% if v.pause %}play{% else %}pause{% endif %} orange"></span>
+                            </button>
+                            <a href="{{ url_for('expression_add_get', id=v.id) }}" class="btn btn-default"
+                               style="text-decoration: none;">
+                                <span class="glyphicon glyphicon-edit orange"></span>
+                            </a>
+                            <button onclick="delete_expression('{{ v.id }}');" class="btn btn-default">
+                                <span class="glyphicon glyphicon-trash orange"></span>
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="mt10 gray">
+                    note: {{ v.note }} (Max:{{ v.max_step }}, P{{ v.priority }})
+                    by {{ v.create_user }}
+                </div>
 
+            {% else %}
+                <hr>
+                no records
+            {% endfor %}
         {% else %}
             <hr>
-            no records
-        {% endfor %}
+            list fail, view logs for more.
+        {% endif %}
     </div>
 
     {% import "portal/blocks.html" as blocks %}

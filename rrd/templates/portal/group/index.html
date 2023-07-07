@@ -31,33 +31,39 @@
         </tr>
         </thead>
         <tbody>
-        {% for v in data.vs %}
-            <tr>
-                <td>{{ v.grp_name }}</td>
-                <td>{{ v.create_user }}</td>
-                <td>
-                    <a href="{{ url_for('group_templates_get', grp_id=v.id) }}">templates</a>
-                    <span class="cut-line">¦</span>
-                    <a href="{{ url_for('group_hosts_list', group_id=v.id) }}">hosts</a>
-                    <span class="cut-line">¦</span>
-                    <a href="{{ url_for('plugin_list_get', group_id=v.id) }}">plugins</a>
-                    <span class="cut-line">¦</span>
-                    <a href="{{ url_for('cluster_list_get', group_id=v.id) }}">aggregator</a>
-                    {% if v.writable(g.user) %}
+        {% if data.vs is not none %}
+            {% for v in data.vs %}
+                <tr>
+                    <td>{{ v.grp_name }}</td>
+                    <td>{{ v.create_user }}</td>
+                    <td>
+                        <a href="{{ url_for('group_templates_get', grp_id=v.id) }}">templates</a>
                         <span class="cut-line">¦</span>
-                        <a href="javascript:edit_hostgroup('{{ v.id }}', '{{ v.grp_name }}');" style="text-decoration: none;">
-                            <span class="glyphicon glyphicon-edit orange"></span>
-                        </a>
+                        <a href="{{ url_for('group_hosts_list', group_id=v.id) }}">hosts</a>
                         <span class="cut-line">¦</span>
-                        <a href="javascript:delete_hostgroup('{{ v.id }}');" style="text-decoration: none;">
-                            <span class="glyphicon glyphicon-trash orange"></span>
-                        </a>
-                    {% endif %}
-                </td>
-            </tr>
+                        <a href="{{ url_for('plugin_list_get', group_id=v.id) }}">plugins</a>
+                        <span class="cut-line">¦</span>
+                        <a href="{{ url_for('cluster_list_get', group_id=v.id) }}">aggregator</a>
+                        {% if v.writable(g.user) %}
+                            <span class="cut-line">¦</span>
+                            <a href="javascript:edit_hostgroup('{{ v.id }}', '{{ v.grp_name }}');" style="text-decoration: none;">
+                                <span class="glyphicon glyphicon-edit orange"></span>
+                            </a>
+                            <span class="cut-line">¦</span>
+                            <a href="javascript:delete_hostgroup('{{ v.id }}');" style="text-decoration: none;">
+                                <span class="glyphicon glyphicon-trash orange"></span>
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3">no records</td></tr>
+            {% endfor %}
         {% else %}
-            <tr><td colspan="3">no records</td></tr>
-        {% endfor %}
+            <tr>
+                <td colspan="4">list fail, view logs for more.</td>
+            </tr>
+        {% endif %}
         </tbody>
     </table>
     {% import "portal/blocks.html" as blocks %}
